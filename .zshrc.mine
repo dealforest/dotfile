@@ -34,32 +34,15 @@ if [ -x /opt/local/bin/colordiff ];then
 fi
 #######################################################
 #
-#   ssh + screen
-#
-#######################################################
-alias smilan='ssh -t milan screen -h 4000 -S imac -U'
-alias skurobox='ssh -t kurobox screen -h 4000 -S imac -U'
-alias samalfi='ssh -t amalfi screen -h 4000 -S imac -U'
-alias s7pp='ssh -t 7pp.jp screen -h 4000 -S imac -U'
-alias s7orz='ssh -t 7pp.orz.hm screen -h 4000 -S imac -U'
-
-#######################################################
-#
 #   project shortcut
 #
 #######################################################
-alias bt='~/work/projects/BlackCherry/trunk/' bc='~/work/projects/BlackCherry/crowler/'
-alias st='~/work/company/7pp/repos/app/StoreTrip/' scs='chdir ~/work/company/7pp/repos/app/StoreTrip/ && screen -h 4000 -S StoreTrip -U' scrs='screen -r StoreTrip'
-alias sgk='~/work/company/7pp/repos/app/SGKTwitter//' scsgk='chdir ~/work/company/7pp/repos/app/SGKTwitter/ && screen -h 4000 -S SGKTwitter -U' scrsgk='screen -r SGKTwitter'
-
-alias scw='chdir ~/work/company/7pp/wizperl/Wiz/lib/Wiz/ && screen -h 4000 -S Wiz -U' scrw='screen -r Wiz'
-alias scwc='chdir ~/work/company/7pp/wizperl/Wiz-Catalyst/lib/Catalyst/ && screen -h 4000 -S Wiz-Catalyst -U' scrwc='screen -r Wiz-Catalyst'
-alias scb='chdir ~/work/projects/BlackCherry/trunk/ && screen -h 4000 -S BlackCherry -U' scrb='screen -r BlackCherry'
-alias scbc='chdir ~/work/projects/BlackCherry/crowler/ && screen -h 4000 -S BlackCherryCrowler -U' scrbc='screen -r BlackCherryCrowler'
-
 alias wiz='cd ~/work/company/7pp/wizperl/Wiz/lib/Wiz/'
 alias wizc='cd ~/work/company/7pp/wizperl/Wiz-Catalyst/lib/Catalyst/'
 alias wizapp='wizapp.pl -t ~/.TmplApp'
+alias bt='~/work/projects/BlackCherry/trunk/' bc='~/work/projects/BlackCherry/crowler/'
+alias scb='chdir ~/work/projects/BlackCherry/trunk/ && screen -h 4000 -S BlackCherry -U' scrb='screen -r BlackCherry'
+alias scbc='chdir ~/work/projects/BlackCherry/crowler/ && screen -h 4000 -S BlackCherryCrowler -U' scrbc='screen -r BlackCherryCrowler'
 
 #######################################################
 #
@@ -98,18 +81,8 @@ alias sp='cd ~/work/repos/actionscript/lib/spark/as3'
 alias pj='cd ~/work/projects/'
 alias media='cd ~/work/media/'
 alias pg='cd ~/work/programing/'
-alias 7pp='cd ~/work/company/7pp/'
 alias sni='cd ~/.vim/snippets/' 
 alias lang='cd ~/work/programing/lang/'
-
-#######################################################
-#
-#   sshfs
-#
-#######################################################
-alias milan='sshfs dealforest@milan:/home/dealforest ~/mnt -oping_diskarb,volname=kaka'
-alias kuro='sshfs dealforest@kurobox:/data/media ~/mnt -oping_diskarb,volname=kaka'
-alias seiryou='sshfs dealforest@change-of-pace.info:/home/dealforest ~/mnt -oping_diskarb,volname=seiryo'
 
 #######################################################
 #
@@ -121,3 +94,4 @@ iname() {
 }
 alias inaem=iname
 
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
