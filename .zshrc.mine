@@ -1,0 +1,123 @@
+export PATH=:$PATH:~/bin/
+export EDITOR=vim
+export PAGER=less
+
+#######################################################
+#
+#   for mac
+#
+#######################################################
+if [ `uname` = 'Darwin' ]; then
+    export PATH=/opt/local/bin:/opt/local/sbin/:/opt/local/app/flex3/bin/:/opt/local/apache2/bin/:$PATH
+    export MANPATH=/opt/local/man:$MANPATH
+
+    alias o='open .'
+    alias rascut='_JAVA_OPTIONS=-Duser.language=en rascut'
+    alias updatedb='sudo /usr/libexec/locate.updatedb'
+    alias locate='/usr/bin/locate'
+fi
+
+#######################################################
+#
+#   common shortcut
+#
+#######################################################
+alias l='ls --color=auto' ls='ls --color=auto' ll='ls -l --color=auto' la='ls -la --color=auto'
+alias vi=vim v=vim mvi='open -a Vim'
+alias g=git gs='git svn'
+alias perldoc='env LANG=C perldoc'
+alias phpinfo='php -r "phpinfo\(\);"'
+alias sshnew='ssh -S none'
+
+if [ -x /opt/local/bin/colordiff ];then
+    alias diff='colordiff'
+fi
+#######################################################
+#
+#   ssh + screen
+#
+#######################################################
+alias smilan='ssh -t milan screen -h 4000 -S imac -U'
+alias skurobox='ssh -t kurobox screen -h 4000 -S imac -U'
+alias samalfi='ssh -t amalfi screen -h 4000 -S imac -U'
+alias s7pp='ssh -t 7pp.jp screen -h 4000 -S imac -U'
+alias s7orz='ssh -t 7pp.orz.hm screen -h 4000 -S imac -U'
+
+#######################################################
+#
+#   project shortcut
+#
+#######################################################
+alias bt='~/work/projects/BlackCherry/trunk/' bc='~/work/projects/BlackCherry/crowler/'
+alias st='~/work/company/7pp/repos/app/StoreTrip/' scs='chdir ~/work/company/7pp/repos/app/StoreTrip/ && screen -h 4000 -S StoreTrip -U' scrs='screen -r StoreTrip'
+alias sgk='~/work/company/7pp/repos/app/SGKTwitter//' scsgk='chdir ~/work/company/7pp/repos/app/SGKTwitter/ && screen -h 4000 -S SGKTwitter -U' scrsgk='screen -r SGKTwitter'
+
+alias scw='chdir ~/work/company/7pp/wizperl/Wiz/lib/Wiz/ && screen -h 4000 -S Wiz -U' scrw='screen -r Wiz'
+alias scwc='chdir ~/work/company/7pp/wizperl/Wiz-Catalyst/lib/Catalyst/ && screen -h 4000 -S Wiz-Catalyst -U' scrwc='screen -r Wiz-Catalyst'
+alias scb='chdir ~/work/projects/BlackCherry/trunk/ && screen -h 4000 -S BlackCherry -U' scrb='screen -r BlackCherry'
+alias scbc='chdir ~/work/projects/BlackCherry/crowler/ && screen -h 4000 -S BlackCherryCrowler -U' scrbc='screen -r BlackCherryCrowler'
+
+alias wiz='cd ~/work/company/7pp/wizperl/Wiz/lib/Wiz/'
+alias wizc='cd ~/work/company/7pp/wizperl/Wiz-Catalyst/lib/Catalyst/'
+alias wizapp='wizapp.pl -t ~/.TmplApp'
+
+#######################################################
+#
+#   option
+#
+#######################################################
+alias -g V='| vim -R -'
+alias -g L='| less -R'
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep'
+alias -g W='| wc'
+alias -g S='| sed'
+alias -g A='| awk'
+alias -g C='| pbcopy'
+alias -g X='| xargs'
+alias -g LV='| lv -c'
+alias -g LE='|& less'
+alias -g HE='|& head'
+alias -g TE='|& tail'
+alias -g GE='|& grep'
+alias -g WE='|& wc'
+alias -g SE='|& sed'
+alias -g AE='|& awk'
+alias -g XE='|& xargs'
+
+#######################################################
+#
+#   directory move.
+#
+#######################################################
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias sr='cd ~/work/repos/svn/' gr='cd ~/work/repos/git/' hr='cd ~/work/repos/hg/'
+alias sp='cd ~/work/repos/actionscript/lib/spark/as3'
+alias pj='cd ~/work/projects/'
+alias media='cd ~/work/media/'
+alias pg='cd ~/work/programing/'
+alias 7pp='cd ~/work/company/7pp/'
+alias sni='cd ~/.vim/snippets/' 
+alias lang='cd ~/work/programing/lang/'
+
+#######################################################
+#
+#   sshfs
+#
+#######################################################
+alias milan='sshfs dealforest@milan:/home/dealforest ~/mnt -oping_diskarb,volname=kaka'
+alias kuro='sshfs dealforest@kurobox:/data/media ~/mnt -oping_diskarb,volname=kaka'
+alias seiryou='sshfs dealforest@change-of-pace.info:/home/dealforest ~/mnt -oping_diskarb,volname=seiryo'
+
+#######################################################
+#
+#   function
+#
+#######################################################
+iname() {
+    find . -type d -name .svn -prune -o \( -iname "*$1*" -print \)
+}
+alias inaem=iname
+

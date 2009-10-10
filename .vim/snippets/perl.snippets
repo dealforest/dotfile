@@ -1,0 +1,208 @@
+#perl
+snippet dump 
+	use Data::Dumper; warn Dumper ${1:$var};
+	${2}
+snippet say 
+	print ${1:$var}, "\n";
+	${2}
+snippet self 
+	my $self = shift;
+	${2}
+snippet data 
+	my $data = do { 
+		local $/; 
+		<DATA> 
+	};
+	${1}
+snippet argf 
+	while (<>) {
+		chomp;
+		${1}
+	}
+	${2}
+snippet isa 
+	if (blessed ${1:$var} and ${2:$var}->isa('${3:Class}')) {
+		${4}
+	}
+	${5}
+snippet readcsv 
+	use IO::File;
+	use Text::CSV_XS;
+	
+	my $fh = IO::File->new('${1:filename}') or die 'cannot open file.';
+	my $csv = Text::CSV_XS->new({ sep_char => "\t", binary => 1 });
+	until ($fh->eof) {
+		my $cols = $csv->getline($fh);
+		unless ($cols) {
+			warn $csv->error_diag;
+			next;
+		}
+		my (${2}) = @$cols;
+	}
+	$fh->close;
+	${3}
+snippet w
+	warn $${1}
+snippet wd
+	warn Dumper $${1}
+
+#class-C3
+snippet next 
+	$self->next::method(@_);
+	${1}
+snippet maybe 
+	$self->maybe::next::method(@_);
+	${1}
+
+#Catalyst
+snippet debug 
+	$c->log->debug('${1:[ debug ]}: '. ${2:$var});
+	${3}
+snippet warn 
+	$c->log->warn('${1:[ warn ]}: '. ${2:$var});
+	${3}
+snippet dumper 
+	$c->log->dumper('${1:[ dumper ]}: '. ${2:$var});
+	${3}
+snippet model 
+	$c->model('${1:model}')
+	${2}
+snippet view 
+	$c->view('${1:view}')
+	${2}
+snippet template 
+	$c->view('View::TT')->template('${1:name}');
+	${2}
+snippet config 
+	$c->config->{${1:name}}
+	${2}
+snippet controller 
+	sub ${1:func} : ${2:Attribute} {
+		my ($self, $c) = @_;
+		${3}
+	}
+	${4}
+snippet begin 
+	sub begin : Private {
+		my ($self, $c) = @_;
+		${1}
+		1;
+	}
+	${2}
+snippet auto 
+	sub auto : Private {
+		my ($self, $c) = @_;
+		${1}
+		1;
+	}
+	${2}
+snippet detach 
+	$c->detach('${1:name}');
+	${2}
+snippet forward 
+	$c->forward('${1:name}');
+	${2}
+snippet stash 
+	$c->stash->{${1:var}}${2}
+snippet flash 
+	$c->flash->{${1:var}}${2}
+snippet session 
+	$c->session->{${1:var}}${2}
+snippet sstash 
+	$c->stash->{${1:var}} = ${2};
+	${3}
+snippet sflash 
+	$c->flash->{${1:var}} = ${2};
+	${3}
+snippet ssession 
+	$c->session->{${1:var}} = ${2};
+	${3}
+snippet rs 
+	$c->model('DBIC::${1:Source}')
+	${2}
+snippet red
+	$c->res->redirect('${1:uri}');
+	${2}
+snippet redirect 
+	$c->res->redirect($c->uri_for('${1:uri}'));
+	${2}
+snippet param 
+	$c->req->param('${1:param}')
+	${2}
+
+#Wiz
+snippet wiz
+	use lib qw( 
+		/${1:Users}/dealforest/work/company/7pp/wizperl/Wiz/lib
+		/$1/dealforest/work/company/7pp/wizperl/Wiz-Catalyst//lib
+	);
+	${2}
+
+#CC::Wiz::Register
+snippet big
+	sub _before_index {
+		my $self = shift;
+		my ($c, $af, $p, $s) = @_;
+	}
+
+snippet aig
+	sub _after_index {
+		my $self = shift;
+		my ($c, $af, $p, $s) = @_;
+	}
+
+snippet bcg
+	sub _before_confirm {
+		my $self = shift;
+		my ($c, $af, $p, $s) = @_;
+	}
+
+snippet acg
+	sub _after_confirm {
+		my $self = shift;
+		my ($c, $af, $p, $s) = @_;
+	}
+snippet bip
+	sub _before_execute_index {
+		my $self = shift;
+		my ($c, $af, $p, $s) = @_;
+	}
+
+snippet aip
+	sub _after_execute_index {
+		my $self = shift;
+		my ($c, $af, $p, $s) = @_;
+	}
+
+snippet bcp
+	sub _before_execute_confirm {
+		my $self = shift;
+		my ($c, $af, $p, $s) = @_;
+	}
+
+snippet acp
+	sub _after_execute_confirm {
+		my $self = shift;
+		my ($c, $af, $p, $s) = @_;
+	}
+
+snippet exe
+	sub _append_to_execute {
+		my $self = shift;
+		my ($c, $af, $p, $s) = @_;
+	}
+
+#CC::Wiz::Auth
+snippet oa
+	our $AUTHZ_LABEL = '${1:member}';
+	our $AUTH_FAIL_REDIRECT = 1 ; 
+	our $AUTH_FAIL_DEST = '/login';
+	our $AUTH_FAIL_ARGS = {fw => '/member/blog/register/index'};
+	our %AUTH_TARGET = ( 
+		'&index' => {
+				$1  => 1,
+		},  
+		confirm => '*index',
+	);
+
+
