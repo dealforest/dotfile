@@ -62,6 +62,9 @@ set cindent "for C indent.
 
 set wrapscan "検索時に最後まで行ったら最初に戻る
 set number "行番号表示
+set listchars=tab:>-,extends:<,trail:-
+highlight ZenkakuSpace cterm=underline ctermfg=lightblue
+match ZenkakuSpace /　/
 
 "Display adjustment of width of character
 set ambiwidth=double
