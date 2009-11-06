@@ -28,6 +28,8 @@ alias g=git gs='git svn'
 alias perldoc='env LANG=C perldoc'
 alias phpinfo='php -r "phpinfo\(\);"'
 alias sshnew='ssh -S none'
+alias ssh_eucjp='cocot -t UTF-8 -p EUC-JP ssh'
+alias ssh_sjis='cocot -t UTF-8 -p SJIS ssh'
 
 if [ -x /opt/local/bin/colordiff ];then
     alias diff='colordiff'
