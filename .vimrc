@@ -185,9 +185,18 @@ hi PmenuSel guibg=#8cd0d3 guifg=#666666
 hi PmenuSbar guibg=#333333
 
 " fuzzyfinder.vim
-nnoremap <silent> ,ff :FufFile<CR>
-nnoremap <silent> ,fb :FufBuffer<CR>
-nnoremap <silent> ,fc :FufMruCmd<CR>
+nnoremap <unique> <silent> <C-S> :FufBuffer!<CR>
+nnoremap <unique> <silent> ef :FufFile!<CR>
+nnoremap <silent> ,ff :FufFile!<CR>
+nnoremap <silent> ,fb :FufBuffer!<CR>
+nnoremap <silent> ,fm :FufMruFile!<CR>
+autocmd FileType fuf nmap <C-c> <ESC>
+let g:fuf_patternSeparator = ' '
+let g:fuf_modesDisable = ['mrucmd']
+let g:fuf_mrufile_exclude = '\v\~$|\.bak$|\.swp|\.svn|\.howm$'
+let g:fuf_mrufile_maxItem = 2000
+let g:fuf_enumeratingLimit = 20
+
 "nnoremap <silent> <C-]> :FuzzyFinderTag! <C-r>=expand(｀<cword>｀)<CR><CR>
 
 "gist.vim

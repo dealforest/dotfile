@@ -19,6 +19,11 @@ function fuf#mrucmd#createHandler(base)
 endfunction
 
 "
+function fuf#mrucmd#getSwitchOrder()
+  return g:fuf_mrucmd_switchOrder
+endfunction
+
+"
 function fuf#mrucmd#renewCache()
 endfunction
 
@@ -34,10 +39,8 @@ endfunction
 
 "
 function fuf#mrucmd#onCommandPre(cmd)
-  if getcmdtype() =~ '^[:/?]'
-    let info = fuf#loadInfoFile(s:MODE_NAME)
-    call s:updateInfo(info, a:cmd)
-    call fuf#saveInfoFile(s:MODE_NAME, info)
+  if getcmdtype() =~# '^[:/?]'
+    call s:updateInfo(a:cmd)
   endif
 endfunction
 
@@ -49,10 +52,12 @@ endfunction
 let s:MODE_NAME = expand('<sfile>:t:r')
 
 "
-function s:updateInfo(info, cmd)
-  let a:info.data = fuf#updateMruList(
-        \ a:info.data, { 'word' : a:cmd, 'time' : localtime() },
+function s:updateInfo(cmd)
+  let info = fuf#loadInfoFile(s:MODE_NAME)
+  let info.data = fuf#updateMruList(
+        \ info.data, { 'word' : a:cmd, 'time' : localtime() },
         \ g:fuf_mrucmd_maxItem, g:fuf_mrucmd_exclude)
+  call fuf#saveInfoFile(s:MODE_NAME, info)
 endfunction
 
 " }}}1
@@ -68,12 +73,12 @@ endfunction
 
 "
 function s:handler.getPrompt()
-  return g:fuf_mrucmd_prompt
+  return fuf#formatPrompt(g:fuf_mrucmd_prompt, self.partialMatching)
 endfunction
 
 "
-function s:handler.getPromptHighlight()
-  return g:fuf_mrucmd_promptHighlight
+function s:handler.getPreviewHeight()
+  return 0
 endfunction
 
 "
@@ -82,17 +87,26 @@ function s:handler.targetsPath()
 endfunction
 
 "
-function s:handler.onComplete(patternSet)
-  return fuf#filterMatchesAndMapToSetRanks(
-        \ self.items, a:patternSet,
-        \ self.getFilteredStats(a:patternSet.raw), self.targetsPath())
+function s:handler.makePatternSet(patternBase)
+  return fuf#makePatternSet(a:patternBase, 's:interpretPrimaryPatternForNonPath',
+        \                   self.partialMatching)
 endfunction
 
 "
-function s:handler.onOpen(expr, mode)
-  call s:updateInfo(self.info, a:expr)
-  call histadd(a:expr[0], a:expr[1:])
-  call feedkeys(a:expr . "\<CR>", 'n')
+function s:handler.makePreviewLines(word, count)
+  return []
+endfunction
+
+"
+function s:handler.getCompleteItems(patternPrimary)
+  return self.items
+endfunction
+
+"
+function s:handler.onOpen(word, mode)
+  call s:updateInfo(a:word)
+  call histadd(a:word[0], a:word[1:])
+  call feedkeys(a:word . "\<CR>", 'n')
 endfunction
 
 "
@@ -101,11 +115,10 @@ endfunction
 
 "
 function s:handler.onModeEnterPost()
-  let self.items = deepcopy(self.info.data)
-  let self.items = map(self.items, 'fuf#setMenuWithFormattedTime(v:val)')
-  let self.items = map(self.items, 'fuf#setBoundariesWithWord(v:val)')
+  let self.items = copy(self.info.data)
+  call map(self.items, 'fuf#makeNonPathItem(v:val.word, strftime(g:fuf_timeFormat, v:val.time))')
   call fuf#mapToSetSerialIndex(self.items, 1)
-  let self.items = map(self.items, 'fuf#setAbbrWithFormattedWord(v:val)')
+  call map(self.items, 'fuf#setAbbrWithFormattedWord(v:val, 1)')
 endfunction
 
 "
