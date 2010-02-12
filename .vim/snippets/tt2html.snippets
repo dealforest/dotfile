@@ -37,12 +37,12 @@ snippet unless
 	[% END -%]
 	${3}
 snippet for 
-	[% FOR ${1:var} = ${2:list} %]
+	[% FOR ${1:var} IN ${2:list} -%]
 	${3}
 	[% END -%]
 	${4}
 snippet foreach 
-	[% FOREACH ${1:var} = ${2:list} %]
+	[% FOREACH ${1:var} IN ${2:list} -%]
 	${3}
 	[% END -%]
 	${4}
@@ -70,23 +70,21 @@ snippet macro
 	${3}
 	[% END %]
 	${4}
-snippet var 
-	[% ${1:var} %]
-	${2}
-snippet hvar 
-	[% ${1:var} | html %]
-	${2}
-snippet hlvar 
-	[% ${1:var} | html | html_line_break %]
-	${2}
+snippet v 
+	[% ${1:var} -%] ${2}
+snippet hv 
+	[% ${1:var} | html -%] ${2}
+snippet hlv 
+	[% ${1:var} | html | html_line_break -%] ${2}
 snippet null 
 	[%- FILTER null -%]
 	${1}
 	[%- END -%]
 	${2}
 snippet end
-	[% END -%]
-	${1}
+	[% END -%] ${1}
+snippet e
+	[% END -%] ${1}
 snippet b
 	[% base %]${1}
 snippet dump 
