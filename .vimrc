@@ -218,6 +218,9 @@ vmap \t- :Align =><CR><CR>
 "manpageview.vim
 let g:manpageview_winopen="reuse" " manpage を現在のウインドウで開く
 
+"zencoding.vim
+let g:user_zen_expandabbr_key="<c-e>"
+
 "-----------------------------------------------------------------------------------------------------------
 " [utility] 
 "for flash publish
