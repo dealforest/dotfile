@@ -29,14 +29,16 @@ case "${TERM}" in
 	;;
 esac
 
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats ':(%s)%b'
-zstyle ':vcs_info:*' actionformats ':(%s)%b|%a'
-precmd () {
-    psvar=()
-    LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-}
+if [[ $ZSH_VERSION == (<5->|4.<4->|4.3.<10->)* ]]; then
+    autoload -Uz vcs_info
+    zstyle ':vcs_info:*' formats ':(%s)%b'
+    zstyle ':vcs_info:*' actionformats ':(%s)%b|%a'
+    precmd () {
+        psvar=()
+        LANG=en_US.UTF-8 vcs_info
+        [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+    }
+fi
 RPROMPT="%{$fg[red]%}[%~]%{$reset_color%} "
 
 
