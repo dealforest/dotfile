@@ -78,7 +78,7 @@ alias -g XE='|& xargs'
 #######################################################
 alias ...='cd ../../'
 alias ....='cd ../../../'
-alias sr='cd ~/work/repos/svn/' gr='cd ~/work/repos/git/' hr='cd ~/work/repos/hg/'
+alias sr='cd ~/work/repos/svn/' gr='cd ~/work/repos/git/' hr='cd ~/work/repos/hg/' br='cd ~/work/repos/bzr/'
 alias sp='cd ~/work/repos/actionscript/lib/spark/as3'
 alias pj='cd ~/work/projects/'
 alias media='cd ~/work/media/'
