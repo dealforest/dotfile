@@ -45,7 +45,7 @@ HISTSIZE=100000
 SAVEHIST=100000
 
 if [ -x /usr/bin/screen ]; then
-  alias sc='screen -h 4000'
+  alias sc='screen -h 4000 -S' dsc='HOME=~/dotfile screen -c ~/dotfile/.screenrc -s zsh -S '
   alias scr='screen -r'
   alias scl='screen -ls'
   alias scd='screen -d'

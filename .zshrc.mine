@@ -23,7 +23,7 @@ fi
 #
 #######################################################
 alias l='ls --color=auto' ls='ls --color=auto' ll='ls -l --color=auto' la='ls -la --color=auto'
-alias vi=vim v=vim mvi='open -a Vim'
+alias vi=vim v=vim mvi='open -a Vim' dvi='vim -c '"'"'set runtimepath+=~/dotfile/.vim'"'"' -u ~/dotfile/.vimrc '
 alias g=git gs='git svn'
 alias perldoc='env LANG=C perldoc'
 alias phpinfo='php -r "phpinfo\(\);"'
