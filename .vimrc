@@ -17,6 +17,7 @@ set fileformats=unix,dos,mac
 au BufNewFile,BufRead *.t set ft=perl
 au BufNewFile,BufRead *.cgi set ft=perl
 au BufNewFile,BufRead *.pm set ft=perl
+au BufNewFile,BufRead *.psgi set ft=perl
 au BufNewFile,BufRead *.pdat set ft=perl
 au BufNewFile,BufRead *.tt set ft=tt2html
 au BufNewFile,BufRead *.m set ft=objc
