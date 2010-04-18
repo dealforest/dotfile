@@ -26,6 +26,7 @@ bind w command -c REGION
 hardstatus alwayslastline "[%02c] %`%-w%{=b bw}%n %t%{-}%+w"
 startup_message off
 bind l windowlist -b
+bind t focus down
 
 bindkey -k k1 select 1
 bindkey -k k2 select 2

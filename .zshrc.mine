@@ -22,7 +22,7 @@ fi
 #
 #######################################################
 alias l='ls --color=auto' ls='ls --color=auto' ll='ls -l --color=auto' la='ls -la --color=auto'
-alias vi=vim v=vim mvi='open -a Vim'
+alias vi=vim v=vim mvi='open -a Vim' dvi='vim -c '"'"'set runtimepath+=~/dotfile/.vim'"'"' -u ~/dotfile/.vimrc '
 alias g=git gs='git svn'
 alias perldoc='env LANG=C perldoc'
 alias phpinfo='php -r "phpinfo\(\);"'
@@ -77,7 +77,7 @@ alias -g XE='|& xargs'
 #######################################################
 alias ...='cd ../../'
 alias ....='cd ../../../'
-alias sr='cd ~/work/repos/svn/' gr='cd ~/work/repos/git/' hr='cd ~/work/repos/hg/'
+alias sr='cd ~/work/repos/svn/' gr='cd ~/work/repos/git/' hr='cd ~/work/repos/hg/' br='cd ~/work/repos/bzr/'
 alias sp='cd ~/work/repos/actionscript/lib/spark/as3'
 alias pj='cd ~/work/projects/'
 alias media='cd ~/work/media/'

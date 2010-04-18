@@ -17,6 +17,7 @@ set fileformats=unix,dos,mac
 au BufNewFile,BufRead *.t set ft=perl
 au BufNewFile,BufRead *.cgi set ft=perl
 au BufNewFile,BufRead *.pm set ft=perl
+au BufNewFile,BufRead *.psgi set ft=perl
 au BufNewFile,BufRead *.pdat set ft=perl
 au BufNewFile,BufRead *.tt set ft=tt2html
 au BufNewFile,BufRead *.m set ft=objc
@@ -155,9 +156,11 @@ noremap gj j
 noremap gk k
 
 " pbcopy for mac
-nmap _ :.w !nkf -Ws \| pbcopy<CR><CR>
-vmap _ :w !nkf -Ws \| pbcopy<CR><CR>
-nmap - :set paste<CR>:r !pbpaste\|nkf -Sw<CR>:set nopaste<CR> 
+if has('mac') 
+  nmap _ :.w !nkf -Ws \| pbcopy<CR><CR>
+  vmap _ :w !nkf -Ws \| pbcopy<CR><CR>
+  nmap - :set paste<CR>:r !pbpaste\|nkf -Sw<CR>:set nopaste<CR> 
+endif
 
 " current selected
 nnoremap gc `[V`]
@@ -200,14 +203,16 @@ let g:fuf_enumeratingLimit = 20
 "nnoremap <silent> <C-]> :FuzzyFinderTag! <C-r>=expand(｀<cword>｀)<CR><CR>
 
 "gist.vim
-let g:gist_clip_command = 'pbcopy'
-nnoremap <silent> ,gn :Gist<CR>
-nnoremap <silent> ,gl :Gist -l<CR>
-nnoremap <silent> ,ga :Gist -a<CR>
-nnoremap <silent> ,ge :Gist -e<CR>
-nnoremap <silent> ,gp :Gist -p<CR>
-nnoremap <silent> ,gr :Gist 
-nnoremap <silent> ,gu :Gist -l 
+if has('mac') 
+  let g:gist_clip_command = 'pbcopy'
+  nnoremap <silent> ,gn :Gist<CR>
+  nnoremap <silent> ,gl :Gist -l<CR>
+  nnoremap <silent> ,ga :Gist -a<CR>
+  nnoremap <silent> ,ge :Gist -e<CR>
+  nnoremap <silent> ,gp :Gist -p<CR>
+  nnoremap <silent> ,gr :Gist 
+  nnoremap <silent> ,gu :Gist -l 
+endif
 
 "smartchr.vim
 "autocmd FileType actionscript,javascript,perl inoremap <buffer> <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
