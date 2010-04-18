@@ -8,11 +8,10 @@ export PAGER=less
 #
 #######################################################
 if [ `uname` = 'Darwin' ]; then
-    export PATH=/opt/local/bin:/opt/local/sbin/:/opt/local/app/flex3/bin/:/opt/local/apache2/bin/:$PATH
+    export PATH=/opt/local/bin:/opt/local/sbin/:$PATH
     export MANPATH=/opt/local/man:$MANPATH
 
     alias o='open .'
-    alias rascut='_JAVA_OPTIONS=-Duser.language=en rascut'
     alias updatedb='sudo /usr/libexec/locate.updatedb'
     alias locate='/usr/bin/locate'
 fi

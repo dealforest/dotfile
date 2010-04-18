@@ -221,6 +221,9 @@ let g:manpageview_winopen="reuse" " manpage を現在のウインドウで開く
 "zencoding.vim
 let g:user_zen_expandabbr_key="<c-e>"
 
+"yankring.vim
+let g:yankring_history_file=".yankring_history"
+
 "-----------------------------------------------------------------------------------------------------------
 " [utility] 
 "for flash publish
