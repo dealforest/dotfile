@@ -14,6 +14,7 @@ if [ `uname` = 'Darwin' ]; then
     alias o='open .'
     alias updatedb='sudo /usr/libexec/locate.updatedb'
     alias locate='/usr/bin/locate'
+    export SETUP_SH_VMARGS=-Dfile.encoding=UTF8
 fi
 
 #######################################################
