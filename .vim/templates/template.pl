@@ -15,3 +15,5 @@ Toshihiro MORIMOTO < dealforest.net@gmail.com >
 use strict;
 use warnings;
 
+
+1;

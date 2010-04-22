@@ -35,7 +35,6 @@ autocmd FileType php :set dictionary=~/.vim/dict/php_functions.dict
 
 "setting template
 :au BufNewFile *.mxml 0r ~/.vim/templates/template.mxml
-:au BufNewFile *.as 0r ~/.vim/templates/template.as
 :au BufNewFile *.pl 0r ~/.vim/templates/template.pl
 :au BufNewFile *.user.js 0r ~/.vim/templates/template.user.js
 
@@ -221,15 +220,20 @@ endif
 vmap \t- :Align =><CR><CR>
 
 "manpageview.vim
-let g:manpageview_winopen="reuse" " manpage を現在のウインドウで開く
+let g:manpageview_winopen = "reuse" " manpage を現在のウインドウで開く
 
 "zencoding.vim
-let g:user_zen_expandabbr_key="<c-e>"
+let g:user_zen_expandabbr_key = "<c-e>"
 
 "yankring.vim
-let g:yankring_history_file=".yankring_history"
+let g:yankring_history_file = ".yankring_history"
+
+"prove.vim
+nnoremap <silent> ,, :Prove<CR>
+"let g:prove_local_lib_dir = $HOME . '/perl5'
 
 "-----------------------------------------------------------------------------------------------------------
+"let g:prove_lib_dirs = ['/Users/dealforest/local/lib']
 " [utility] 
 "for flash publish
 nnoremap <buffer> <C-W><CR> :!open -a "Adobe Flash CS4" "/Users/dealforest/bin/publish.jsfl"<CR>

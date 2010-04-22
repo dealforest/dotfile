@@ -1,0 +1,15 @@
+use IO::File;
+use Text::CSV_XS;
+
+my $fh = IO::File->new('${1:filename}') or die 'cannot open file.';
+my $csv = Text::CSV_XS->new({ sep_char => "\t", binary => 1 });
+until ($fh->eof) {
+	my $cols = $csv->getline($fh);
+	unless ($cols) {
+		warn $csv->error_diag;
+		next;
+	}
+	my (${2}) = @$cols;
+}
+$fh->close;
+${3}
