@@ -59,7 +59,6 @@ alias -g G='| grep'
 alias -g W='| wc'
 alias -g S='| sed'
 alias -g A='| awk'
-alias -g C='| pbcopy'
 alias -g X='| xargs'
 alias -g LV='| lv -c'
 alias -g LE='|& less'
@@ -70,6 +69,17 @@ alias -g WE='|& wc'
 alias -g SE='|& sed'
 alias -g AE='|& awk'
 alias -g XE='|& xargs'
+
+if which pbcopy >/dev/null 2>&1 ; then 
+    # Mac  
+    alias -g C='| pbcopy'
+elif which xsel >/dev/null 2>&1 ; then 
+    # Linux
+    alias -g C='| xsel --input --clipboard'
+elif which putclip >/dev/null 2>&1 ; then 
+    # Cygwin 
+    alias -g C='| putclip'
+fi
 
 #######################################################
 #
