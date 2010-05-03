@@ -125,9 +125,34 @@ export MYSQL_PS1='[\u@\h:\d] > '
 #   function
 #
 #######################################################
-iname() {
+function iname() {
     find . -type d -name .svn -prune -o \( -iname "*$1*" -print \)
 }
 alias inaem=iname
 
+function locallib() {
+    INSTALL_BASE=$1
+    if [ -d $INSTALL_BASE ]; then
+        eval $(~/bin/use-locallib $INSTALL_BASE)
+    else
+        echo "don't find directory : $INSTALL_BASE"
+    fi
+}
+
+function clocallib() {
+    INSTALL_DIR="$PERL_MM_OPT/lib/perl5"
+    cd $(echo $INSTALL_DIR | sed -e "s|INSTALL_BASE=||")
+}
+
+function crlocallib() {
+    cd $(echo $PERL_MM_OPT | sed -e "s|INSTALL_BASE=||")
+}
+
+
+#######################################################
+#
+#   load other config
+#
+#######################################################
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
