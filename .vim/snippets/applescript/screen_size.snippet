@@ -3,5 +3,5 @@ on screenSize()
     tell application "Finder"
         set { X_LEFT, Y_LEFT, X_RIGHT, Y_RIGHT } to bounds of the window of the desktop
     end tell
-    { X_RIGHT, Y_LEFT + MENU_HEIGHT, X_RIGHT, Y_RIGHT }
+    { X_LEFT, Y_LEFT + MENU_HEIGHT, X_RIGHT, Y_RIGHT }
 end screenSize
