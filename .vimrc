@@ -25,11 +25,13 @@ au BufNewFile,BufRead *.js set ft=javascript.javascript-jquery
 au BufRead,BufNewFile *.as set ft=actionscript
 au BufNewFile,BufRead *.scpt set ft=applescript
 
+
 "add dictionary
 autocmd FileType actionscript :set dictionary=~/.vim/dict/actionscript.dict tags=~/.vim/tags/actionscript/spark.tags
+autocmd FileType applescript :inoremap <buffer> <S-CR>  ¬<CR> 
 autocmd FileType javascript :set dictionary=~/.vim/dict/javascript_functions.dict
-autocmd FileType perl :set dictionary=~/.vim/dict/perl_functions.dict
 autocmd FileType objc :set dictionary=~/.vim/dict/objc.dict
+autocmd FileType perl :set dictionary=~/.vim/dict/perl_functions.dict
 autocmd FileType php :set dictionary=~/.vim/dict/php_functions.dict
 :set complete+=k
 
@@ -145,8 +147,8 @@ nnoremap ,. :<C-u>edit $MYVIMRC<Enter>
 nnoremap ,s. :<C-u>source $MYVIMRC<Enter>
 
 "shorcut for help
-nnoremap <C-h> :<C-u>help<Space>
-nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><Enter>
+"nnoremap <C-h> :<C-u>help<Space>
+"nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><Enter>
 
 "論理行移動
 noremap j gj
@@ -231,6 +233,13 @@ let g:yankring_history_file = ".yankring_history"
 "prove.vim
 nnoremap <silent> ,, :Prove<CR>
 "let g:prove_local_lib_dir = $HOME . '/perl5'
+
+"quickrun.vim
+"silent! nmap <unique> 好きなキー <Plug>(quickrun)
+if !exists('q:quickrun_config')
+  let g:quickrun_config = {'*': { 'split': 'vertical rightbelow' }}
+  let g:quickrun_config.applescript = { 'command' : 'osascript "/Users/dealforest/work/programing/lang/applescript/quickrun/run.scpt' }
+endif
 
 "-----------------------------------------------------------------------------------------------------------
 "let g:prove_lib_dirs = ['/Users/dealforest/local/lib']
