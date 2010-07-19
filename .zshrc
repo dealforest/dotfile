@@ -100,6 +100,11 @@ bindkey '^[d' _quote-previous-word-in-double
 zstyle ':completion:*:default' menu select=1
 
 
+autoload -Uz select-word-style
+select-word-style default
+zstyle ':zle:*' word-chars " _-./;@"
+zstyle ':zle:*' word-style unspecified
+
 
 bindkey -e
 
