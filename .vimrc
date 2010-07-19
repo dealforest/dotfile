@@ -238,7 +238,7 @@ nnoremap <silent> ,, :Prove<CR>
 "silent! nmap <unique> 好きなキー <Plug>(quickrun)
 if !exists('q:quickrun_config')
   let g:quickrun_config = {'*': { 'split': 'vertical rightbelow' }}
-  let g:quickrun_config.applescript = { 'command' : 'osascript "/Users/dealforest/work/programing/lang/applescript/quickrun/run.scpt' }
+  let g:quickrun_config.applescript = { 'command' : 'osascript /Users/dealforest/work/programing/lang/applescript/quickrun/run.scpt' }
 endif
 
 "-----------------------------------------------------------------------------------------------------------
