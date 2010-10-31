@@ -168,6 +168,15 @@ nnoremap gc `[V`]
 vnoremap gc :<C-u>normal gc<Enter>
 onoremap gc :<C-u>normal gc<Enter>
 
+
+" -------------------------------------------------------------------------
+"  " pathogen
+"  " 
+"  " see http://subtech.g.hatena.ne.jp/secondlife/20101012/1286886237
+"  " -------------------------------------------------------------------------
+      call pathogen#runtime_append_all_bundles()
+
+
 "-----------------------------------------------------------------------------------------------------------
 " [setting plugin] 
 
@@ -200,20 +209,7 @@ let g:fuf_modesDisable = ['mrucmd']
 let g:fuf_mrufile_exclude = '\v\~$|\.bak$|\.swp|\.svn|\.howm$'
 let g:fuf_mrufile_maxItem = 2000
 let g:fuf_enumeratingLimit = 20
-
 "nnoremap <silent> <C-]> :FuzzyFinderTag! <C-r>=expand(｀<cword>｀)<CR><CR>
-
-"gist.vim
-if has('mac') 
-  let g:gist_clip_command = 'pbcopy'
-  nnoremap <silent> ,gn :Gist<CR>
-  nnoremap <silent> ,gl :Gist -l<CR>
-  nnoremap <silent> ,ga :Gist -a<CR>
-  nnoremap <silent> ,ge :Gist -e<CR>
-  nnoremap <silent> ,gp :Gist -p<CR>
-  nnoremap <silent> ,gr :Gist 
-  nnoremap <silent> ,gu :Gist -l 
-endif
 
 "smartchr.vim
 "autocmd FileType actionscript,javascript,perl inoremap <buffer> <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
@@ -221,11 +217,8 @@ endif
 "align.vim
 vmap \t- :Align =><CR><CR>
 
-"manpageview.vim
-let g:manpageview_winopen = "reuse" " manpage を現在のウインドウで開く
-
 "zencoding.vim
-let g:user_zen_expandabbr_key = "<c-e>"
+"let g:user_zen_expandabbr_key = "<c-e>"
 
 "yankring.vim
 let g:yankring_history_file = ".yankring_history"
