@@ -45,6 +45,13 @@
 
   set hidden              "変更中のファイルでも保存しないで他のファイルを表示することが出来るようにする
   set nobackup
+  set complete+=k
+
+  set enc=utf-8
+  set fenc=utf-8
+  set fencs=utf-8,euc-jp,sjis,iso-2022-jp,cp932
+  set fileformats=unix,dos,mac
+  set termencoding=utf-8
 
 " -------------------------------------------------------------------------
 " Function
@@ -85,46 +92,9 @@
 
   command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
 
-" -------------------------------------------------------------------------
-" Syntax, Filetype, Dictonary, Encode
-"
-" -------------------------------------------------------------------------
-  set enc=utf-8
-  set fenc=utf-8
-  set fencs=utf-8,euc-jp,sjis,iso-2022-jp,cp932
-  set fileformats=unix,dos,mac
-  set termencoding=utf-8
-
-  "  match filetype
-  au BufNewFile,BufRead *.t set ft=perl
-  au BufNewFile,BufRead *.cgi set ft=perl
-  au BufNewFile,BufRead *.pm set ft=perl
-  au BufNewFile,BufRead *.psgi set ft=perl
-  au BufNewFile,BufRead *.pdat set ft=perl
-  au BufNewFile,BufRead *.tt set ft=tt2html
-  au BufNewFile,BufRead *.m set ft=objc
-  au BufNewFile,BufRead *.js set ft=javascript.javascript-jquery
-  au BufRead,BufNewFile *.as set ft=actionscript
-  au BufNewFile,BufRead *.scpt set ft=applescript
-
-  "  add dictionary
-  autocmd FileType actionscript :set dictionary=~/.vim/dict/actionscript.dict tags=~/.vim/tags/actionscript/spark.tags
-  autocmd FileType applescript :inoremap <buffer> <S-CR>  ¬<CR> 
-  autocmd FileType javascript :set dictionary=~/.vim/dict/javascript_functions.dict
-  autocmd FileType objc :set dictionary=~/.vim/dict/objc.dict
-  autocmd FileType perl :set dictionary=~/.vim/dict/perl_functions.dict
-  autocmd FileType php :set dictionary=~/.vim/dict/php_functions.dict
-  :set complete+=k
-
-  "  setting template
-  :au BufNewFile *.mxml 0r ~/.vim/templates/template.mxml
-  :au BufNewFile *.pl 0r ~/.vim/templates/template.pl
-  :au BufNewFile *.user.js 0r ~/.vim/templates/template.user.js
-
 
 " -------------------------------------------------------------------------
 " Keybind
-"   - command mode
 " -------------------------------------------------------------------------
   " for us key.
   nmap ; :
@@ -143,10 +113,15 @@
   nmap g* g*zz 
   nmap g# g#zz
 
-" -------------------------------------------------------------------------
-" Keybind
-"   - insert mode
-" -------------------------------------------------------------------------
+  " hilight を消す
+  nnoremap <silent> gh :let @/=''<CR>
+  nnoremap g' cs'g
+  nnoremap g" cs"G
+
+  " paste/nopaste
+  nnoremap ep :set paste<CR>
+  nnoremap enp :set nopaste<CR>
+
   imap <C-j> <C-[>
   imap <C-f> <Right>
   imap <C-b> <Left>
@@ -185,15 +160,16 @@
 " fuf
 " -------------------------------------------------------------------------
   nnoremap <unique> <silent> <C-S> :FufBuffer!<CR>
-  nnoremap <unique> <silent> ef :FufFile!<CR>
-  nnoremap <silent> ,ff :FufFile!<CR>
-  nnoremap <silent> ,fb :FufBuffer!<CR>
-  nnoremap <silent> ,fm :FufMruFile!<CR>
-  nnoremap <silent> ,fe :FufFileWithCurrentBuffer!<CR>
+  nnoremap <silent> eff :FufFile!<CR>
+  nnoremap <silent> efb :FufBuffer!<CR>
+  nnoremap <silent> efe :FufFileWithCurrentBuffer!<CR>
+  nnoremap <silent> efm :FufMruFile!<CR>
+  nnoremap <silent> efj :FufMruFileInCwd!<CR>
+
   autocmd FileType fuf nmap <C-c> <ESC>
   let g:fuf_patternSeparator = ' '
   let g:fuf_modesDisable = ['mrucmd']
-  let g:fuf_mrufile_exclude = '\v\~$|\.bak$|\.swp|\.svn|\.howm$'
+  let g:fuf_mrufile_exclude = '\v\~$|\.bak$|\.swp|\.svn$|\.(gif|jpg|png)$'
   let g:fuf_mrufile_maxItem = 2000
   let g:fuf_enumeratingLimit = 20
   "nnoremap <silent> <C-]> :FuzzyFinderTag! <C-r>=expand(｀<cword>｀)<CR><CR>
@@ -253,6 +229,14 @@
 " yankring.vim
 " -------------------------------------------------------------------------
   let g:yankring_history_file = ".yankring_history"
+  nnoremap ey :YRShow<CR>
+
+" -------------------------------------------------------------------------
+" yanktemp.vim
+" -------------------------------------------------------------------------
+  noremap <silent> sy :call YanktmpYank()<CR>
+  noremap <silent> sp :call YanktmpPaste_p()<CR>
+  noremap <silent> sP :call YanktmpPaste_P()<CR>
 
 " -------------------------------------------------------------------------
 " prove.vim
@@ -276,11 +260,23 @@
 "  autocmd FileType actionscript,javascript,perl inoremap <buffer> <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
 
 " -------------------------------------------------------------------------
+" unite.vim
+" -------------------------------------------------------------------------
+"  let g:unite_enable_start_insert = 1 
+  " less delay
+"  let g:unite_update_time = 80
+"  nmap bg :Unite -buffer-name=files buffer_tab file_mru file bookmark<CR>
+
+" -------------------------------------------------------------------------
 " Utility settings.
 "
 " -------------------------------------------------------------------------
+  "  前回終了したカーソル行に移動
+  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+
+
   "  for flash publish
-  nnoremap <buffer> <C-W><CR> :!open -a "Adobe Flash CS4" "$HOME/bin/publish.jsfl"<CR>
+"  nnoremap <buffer> <C-W><CR> :!open -a "Adobe Flash CS4" "$HOME/bin/publish.jsfl"<CR>
 
   "  input datetime
   inoremap <expr> ,df strftime('%Y-%m-%d %H:%M:%S')

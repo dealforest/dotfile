@@ -1,1 +1,1 @@
-autocmd FileType html  setlocal filetype=tt2html
+autocmd FileType html setlocal filetype=tt2html
