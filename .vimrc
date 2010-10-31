@@ -157,6 +157,51 @@
   call pathogen#runtime_append_all_bundles()
 
 " -------------------------------------------------------------------------
+" NeoCompleCache.vim
+"  
+" -------------------------------------------------------------------------
+  let g:neocomplcache_enable_at_startup = 1 
+  let g:neocomplcache_enable_auto_select = 1 
+
+  " Use smartcase.
+  let g:neocomplcache_enable_ignore_case = 0 
+  let g:neocomplcache_enable_smart_case = 1 
+  " Use camel case completion.
+  let g:neocomplcache_enable_camel_case_completion = 1 
+  " Use underbar completion.
+  let g:neocomplcache_enable_underbar_completion = 1 
+  " Set minimum syntax keyword length.
+  let g:neocomplcache_min_syntax_length = 3 
+  let g:neocomplcache_enable_quick_match = 1 
+  let g:neocomplcache_enable_wildcard = 1 
+
+
+  nnoremap <silent> ent :NeoComplCacheCachingTags<CR>
+
+  imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>" 
+  " <CR>: close popup and save indent.
+  " inoremap <expr><CR>  neocomplcache#smart_close_popup() . (&indentexpr != '' " ? "\<C-f>\<CR>X\<BS>":"\<CR>")
+  " <TAB>: completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-y>  neocomplcache#close_popup()
+  inoremap <expr><C-e>  neocomplcache#cancel_popup() 
+
+"  Define dictionary.
+  let g:neocomplcache_dictionary_filetype_lists = { 
+    \ 'default' : '', 
+    \ 'perl' : $HOME. '/.vim/dict/perl_functions.dict',
+    \ 'xs' : $HOME. '/.vim/dict/perl_xs.dict',
+    \ 'javascript' : $HOME. '/.vim/dict/javascript_functions.dict',
+    \ 'php' : $HOME. '/.vim/dict/php_functions.dict',
+    \ 'actionscript' : $HOME. '/.vim/dict/actionscript.dict',
+    \ 'objc' : $HOME.'/.vim/dict/objc.dict'
+  \ }
+
+
+" -------------------------------------------------------------------------
 " fuf
 " -------------------------------------------------------------------------
   nnoremap <unique> <silent> <C-S> :FufBuffer!<CR>
@@ -174,27 +219,6 @@
   let g:fuf_enumeratingLimit = 20
   "nnoremap <silent> <C-]> :FuzzyFinderTag! <C-r>=expand(｀<cword>｀)<CR><CR>
 
-  "   from tokuhirom.
-  "   let g:fuf_modesDisable = ['mrucmd']
-  "   let g:fuf_file_exclude =
-  "   '\v\~$|\.(o|exe|bak|swp|gif|jpg|png)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
-  "   let g:fuf_mrufile_exclude =
-  "   '\v\~$|\.bak$|\.swp|\.howm$|\.(gif|jpg|png)$'
-  "   let g:fuf_mrufile_maxItem = 10000
-  "   let g:fuf_enumeratingLimit = 20
-  "   let g:fuf_keyPreview = '<C-]>'
-  "   let g:fuf_previewHeight = 0
-  "
-  "   nmap bg :FufBuffer<CR>
-  "   nmap bG :FufFile
-  "   <C-r>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
-  "   nmap gb :FufFile **/<CR>
-  "   nmap br :FufMruFile<CR>
-  "   nmap bq :FufQuickfix<CR>
-  "   nmap bl :FufLine<CR>
-  "   nnoremap <silent> <C-]> :FufTag! <C-r>=expand('<cword>')<CR><CR> 
-  "
-
 " -------------------------------------------------------------------------
 " Align
 " -------------------------------------------------------------------------
@@ -205,25 +229,6 @@
 " -------------------------------------------------------------------------
 "  let g:user_zen_expandabbr_key = "<c-e>"
   let g:user_zen_expandabbr_key = ",e"
-
-" -------------------------------------------------------------------------
-" autocomplpop.vim
-" -------------------------------------------------------------------------
-  "補完候補表示したまま RET おして改行
-  "inoremap <expr> <CR> pumvisible() ? "\<C-Y>\<CR>" : "\<CR>"
-  "補完候補をbufferからも読み込むように対応
-  "autocmd FileType * let g:AutoComplPop_CompleteOption = '.,w,b,u,t'
-  "autocmd FileType perl let g:AutoComplPop_CompleteOption = ".,w,b,u,t,k~/.vim/dict/perl_functions.dict"
-  "autocmd FileType ruby let g:AutoComplPop_CompleteOption = ".,w,b,u,t,k~/.vim/dict/ruby_functions.dict"
-  "autocmd FileType javascript let g:AutoComplPop_CompleteOption = ".,w,b,u,t,k~/.vim/dict/javascript_functions.idct"
-
-  "大文字小文字を区別しない
-  "let g:AutoComplPop_IgnoreCaseOption = 1 
-
-  "ポップアップメニューのカラーを設定
-  "hi Pmenu guibg=#666666
-  "hi PmenuSel guibg=#8cd0d3 guifg=#666666
-  "hi PmenuSbar guibg=#333333
 
 " -------------------------------------------------------------------------
 " yankring.vim
@@ -242,7 +247,7 @@
 " prove.vim
 " -------------------------------------------------------------------------
   nnoremap <silent> ,, :Prove<CR>
-"  let g:prove_lib_dirs = ['/Users/dealforest/local/lib']
+"  let g:prove_lib_dirs = ['$HOME/local/lib']
 "  let g:prove_local_lib_dir = $HOME . '/perl5'
 
 " -------------------------------------------------------------------------
@@ -257,7 +262,7 @@
 "  silent! nmap <unique> 好きなキー <Plug>(quickrun)
   if !exists('q:quickrun_config')
     let g:quickrun_config = {'*': { 'split': 'vertical rightbelow' }}
-    let g:quickrun_config.applescript = { 'command' : 'osascript /Users/dealforest/work/programing/lang/applescript/quickrun/run.scpt' }
+    let g:quickrun_config.applescript = { 'command' : 'osascript $HOME/work/programing/lang/applescript/quickrun/run.scpt' }
   endif
 
 " -------------------------------------------------------------------------
@@ -293,3 +298,8 @@
   nnoremap <silent> co :ContinuousNumber <C-a><CR>
   vnoremap <silent> co :ContinuousNumber <C-a><CR>
 
+"   load ~/.vimrc.local
+  if filereadable(expand('$HOME/.vimrc.local'))
+    source ~/.vimrc.local
+  endif
+     
