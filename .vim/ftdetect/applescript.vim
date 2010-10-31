@@ -1,3 +1,3 @@
-au BufNewFile,BufRead *.scpt set ft=applescript
+au BufNewFile,BufRead *.scpt setf applescript
 
 autocmd FileType applescript :inoremap <buffer> <S-CR>  ¬<CR> 

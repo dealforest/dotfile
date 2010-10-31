@@ -1,1 +1,1 @@
-autocmd FileType html setlocal filetype=tt2html
+au BufNewFile,BufRead *.tt setf tt2html
