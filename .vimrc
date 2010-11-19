@@ -141,6 +141,12 @@
     nmap _ :.w !nkf -Ws \| pbcopy<CR><CR>
     vmap _ :w !nkf -Ws \| pbcopy<CR><CR>
     nmap - :set paste<CR>:r !pbpaste\|nkf -Sw<CR>:set nopaste<CR> 
+
+    " Chrome auto reload
+    " see http://d.hatena.ne.jp/LukeSilvia/20101025/p1
+    command! -bar ChromeReload silent !osascript -e 'tell application "Google Chrome" to reload active tab of window 1'
+    command! -bar ChromeStartObserve ChromeStopObserve | autocmd BufWritePost <buffer> ChromeReload
+    command! -bar ChromeStopObserve autocmd! BufWritePost <buffer>
   endif
 
   " current selected
