@@ -155,6 +155,15 @@ function crlocallib() {
     cd $(echo $PERL_MM_OPT | sed -e "s|INSTALL_BASE=||")
 }
 
+function cdgem() { 
+    cd `echo $GEM_HOME/**/gems/$1*|awk -F' ' '{print $1}'`
+}
+
+compctl -K _cdgem cdgem
+function _cdgem() {
+    reply=(`find $GEM_HOME -type d|grep -e '/gems/[^/]\+$'|xargs basename|sort -nr`)
+}
+
 
 #######################################################
 #
