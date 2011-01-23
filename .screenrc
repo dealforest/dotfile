@@ -38,3 +38,6 @@ bindkey -k k7 select 7
 bindkey -k k8 select 8
 bindkey -k k9 select 9
 bindkey -k F2 select 0
+
+# include hostlocal .screenrc
+source '.screenrc.local'
