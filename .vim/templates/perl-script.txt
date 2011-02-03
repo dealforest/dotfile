@@ -17,7 +17,10 @@ use warnings;
 use utf8;
 
 sub main {
+<<<<<<< HEAD
     return 0;
+=======
+>>>>>>> 580c123d11439560dc51a50a1c880a27f80096c7
 }
 
 exit main() unless caller;
