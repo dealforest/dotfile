@@ -14,6 +14,9 @@ Toshihiro MORIMOTO < dealforest.net@gmail.com >
 
 use strict;
 use warnings;
+use utf8;
 
+sub main {
+}
 
-1;
+exit main() unless caller;
