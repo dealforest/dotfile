@@ -81,6 +81,11 @@ elif which putclip >/dev/null 2>&1 ; then
     alias -g C='| putclip'
 fi
 
+alias vic='vim -c ":set ft=javascript.titanium"'
+alias vij='vim -c ":set ft=javascript.jquery"'
+alias vir='vim -c ":set ft=javascript.rails"'
+alias vin='vim -c ":set ft=nginx"'
+
 #######################################################
 #
 #   directory move.
