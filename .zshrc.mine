@@ -69,6 +69,7 @@ alias -g WE='|& wc'
 alias -g SE='|& sed'
 alias -g AE='|& awk'
 alias -g XE='|& xargs'
+alias -g WIN='| iconv -f UTF8-MAC -t UTF-8'
 
 if which pbcopy >/dev/null 2>&1 ; then 
     # Mac  
