@@ -38,4 +38,7 @@ defaults write com.apple.Safari IncludeDebugMenu 1
 # SafariでWebインスペクタ機能を使えるようにする
 defaults write com.apple.Safari WebKitDeveloperExtras -bool true
 
+#0(無効)〜3(強)の4段階のアンチエイリアスの強度で、2か3がオススメ
+#defaults -currentHost write -globalDomain AppleFontSmoothing -int 3
+
 killall Dock
