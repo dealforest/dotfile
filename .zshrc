@@ -32,6 +32,7 @@ esac
 
 if [[ $ZSH_VERSION == (<5->|4.<4->|4.3.<10->)* ]]; then
     autoload -Uz vcs_info
+    zstyle ':vcs_info:*' enable git svn
     zstyle ':vcs_info:*' formats ':(%s)%b'
     zstyle ':vcs_info:*' actionformats ':(%s)%b|%a'
     precmd () {
@@ -68,11 +69,9 @@ function history-all { history -E 1 }
 setopt autocd 
 setopt magic_equal_subst
 
-autoload -U colors
-colors
+autoload -U colors; colors
 
-autoload -U compinit
-compinit -u
+autoload -U compinit; compinit -u
 
 #^]で指定したフォルダを入力
 autoload smart-insert-last-word
@@ -100,12 +99,15 @@ bindkey '^[d' _quote-previous-word-in-double
 #補完候補をemacs操作で移動
 zstyle ':completion:*:default' menu select=1
 
+# git completion
+if [ -f ~/.git-completion.bash ]; then
+    autoload bashcompinit; bashcompinit
+    source ~/.git-completion.bash
+fi
 
-autoload -Uz select-word-style
-select-word-style default
+autoload -Uz select-word-style; select-word-style default
 zstyle ':zle:*' word-chars " _-./;@"
 zstyle ':zle:*' word-style unspecified
-
 
 bindkey -e
 
