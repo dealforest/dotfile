@@ -53,6 +53,11 @@
   set fileformats=unix,dos,mac
   set termencoding=utf-8
 
+  "「■」や「●」のカーソル移動の不便を回避
+  if exists('&ambiwidth')
+    set ambiwidth=double
+  endif
+
 " -------------------------------------------------------------------------
 " Function
 "
