@@ -139,7 +139,7 @@ function iname() {
 alias inaem=iname
 
 function locallib() {
-    INSTALL_BASE=$1
+    INSTALL_BASE=~/perl5/extlib/$1
     if [ -d $INSTALL_BASE ]; then
         eval $(~/bin/use-locallib $INSTALL_BASE)
     else

@@ -217,11 +217,10 @@
 " fuf
 " -------------------------------------------------------------------------
   nnoremap <unique> <silent> <C-S> :FufBuffer!<CR>
-  nnoremap <silent> eff :FufFile!<CR>
-  nnoremap <silent> eb  :FufBuffer!<CR>
-  nnoremap <silent> ee  :FufFileWithCurrentBuffer!<CR>
-  nnoremap <silent> em  :FufMruFile!<CR>
-  nnoremap <silent> ej  :FufMruFileInCwd!<CR>
+  nnoremap <silent> eb :FufBuffer!<CR>
+  nnoremap <silent> ee :FufFileWithCurrentBuffer!<CR>
+  nnoremap <silent> em :FufMruFile!<CR>
+  nnoremap <silent> efj :FufMruFileInCwd!<CR>
 
   autocmd FileType fuf nmap <C-c> <ESC>
   let g:fuf_patternSeparator = ' '
@@ -271,7 +270,7 @@
 " -------------------------------------------------------------------------
 " quickrun.vim
 " -------------------------------------------------------------------------
-"  silent! nmap <unique> 好きなキー <Plug>(quickrun)
+  silent! nmap <unique> er <Plug>(quickrun)
   if !exists('q:quickrun_config')
     let g:quickrun_config = {'*': { 'split': 'vertical rightbelow' }}
     let g:quickrun_config.applescript = { 'command' : 'osascript $HOME/work/programing/lang/applescript/quickrun/run.scpt' }
