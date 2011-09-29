@@ -152,6 +152,7 @@
     command! -bar ChromeReload silent !osascript -e 'tell application "Google Chrome" to reload active tab of window 1'
     command! -bar ChromeStartObserve ChromeStopObserve | autocmd BufWritePost <buffer> ChromeReload
     command! -bar ChromeStopObserve autocmd! BufWritePost <buffer>
+    nnoremap <silent> <C-w><CR> :ChromeReload<CR><C-l>
   endif
 
   " current selected
@@ -217,10 +218,10 @@
 " -------------------------------------------------------------------------
   nnoremap <unique> <silent> <C-S> :FufBuffer!<CR>
   nnoremap <silent> eff :FufFile!<CR>
-  nnoremap <silent> efb :FufBuffer!<CR>
-  nnoremap <silent> efe :FufFileWithCurrentBuffer!<CR>
-  nnoremap <silent> efm :FufMruFile!<CR>
-  nnoremap <silent> efj :FufMruFileInCwd!<CR>
+  nnoremap <silent> eb  :FufBuffer!<CR>
+  nnoremap <silent> ee  :FufFileWithCurrentBuffer!<CR>
+  nnoremap <silent> em  :FufMruFile!<CR>
+  nnoremap <silent> ej  :FufMruFileInCwd!<CR>
 
   autocmd FileType fuf nmap <C-c> <ESC>
   let g:fuf_patternSeparator = ' '
