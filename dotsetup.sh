@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-for file in .zshrc .zshrc.mine .vimrc .vim .gvimrc .screenrc .inputrc .module-starter .gitignore .toprc .sqliterc
+for file in .zshrc .zshrc.mine .vimrc .vim .gvimrc .screenrc .inputrc .module-starter .gitignore .toprc .sqliterc .proverc
 do
     rm -v ~/$file
     ln -sv $PWD/$file ~/$file
