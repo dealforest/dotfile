@@ -30,6 +30,7 @@ alias phpinfo='php -r "phpinfo\(\);"'
 alias sshnew='ssh -S none'
 alias ssh_eucjp='cocot -t UTF-8 -p EUC-JP ssh'
 alias ssh_sjis='cocot -t UTF-8 -p SJIS ssh'
+alias pad="plackup -MPlack::App::Directory -e 'Plack::App::Directory->new->to_app'"
 
 if [ -x /opt/local/bin/colordiff ];then
     alias diff='colordiff'
