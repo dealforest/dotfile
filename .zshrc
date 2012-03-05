@@ -72,7 +72,13 @@ setopt magic_equal_subst
 
 autoload -U colors; colors
 
-fpath=(`brew --prefix`/share/zsh/functions(N) `brew --prefix`/share/zsh/site-functions(N) $fpath)
+if [ -x /usr/local/bin/brew ]; then
+    BREW_PREFIX=`brew --prefix`
+    fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
+fi
+if [ -d $HOME/dotfile/zsh/functions ]; then
+    fpath=($HOME/dotfile/zsh/functions(N) $fpath)
+fi
 autoload -U compinit; compinit -u
 
 #^]で指定したフォルダを入力
