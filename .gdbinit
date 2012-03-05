@@ -39,3 +39,8 @@ print-view
 pv        ... print window
 pv <view> ... print view
 end
+
+
+define mh
+shell malloc_history $arg0 $arg1
+end 
