@@ -73,7 +73,7 @@ setopt magic_equal_subst
 autoload -U colors; colors
 
 if [ -x /usr/local/bin/brew ]; then
-    BREW_PREFIX=`brew --prefix`
+    BREW_PREFIX=`/usr/local/bin/brew --prefix`
     fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
 fi
 if [ -d $HOME/dotfile/zsh/functions ]; then
