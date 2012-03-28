@@ -1,0 +1,14 @@
+[user]
+	name = dealforest
+    email = dealforest.net@gmail.com
+[core]
+    editor = /usr/bin/vim
+    excludesfile = ~/.gitignore
+    pager = LESS=-R less
+[color]
+    ui = auto
+[http]
+    sslVerify = false
+[alias]
+    tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
+    st = status
