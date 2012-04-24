@@ -80,6 +80,11 @@ if [ -d $HOME/dotfile/zsh/functions ]; then
     fpath=($HOME/dotfile/zsh/functions(N) $fpath)
 fi
 autoload -U compinit; compinit -u
+source ~/dotfile/zsh/functions/cdd
+
+function chpwd() {
+    _reg_pwd_screennum
+}
 
 #^]で指定したフォルダを入力
 autoload smart-insert-last-word
