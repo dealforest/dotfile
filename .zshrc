@@ -75,6 +75,10 @@ autoload -U colors; colors
 if [ -x /usr/local/bin/brew ]; then
     BREW_PREFIX=`/usr/local/bin/brew --prefix`
     fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
+
+    if [ -e $BREW_PREFIX/etc/autojump ]; then
+        source $BREW_PREFIX/etc/autojump
+    fi
 fi
 if [ -d $HOME/dotfile/zsh/functions ]; then
     fpath=($HOME/dotfile/zsh/functions(N) $fpath)
