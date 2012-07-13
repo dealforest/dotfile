@@ -28,3 +28,6 @@
 [submodule ".vim/bundle/scss-syntax"]
 	path = .vim/bundle/scss-syntax
 	url = git://github.com/cakebaker/scss-syntax.vim.git
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
