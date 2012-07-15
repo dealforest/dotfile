@@ -28,6 +28,9 @@ startup_message off
 bind l windowlist -b
 bind t focus down
 
+bind ^U encoding utf8
+bind ^E encoding euc
+
 # bindkey -k k1 select 1
 # bindkey -k k2 select 2
 # bindkey -k k3 select 3
