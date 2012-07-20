@@ -1,6 +1,8 @@
 [user]
 	name = Toshihiro Morimoto
     email = dealforest.net@gmail.com
+[include]
+    path = ~/.gitconfig.local
 [core]
     editor = /usr/bin/vim
     excludesfile = ~/.gitignore
