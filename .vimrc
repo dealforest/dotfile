@@ -9,6 +9,8 @@
   filetype indent on
   filetype plugin on
 
+  colorscheme desert
+
   set backspace=eol,indent,start        "backspace setting
   set expandtab
   set shiftround
@@ -23,7 +25,6 @@
   set listchars=tab:>-,extends:<,trail:-
   highlight ZenkakuSpace cterm=underline ctermfg=lightblue
   match ZenkakuSpace /　/
-  highlight Pmenu ctermbg=Magenta
 
   set ambiwidth=double    "Display adjustment of width of character
 
