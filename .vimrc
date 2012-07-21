@@ -23,6 +23,7 @@
   set listchars=tab:>-,extends:<,trail:-
   highlight ZenkakuSpace cterm=underline ctermfg=lightblue
   match ZenkakuSpace /　/
+  highlight Pmenu ctermbg=Magenta
 
   set ambiwidth=double    "Display adjustment of width of character
 
