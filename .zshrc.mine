@@ -93,12 +93,9 @@ alias vin='vim -c ":set ft=nginx"'
 alias ...='cd ../../'
 alias ....='cd ../../../'
 alias sr='cd ~/work/repos/svn/' gr='cd ~/work/repos/git/' hr='cd ~/work/repos/hg/' br='cd ~/work/repos/bzr/'
-alias sp='cd ~/work/repos/actionscript/lib/spark/as3'
 alias pj='cd ~/work/projects/'
-alias media='cd ~/work/media/'
-alias pg='cd ~/work/programing/'
 alias sni='cd ~/.vim/snippets/' 
-alias lang='cd ~/work/programing/lang/'
+alias lang='cd ~/work/lang/'
 
 #######################################################
 #
@@ -122,6 +119,16 @@ alias cpan-update-all='perl -MCPAN -e '"'"'CPAN::Shell->install(CPAN::Shell->r)'
 #######################################################
 if [ -d "$HOME/local" ]; then
     eval $(perl -I$HOME/local/lib/perl5 -Mlocal::lib=$HOME/local)
+fi
+
+#######################################################
+#
+#   for autojump
+#
+#######################################################
+BREW_PREFIX=`brew --prefix`
+if [ -e $BREW_PREFIX/etc/autojump ]; then
+    source $BREW_PREFIX/etc/autojump
 fi
      
 #######################################################
@@ -175,4 +182,3 @@ function _cdgem() {
 #
 #######################################################
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-

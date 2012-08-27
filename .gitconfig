@@ -7,6 +7,7 @@
     editor = /usr/bin/vim
     excludesfile = ~/.gitignore
     pager = LESS=-R less
+	precomposedunicode = true
 [color]
     ui = auto
 [http]
@@ -14,5 +15,7 @@
 [alias]
     tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
     logg = log --stat --pretty=format:'%Cblue%h %Cgreen%ar %Cred%an %Creset%s %Cred%d'
+    co = checkout
+    df = diff
     st = status -s -b
     pr = pull --rebase
