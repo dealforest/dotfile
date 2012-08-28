@@ -3,7 +3,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 if [ -f ~/.ssh/config ]; then
     _cache_hosts=(`perl -ne  'if (/^Host\s([a-zA-Z0-9.-]+)/) { print "$1\n";}' ~/.ssh/config`)
-    compctl -k _cache_hosts ssh_screen
 fi
 
 autoload colors; colors
@@ -19,7 +18,6 @@ case ${UID} in
 	SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
 	;;
 esac
-
 
 case "${TERM}" in
 "screen")
@@ -45,25 +43,9 @@ if is-at-least 4.3.10; then
     }
 fi
 RPROMPT="%{$fg[red]%}[%~]%{$reset_color%} "
-
-
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
-
-if [ -x /usr/bin/screen ]; then
-  alias sc='screen -h 4000 -S' dsc='HOME=~/dotfile screen -c ~/dotfile/.screenrc -s zsh -S '
-  alias scr='screen -r'
-  alias scl='screen -ls'
-  alias scd='screen -d'
-  alias scx='screen -x'
-#   alias ssh='ssh_screen'
-
-#   function ssh_screen() {
-#     eval server=\${$#}
-#     screen -t $server ssh "$@"
-#   }
-fi
 
 unsetopt promptcr #改行なくても表示
 setopt extended_history
@@ -73,20 +55,6 @@ setopt autocd
 setopt magic_equal_subst
 
 autoload -U colors; colors
-
-if [ -x /usr/local/bin/brew ]; then
-    BREW_PREFIX=`/usr/local/bin/brew --prefix`
-    fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
-
-    if [ -e $BREW_PREFIX/etc/autojump ]; then
-        source $BREW_PREFIX/etc/autojump
-    fi
-fi
-if [ -d $HOME/dotfile/zsh/functions ]; then
-    fpath=($HOME/dotfile/zsh/functions(N) $fpath)
-fi
-autoload -U compinit; compinit -u
-source ~/dotfile/zsh/functions/cdd
 
 function chpwd() {
     _reg_pwd_screennum
@@ -115,7 +83,7 @@ _quote-previous-word-in-double() {
 zle -N _quote-previous-word-in-double
 bindkey '^[d' _quote-previous-word-in-double
 
-#補完候補をemacs操作で移動
+# 補完候補をemacs操作で移動
 zstyle ':completion:*:default' menu select=1
 
 # git completion
@@ -144,5 +112,5 @@ bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 
 ## load user .zshrc configuration file
-#
+
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine

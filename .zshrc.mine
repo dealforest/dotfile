@@ -19,13 +19,44 @@ if [ `uname` = 'Darwin' ]; then
 
     #######################################################
     #
-    #   for autojump
+    #   for homebrew
     #
     #######################################################
-    BREW_PREFIX=`brew --prefix`
-    if [ -e $BREW_PREFIX/etc/autojump ]; then
-        source $BREW_PREFIX/etc/autojump
+    if [ -x /usr/local/bin/brew ]; then
+        BREW_PREFIX=`brew --prefix`
+        fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
+
+        if [ -e $BREW_PREFIX/etc/autojump ]; then
+            source $BREW_PREFIX/etc/autojump
+        fi
+        if [ -d $HOME/dotfile/zsh/functions ]; then
+            fpath=($HOME/dotfile/zsh/functions(N) $fpath)
+        fi
     fi
+    autoload -U compinit; compinit -u
+fi
+
+#######################################################
+#
+#   
+#
+#######################################################
+if [ -x $(which screen) ]; then
+    alias sc='screen -h 4000 -S' dsc='HOME=~/dotfile screen -c ~/dotfile/.screenrc -s zsh -S '
+    alias scr='screen -r'
+    alias scl='screen -ls'
+    alias scd='screen -d'
+    alias scx='screen -x'
+    if [ -f ~/dotfile/zsh/functions/cdd ]; then
+        source ~/dotfile/zsh/functions/cdd
+    fi
+fi
+
+if [ -x $(which tmux) ]; then
+  alias tm='tmux -s'
+  alias tmr='tmux attach'
+  alias tml='tmux list-sessions'
+  alias tmd='tmux detach'
 fi
 
 #######################################################
