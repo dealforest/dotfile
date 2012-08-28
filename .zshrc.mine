@@ -53,7 +53,7 @@ if [ -x $(which screen) ]; then
 fi
 
 if [ -x $(which tmux) ]; then
-  alias tm='tmux -s'
+  alias tm='tmux new-session -s'
   alias tmr='tmux attach'
   alias tml='tmux list-sessions'
   alias tmd='tmux detach'
