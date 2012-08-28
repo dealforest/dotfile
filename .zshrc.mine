@@ -16,6 +16,16 @@ if [ `uname` = 'Darwin' ]; then
     alias updatedb='sudo /usr/libexec/locate.updatedb'
     alias locate='/usr/bin/locate'
     export SETUP_SH_VMARGS=-Dfile.encoding=UTF8
+
+    #######################################################
+    #
+    #   for autojump
+    #
+    #######################################################
+    BREW_PREFIX=`brew --prefix`
+    if [ -e $BREW_PREFIX/etc/autojump ]; then
+        source $BREW_PREFIX/etc/autojump
+    fi
 fi
 
 #######################################################
@@ -121,16 +131,6 @@ if [ -d "$HOME/local" ]; then
     eval $(perl -I$HOME/local/lib/perl5 -Mlocal::lib=$HOME/local)
 fi
 
-#######################################################
-#
-#   for autojump
-#
-#######################################################
-BREW_PREFIX=`brew --prefix`
-if [ -e $BREW_PREFIX/etc/autojump ]; then
-    source $BREW_PREFIX/etc/autojump
-fi
-     
 #######################################################
 #
 #   for MySQL
