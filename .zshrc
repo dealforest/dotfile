@@ -1,8 +1,10 @@
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-_cache_hosts=(`perl -ne  'if (/^Host\s([a-zA-Z0-9.-]+)/) { print "$1\n";}' ~/.ssh/config`)
-compctl -k _cache_hosts ssh_screen
+if [ -f ~/.ssh/config ]; then
+    _cache_hosts=(`perl -ne  'if (/^Host\s([a-zA-Z0-9.-]+)/) { print "$1\n";}' ~/.ssh/config`)
+    compctl -k _cache_hosts ssh_screen
+fi
 
 autoload colors; colors
 case ${UID} in
