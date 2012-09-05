@@ -1,7 +1,65 @@
-export PATH=:$PATH:~/bin/
+#######################################################
+#
+#   for enviroemtns
+#
+#######################################################
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/bin:$PATH"
 export EDITOR=vim
-export PAGER=less
 export GREP_OPTIONS="--color=auto"
+export PAGER=less
+export LESS='-R'
+
+alias l='ls --color=auto' ls='ls --color=auto' ll='ls -l --color=auto' la='ls -la --color=auto' lt='ls -lt'
+alias vi=vim v=vim mvi='open -a Vim'
+alias g=git gs='git svn'
+alias perldoc='env LANG=C perldoc'
+alias phpinfo='php -r "phpinfo\(\);"'
+alias ssh_eucjp='cocot -t UTF-8 -p EUC-JP ssh'
+alias ssh_sjis='cocot -t UTF-8 -p SJIS ssh'
+alias static_httpd="plackup -MPlack::App::Directory -e 'Plack::App::Directory->new->to_app'"
+
+if [ -x $(which screen) ]; then
+    alias sc='screen -h 4000 -S' dsc='HOME=~/dotfile screen -c ~/dotfile/.screenrc -s zsh -S '
+    alias scr='screen -r'
+    alias scl='screen -ls'
+    alias scd='screen -d'
+    alias scx='screen -x'
+    if [ -f ~/dotfile/zsh/functions/cdd ]; then
+        source ~/dotfile/zsh/functions/cdd
+    fi
+fi
+
+if [ -x $(which tmux) ]; then
+  alias tm='tmux new-session -s'
+  alias tmr='tmux attach'
+  alias tml='tmux list-sessions'
+  alias tmd='tmux detach'
+fi
+
+if [ -f "$HOME/perl5/perlbrew/etc/bashrc" ]; then
+    source $HOME/perl5/perlbrew/etc/bashrc
+fi
+
+if [ -d "$HOME/.rbenv/bin" ]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+
+    alias be='bundle exec'
+    alias bep='bundle exec pry'
+    alias bepr='bundle exec pry-remote'
+    alias bo='bundle open'
+    alias bf='bundle exec foreman start'
+fi
+
+if [ -f "$(which hub)" ]; then
+    eval "$(hub alias -s zsh)"
+fi
+
+if [ -f "$(which colordiff)" ]; then
+    alias diff='colordiff'
+fi
 
 #######################################################
 #
@@ -9,9 +67,6 @@ export GREP_OPTIONS="--color=auto"
 #
 #######################################################
 if [ `uname` = 'Darwin' ]; then
-    export PATH=/opt/local/bin:/opt/local/sbin/:$PATH
-    export MANPATH=/opt/local/man:$MANPATH
-
     alias o='open .'
     alias updatedb='sudo /usr/libexec/locate.updatedb'
     alias locate='/usr/bin/locate'
@@ -32,57 +87,12 @@ if [ `uname` = 'Darwin' ]; then
         if [ -d $HOME/dotfile/zsh/functions ]; then
             fpath=($HOME/dotfile/zsh/functions(N) $fpath)
         fi
+        if [ -d "$(brew --prefix coreutils 2>/dev/null)/libexec/gnubin" ]; then
+            export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+        fi
     fi
     autoload -U compinit; compinit -u
 fi
-
-#######################################################
-#
-#   
-#
-#######################################################
-if [ -x $(which screen) ]; then
-    alias sc='screen -h 4000 -S' dsc='HOME=~/dotfile screen -c ~/dotfile/.screenrc -s zsh -S '
-    alias scr='screen -r'
-    alias scl='screen -ls'
-    alias scd='screen -d'
-    alias scx='screen -x'
-    if [ -f ~/dotfile/zsh/functions/cdd ]; then
-        source ~/dotfile/zsh/functions/cdd
-    fi
-fi
-
-if [ -x $(which tmux) ]; then
-  alias tm='tmux new-session -s'
-  alias tmr='tmux attach'
-  alias tml='tmux list-sessions'
-  alias tmd='tmux detach'
-fi
-
-#######################################################
-#
-#   common shortcut
-#
-#######################################################
-alias l='ls --color=auto' ls='ls --color=auto' ll='ls -l --color=auto' la='ls -la --color=auto'
-alias vi=vim v=vim mvi='open -a Vim'
-alias g=git gs='git svn'
-alias perldoc='env LANG=C perldoc'
-alias phpinfo='php -r "phpinfo\(\);"'
-alias sshnew='ssh -S none'
-alias ssh_eucjp='cocot -t UTF-8 -p EUC-JP ssh'
-alias ssh_sjis='cocot -t UTF-8 -p SJIS ssh'
-alias pad="plackup -MPlack::App::Directory -e 'Plack::App::Directory->new->to_app'"
-
-if [ -x /opt/local/bin/colordiff ];then
-    alias diff='colordiff'
-fi
-#######################################################
-#
-#   project shortcut
-#
-#######################################################
-alias cdp='cd  $PERLBREW_ROOT/perls/$PERLBREW_PERL/lib/site_perl'
 
 #######################################################
 #
@@ -212,4 +222,5 @@ function _cdgem() {
 #   load other config
 #
 #######################################################
+
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

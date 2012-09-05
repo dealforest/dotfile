@@ -111,6 +111,8 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 
+REPORTTIME=3
+
 ## load user .zshrc configuration file
 
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
