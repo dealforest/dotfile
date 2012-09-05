@@ -207,6 +207,7 @@
   let g:neocomplcache_dictionary_filetype_lists = { 
     \ 'default' : '', 
     \ 'perl' : $HOME. '/.vim/dict/perl_functions.dict',
+    \ 'ruby' : $HOME. '/.vim/dict/ruby_functions.dict',
     \ 'xs' : $HOME. '/.vim/dict/perl_xs.dict',
     \ 'javascript' : $HOME. '/.vim/dict/javascript_functions.dict',
     \ 'php' : $HOME. '/.vim/dict/php_functions.dict',
