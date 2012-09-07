@@ -217,7 +217,7 @@ function _cdgem() {
 }
 
 function last-sim() {
-    APP_DIR=`find "/Users/$USER/Library/Application Support/iPhone Simulator" -type d -name "$1.app" -print0 | xargs -0 ls -td | head -1`
+    APP_DIR=`find "$HOME/Library/Application Support/iPhone Simulator" -type d -name "$1.app" -print0 | xargs -0 ls -td | head -1`
     if [ -d $APP_DIR ]; then
         cd $APP_DIR
     else
