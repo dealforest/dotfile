@@ -51,6 +51,8 @@ if [ -d "$HOME/.rbenv/bin" ]; then
     alias bepr='bundle exec pry-remote'
     alias bo='bundle open'
     alias bf='bundle exec foreman start'
+    alias ber='bundle exec rrails -- '
+    alias rr='rrails -- '
 fi
 
 if [ -f "$(which hub)" ]; then
