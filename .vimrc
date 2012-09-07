@@ -65,7 +65,7 @@
 "
 " -------------------------------------------------------------------------
   function SetTab()
-      if &syntax == 'ruby' || &syntax == 'html' || &syntax == 'xhtml' || &syntax == 'css' || &syntax == 'eruby' || &syntax == 'yaml' || &syntax == 'vim'
+      if &syntax == 'ruby' || &syntax == 'html' || &syntax == 'xhtml' || &syntax == 'css' || &syntax == 'eruby' || &syntax == 'yaml' || &syntax == 'vim' || &syntax == 'slim'
           execute 'set tabstop=2 | set softtabstop=2 | set shiftwidth=2 | set softtabstop=0'
       else
           execute 'set tabstop=4 | set softtabstop=4 | set shiftwidth=4 | set softtabstop=0'
