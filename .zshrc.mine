@@ -216,6 +216,14 @@ function _cdgem() {
     reply=(`find $GEM_HOME -type d|grep -e '/gems/[^/]\+$'|xargs basename|sort -nr`)
 }
 
+function last-sim() {
+    APP_DIR=`find "/Users/$USER/Library/Application Support/iPhone Simulator" -type d -name "$1.app" -print0 | xargs -0 ls -td | head -1`
+    if [ -d $APP_DIR ]; then
+        cd $APP_DIR
+    else
+        echo "don't find directory : $APP_DIR"
+    fi
+}
 
 #######################################################
 #
