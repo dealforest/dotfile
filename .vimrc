@@ -55,6 +55,8 @@
   set fileformats=unix,dos,mac
   set termencoding=utf-8
 
+  set directory=~/.vim/tmp
+
   "「■」や「●」のカーソル移動の不便を回避
   if exists('&ambiwidth')
     set ambiwidth=double
