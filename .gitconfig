@@ -19,3 +19,5 @@
     df = diff
     st = status -s -b
     pr = pull --rebase
+[push]
+	default = upstream
