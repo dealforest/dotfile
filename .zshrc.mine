@@ -38,6 +38,13 @@ if [ -x $(which tmux) ]; then
   alias tmd='tmux detach'
 fi
 
+if [ -x $(which go) ]; then
+    export GOROOT=`brew --cellar go`
+    export GOBIN=/usr/local/bin
+    export GOARCH=amd64
+    export GOOS=darwin
+fi
+
 if [ -f "$HOME/perl5/perlbrew/etc/bashrc" ]; then
     source $HOME/perl5/perlbrew/etc/bashrc
 fi
