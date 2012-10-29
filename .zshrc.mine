@@ -20,7 +20,7 @@ alias ssh_eucjp='cocot -t UTF-8 -p EUC-JP ssh'
 alias ssh_sjis='cocot -t UTF-8 -p SJIS ssh'
 alias static_httpd="plackup -MPlack::App::Directory -e 'Plack::App::Directory->new->to_app'"
 
-if [ -x $(which screen) ]; then
+if [ -f "$(which screen)" ]; then
     alias sc='screen -h 4000 -S' dsc='HOME=~/dotfile screen -c ~/dotfile/.screenrc -s zsh -S '
     alias scr='screen -r'
     alias scl='screen -ls'
@@ -31,14 +31,14 @@ if [ -x $(which screen) ]; then
     fi
 fi
 
-if [ -x $(which tmux) ]; then
+if [ -f "$(which tmux)" ]; then
   alias tm='tmux new-session -s'
   alias tmr='tmux attach'
   alias tml='tmux list-sessions'
   alias tmd='tmux detach'
 fi
 
-if [ -x $(which go) ]; then
+if [ -f "$(which go)" ]; then
     export GOROOT=`brew --cellar go`
     export GOBIN=/usr/local/bin
     export GOARCH=amd64
