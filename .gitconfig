@@ -21,5 +21,6 @@
     st   = status -s -b
     pr   = pull --rebase
     sb   = show-branch -a
+    all-update-submodule = submodule foreach 'git pull origin master'
 [push]
 	default = upstream
