@@ -13,7 +13,7 @@ export LESS='-R'
 
 alias l='ls --color=auto' ls='ls --color=auto' ll='ls -l --color=auto' la='ls -la --color=auto' lt='ls -lt'
 alias vi=vim v=vim mvi='open -a Vim'
-alias g=git gs='git svn'
+alias g=git gs='git svn' gti=git
 alias perldoc='env LANG=C perldoc'
 alias phpinfo='php -r "phpinfo\(\);"'
 alias ssh_eucjp='cocot -t UTF-8 -p EUC-JP ssh'
@@ -64,6 +64,10 @@ fi
 
 if [ -f "$(which hub)" ]; then
     eval "$(hub alias -s zsh)"
+fi
+
+if [ -f "$(which byobu)" ]; then
+    export BYOBU_PREFIX=$(brew --prefix)
 fi
 
 if [ -f "$(which colordiff)" ]; then
