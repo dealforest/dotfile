@@ -276,9 +276,11 @@
 " quickrun.vim
 " -------------------------------------------------------------------------
   silent! nmap <unique> er <Plug>(quickrun)
+  silent! vmap <unique> er <Plug>(quickrun)
   if !exists('q:quickrun_config')
     let g:quickrun_config = {'*': { 'split': 'vertical rightbelow' }}
     let g:quickrun_config.applescript = { 'command' : 'osascript $HOME/work/programing/lang/applescript/quickrun/run.scpt' }
+    let g:quickrun_config.sql = { 'command': 'mysql', 'exec': [ '%c -u root yellow_radio_development < %s' ], 'split': 'below' }
   endif
 
 " -------------------------------------------------------------------------
