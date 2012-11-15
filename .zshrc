@@ -86,6 +86,9 @@ bindkey '^[d' _quote-previous-word-in-double
 # 補完候補をemacs操作で移動
 zstyle ':completion:*:default' menu select=1
 
+# C-s / C-q によるフロー制御を使わないようにする
+setopt no_flow_control
+
 # git completion
 if [ -f ~/.git-completion.bash ]; then
     autoload bashcompinit; bashcompinit
