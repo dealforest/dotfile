@@ -66,12 +66,16 @@ if [ -f "$(which hub)" ]; then
     eval "$(hub alias -s zsh)"
 fi
 
-if [ -f "$(which byobu)" ]; then
-    export BYOBU_PREFIX=$(brew --prefix)
-fi
-
 if [ -f "$(which colordiff)" ]; then
     alias diff='colordiff'
+fi
+
+if [ -f "$(which dstat)" ]; then
+    alias dstat-full='dstat -Tclmdrn'
+    alias dstat-mem='dstat -Tclm'
+    alias dstat-cpu='dstat -Tclr'
+    alias dstat-net='dstat -Tclnd'
+    alias dstat-disk='dstat -Tcldr'
 fi
 
 #######################################################
