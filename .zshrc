@@ -41,6 +41,8 @@ if is-at-least 4.3.10; then
         LANG=en_US.UTF-8 vcs_info
         [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
     }
+    bindkey '^R' history-incremental-pattern-search-backward
+    bindkey '^S' history-incremental-pattern-search-forward
 fi
 RPROMPT="%{$fg[red]%}[%~]%{$reset_color%} "
 HISTFILE=~/.zsh_history
