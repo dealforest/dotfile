@@ -1,7 +1,7 @@
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-if [ -f ~/.ssh/config ]; then
+if [ -f "~/.ssh/config" ]; then
     _cache_hosts=(`perl -ne  'if (/^Host\s([a-zA-Z0-9.-]+)/) { print "$1\n";}' ~/.ssh/config`)
 fi
 
@@ -53,14 +53,10 @@ unsetopt promptcr #改行なくても表示
 setopt extended_history
 setopt share_history
 function history-all { history -E 1 }
-setopt autocd 
+setopt autocd
 setopt magic_equal_subst
 
 autoload -U colors; colors
-
-function chpwd() {
-    _reg_pwd_screennum
-}
 
 #^]で指定したフォルダを入力
 autoload smart-insert-last-word
@@ -107,7 +103,7 @@ autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^p" history-beginning-search-backward-end
-bindkey "^n" history-beginning-search-forward-end 
+bindkey "^n" history-beginning-search-forward-end
 bindkey "\\ep" history-beginning-search-backward-end
 bindkey "\\en" history-beginning-search-forward-end
 bindkey "^?"    backward-delete-char
@@ -118,6 +114,9 @@ bindkey "^[[4~" end-of-line
 
 REPORTTIME=3
 
-## load user .zshrc configuration file
+[ -f ~/.zsh.d/function ] && source ~/.zsh.d/function
+[ -f ~/.zsh.d/config/packages.zsh ] && source ~/.zsh.d/config/packages.zsh
 
-[ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
+## load user .zshrc.local configuration file
+
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
