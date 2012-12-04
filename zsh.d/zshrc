@@ -81,6 +81,9 @@ _quote-previous-word-in-double() {
 zle -N _quote-previous-word-in-double
 bindkey '^[d' _quote-previous-word-in-double
 
+# 今いるディレクトリを補完候補から外す
+zstyle ':completion:*' ignore-parents parent pwd ..
+
 # 補完候補をemacs操作で移動
 zstyle ':completion:*:default' menu select=1
 
