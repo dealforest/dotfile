@@ -21,6 +21,7 @@
     st   = status -s -b
     pr   = pull --rebase
     sb   = show-branch -a
-    all-update-submodule = submodule foreach 'git pull origin master'
+    all-update-submodule   = submodule foreach 'git pull origin master'
+    delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
 [push]
 	default = upstream
