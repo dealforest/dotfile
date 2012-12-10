@@ -1,21 +1,16 @@
 " -------------------------------------------------------------------------
 " Basic settings.
-"
 " -------------------------------------------------------------------------
   set nocompatible " must be first!
 
   syntax on
-  filetype on
-  filetype indent on
-  filetype plugin on
+  filetype off
 
   colorscheme desert
 
   set backspace=eol,indent,start        "backspace setting
   set expandtab
   set shiftround
-
-  autocmd BufEnter * call SetTab()
 
   set autoindent smartindent
   set cindent             "for C indent.
@@ -43,9 +38,6 @@
   set statusline=[%n]\ %t\ %y%{GetStatusEx()}\ [0x%B(%b)]\ %m%h%r=%l/%L,%c%V\ %P 
   set grepprg=internal    "alias grep -> vimgrep
 
-  vnoremap <silent> / :<C-u>call <SID>range_search('/')<CR>
-  vnoremap <silent> ? :<C-u>call <SID>range_search('?')<CR>
-
   set hidden              "変更中のファイルでも保存しないで他のファイルを表示することが出来るようにする
   set nobackup
   set complete+=k
@@ -56,52 +48,16 @@
   set fileformats=unix,dos,mac
   set termencoding=utf-8
 
+  set tabstop=4 softtabstop=4 shiftwidth=4 softtabstop=0
+
   set directory=~/.vim/tmp
+
+  set splitright
 
   "「■」や「●」のカーソル移動の不便を回避
   if exists('&ambiwidth')
     set ambiwidth=double
   endif
-
-" -------------------------------------------------------------------------
-" Function
-"
-" -------------------------------------------------------------------------
-  function SetTab()
-      if &syntax == 'ruby' || &syntax == 'html' || &syntax == 'xhtml' || &syntax == 'css' || &syntax == 'eruby' || &syntax == 'yaml' || &syntax == 'vim' || &syntax == 'slim' || &syntax == 'stylus'
-          execute 'set tabstop=2 | set softtabstop=2 | set shiftwidth=2 | set softtabstop=0'
-      else
-          execute 'set tabstop=4 | set softtabstop=4 | set shiftwidth=4 | set softtabstop=0'
-      endif
-  endf
-
-  function! GetStatusEx()
-  let str = &fileformat
-      if has("multi_byte") && &fileencoding != ""
-          let str = &fileencoding . ":" . str
-      endif
-      let str = "[" . str . "]"
-      return str
-  endfunction
-
-  "  ビジュアルモード内を検索
-  function! s:range_search(d)
-      let s = input(a:d)
-      if strlen(s) > 0
-          let s = a:d . '\%V' . s . "\<CR>"
-          call feedkeys(s, 'n')
-      endif
-  endfunction
-
-" -------------------------------------------------------------------------
-" Command
-"
-" -------------------------------------------------------------------------
-  " :Rename fine_name でファイルを開いたままファイル名の変更
-  command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
-
-  command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
-
 
 " -------------------------------------------------------------------------
 " Keybind
@@ -116,11 +72,11 @@
   noremap gk k
 
   " 検索後、真ん中にフォーカスをあわせる
-  nmap n nzz 
-  nmap N Nzz 
-  nmap * *zz 
-  nmap # #zz 
-  nmap g* g*zz 
+  nmap n nzz
+  nmap N Nzz
+  nmap * *zz
+  nmap # #zz
+  nmap g* g*zz
   nmap g# g#zz
 
   " hilight を消す
@@ -146,56 +102,98 @@
   "nnoremap <C-h> :<C-u>help<Space>
   "nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><Enter>
 
-  " pbcopy for mac
-  if has('mac') 
-    nmap _ :.w !nkf -Ws \| pbcopy<CR><CR>
-    vmap _ :w !nkf -Ws \| pbcopy<CR><CR>
-    nmap - :set paste<CR>:r !pbpaste\|nkf -Sw<CR>:set nopaste<CR> 
-
-    " Chrome auto reload
-    " see http://d.hatena.ne.jp/LukeSilvia/20101025/p1
-    command! -bar ChromeReload silent !osascript -e 'tell application "Google Chrome" to reload active tab of window 1'
-    command! -bar ChromeStartObserve ChromeStopObserve | autocmd BufWritePost <buffer> ChromeReload
-    command! -bar ChromeStopObserve autocmd! BufWritePost <buffer>
-    nnoremap <silent> <C-w><CR> :ChromeReload<CR><C-l>
-  endif
-
   " current selected
   nnoremap gc `[V`]
   vnoremap gc :<C-u>normal gc<Enter>
   onoremap gc :<C-u>normal gc<Enter>
 
+" -------------------------------------------------------------------------
+" NeoBunldle
+" -------------------------------------------------------------------------
+  if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim
+    call neobundle#rc(expand('~/.vim/bundle/'))
+  endif
 
-" -------------------------------------------------------------------------
-" pathogen
-"  
-" see http://subtech.g.hatena.ne.jp/secondlife/20101012/1286886237
-" -------------------------------------------------------------------------
-  call pathogen#runtime_append_all_bundles()
+  " http://vim-scripts.org/vim/scripts.html
+  NeoBundle 'Shougo/neobundle.vim'
+  NeoBundle 'Shougo/vimproc', {
+        \ 'build' : {
+        \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+        \     'cygwin'  : 'make -f make_cygwin.mak',
+        \     'mac'     : 'make -f make_mac.mak',
+        \     'unix'    : 'make -f make_unix.mak',
+        \    },
+        \ }
+  NeoBundle 'Shougo/vimshell'
+  NeoBundle 'Shougo/unite.vim'
+  NeoBundle 'tsukkee/unite-tag'
+  NeoBundle 'Shougo/neocomplcache'
+  NeoBundle 'Shougo/neosnippet'
+  NeoBundle 'Lokaltog/vim-powerline'
+  NeoBundle 'tpope/vim-surround'
+  NeoBundle 'othree/eregex.vim'
+  NeoBundle 'thinca/vim-ref'
+  NeoBundle 'Align'
+  NeoBundle 'YankRing.vim'
+  NeoBundle 'EnhCommentify.vim'
+  NeoBundle 'taglist.vim'
+  NeoBundle 'matchit.zip'
+  NeoBundle 'scrooloose/nerdtree'
+  NeoBundle 'kana/vim-textobj-user'
+
+  NeoBundleLazy 'thinca/vim-quickrun',          { 'autoload': { 'mappings': [ '<Plug>(quickrun)' ] } }
+
+  " for ruby
+  NeoBundle 'vim-ruby/vim-ruby'
+  NeoBundle 'rhysd/unite-ruby-require.vim'
+  NeoBundle 'rhysd/vim-textobj-ruby'
+  NeoBundle 'tpope/vim-rails'
+
+  " for perl
+  NeoBundleLazy 'hokaccha/vim-prove',           { 'autoload': { 'filetypes': ['perl'] } }
+
+  " for javascript
+  NeoBundleLazy 'pangloss/vim-javascript',      { 'autoload': { 'filetypes': ['javascript'] } }
+
+  " for cofee-script
+  NeoBundleLazy 'kchmck/vim-coffee-script',     { 'autoload': { 'filetypes': ['coffee'] } }
+
+  " syntax highlight
+  NeoBundleLazy 'perl-mauke.vim',               { 'autoload': { 'filetypes': ['perl'] } }
+  NeoBundleLazy 'nginx.vim',                    { 'autoload': { 'filetypes': ['nginx'] } }
+  NeoBundleLazy 'cakebaker/scss-syntax.vim',    { 'autoload': { 'filetypes': ['scss'] } }
+  NeoBundleLazy 'bbommarito/vim-slim',          { 'autoload': { 'filetypes': ['slim'] } }
+  NeoBundleLazy 'groenewege/vim-less',          { 'autoload': { 'filetypes': ['less'] } }
+  NeoBundleLazy 'wavded/vim-stylus',            { 'autoload': { 'filetypes': ['stylus'] } }
+  NeoBundleLazy 'vim-scripts/applescript.vim',  { 'autoload': { 'filetypes': ['applescript'] } }
+  NeoBundleLazy 'motemen/xslate-vim',           { 'autoload': { 'filetypes': ['xslate'] } }
+  NeoBundleLazy 'tpope/vim-markdown',           { 'autoload': { 'filetypes': ['markdown'] } }
+
+  filetype plugin on
+  filetype indent on
 
 " -------------------------------------------------------------------------
 " NeoCompleCache.vim
-"  
 " -------------------------------------------------------------------------
-  let g:neocomplcache_enable_at_startup = 1 
-  let g:neocomplcache_enable_auto_select = 1 
+  let g:neocomplcache_enable_at_startup = 1
+  let g:neocomplcache_enable_auto_select = 1
 
   " Use smartcase.
-  let g:neocomplcache_enable_ignore_case = 0 
-  let g:neocomplcache_enable_smart_case = 1 
+  let g:neocomplcache_enable_ignore_case = 0
+  let g:neocomplcache_enable_smart_case = 1
   " Use camel case completion.
-  let g:neocomplcache_enable_camel_case_completion = 1 
+  let g:neocomplcache_enable_camel_case_completion = 1
   " Use underbar completion.
-  let g:neocomplcache_enable_underbar_completion = 1 
+  let g:neocomplcache_enable_underbar_completion = 1
   " Set minimum syntax keyword length.
-  let g:neocomplcache_min_syntax_length = 3 
-  let g:neocomplcache_enable_quick_match = 1 
-  let g:neocomplcache_enable_wildcard = 1 
-
+  let g:neocomplcache_min_syntax_length = 3
+  let g:neocomplcache_enable_quick_match = 1
+  let g:neocomplcache_enable_wildcard = 1
 
   nnoremap <silent> ent :NeoComplCacheCachingTags<CR>
 
-  imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>" 
+  imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
   " <CR>: close popup and save indent.
   " inoremap <expr><CR>  neocomplcache#smart_close_popup() . (&indentexpr != '' " ? "\<C-f>\<CR>X\<BS>":"\<CR>")
   " <TAB>: completion.
@@ -204,98 +202,102 @@
   " inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
   inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
   inoremap <expr><C-y>  neocomplcache#close_popup()
-  inoremap <expr><C-e>  neocomplcache#cancel_popup() 
+  inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-"  Define dictionary.
-  let g:neocomplcache_dictionary_filetype_lists = { 
-    \ 'default' : '', 
-    \ 'perl' : $HOME. '/.vim/dict/perl_functions.dict',
-    \ 'ruby' : $HOME. '/.vim/dict/ruby_functions.dict',
-    \ 'xs' : $HOME. '/.vim/dict/perl_xs.dict',
-    \ 'javascript' : $HOME. '/.vim/dict/javascript_functions.dict',
-    \ 'php' : $HOME. '/.vim/dict/php_functions.dict',
-    \ 'actionscript' : $HOME. '/.vim/dict/actionscript.dict',
-    \ 'objc' : $HOME.'/.vim/dict/objc.dict'
+  "  Define dictionary.
+  let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default': '',
+    \ 'perl':       $HOME. '/.vim/dict/perl_functions.dict',
+    \ 'ruby':       $HOME. '/.vim/dict/ruby_functions.dict',
+    \ 'xs':         $HOME. '/.vim/dict/perl_xs.dict',
+    \ 'javascript': $HOME. '/.vim/dict/javascript_functions.dict',
+    \ 'php':        $HOME. '/.vim/dict/php_functions.dict'
   \ }
 
+" -------------------------------------------------------------------------
+" neosnippet.vim
+" -------------------------------------------------------------------------
+  " Plugin key-mappings.
+  imap <C-k> <Plug>(neosnippet_expand_or_jump)
+  smap <C-k> <Plug>(neosnippet_expand_or_jump)
+
+  " SuperTab like snippets behavior.
+  imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+  smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+  " For snippet_complete marker.
+  if has('conceal')
+    set conceallevel=2 concealcursor=i
+  endif
 
 " -------------------------------------------------------------------------
-" fuf
+" unite.vim
 " -------------------------------------------------------------------------
-  nnoremap <unique> <silent> <C-S> :FufBuffer!<CR>
-  nnoremap <silent> eb :FufBuffer!<CR>
-  nnoremap <silent> ee :FufFileWithCurrentBuffer!<CR>
-  nnoremap <silent> em :FufMruFile!<CR>
-  nnoremap <silent> efj :FufMruFileInCwd!<CR>
+  let g:unite_enable_start_insert = 1
+  " less delay
+  let g:unite_update_time = 80
+  nmap ee :Unite -buffer-name=files buffer_tab file_mru file<CR>
+  nmap et :Unite -buffer-name=tags tag<CR>
+  nmap eb :Unite buffer<CR>
+  noremap ef :UniteWithBufferDir -buffer-name=files file<CR>
 
-  autocmd FileType fuf nmap <C-c> <ESC>
-  let g:fuf_patternSeparator = ' '
-  let g:fuf_modesDisable = ['mrucmd']
-  let g:fuf_mrufile_exclude = '\v\~$|\.bak$|\.swp|\.svn$|\.(gif|jpg|png)$'
-  let g:fuf_mrufile_maxItem = 2000
-  let g:fuf_enumeratingLimit = 20
-  "nnoremap <silent> <C-]> :FuzzyFinderTag! <C-r>=expand(｀<cword>｀)<CR><CR>
+  " 除外パターン
+  let g:unite_source_file_ignore_pattern = '\%(^\|/\)\.$\|\~$\|\.\%(o|exe|dll|bak|sw[po]\)$\|blib/'
+
+  " mru の表示の日付フォーマットを変更
+  let g:unite_source_file_mru_time_format = '(%Y-%m-%d %H:%M) '
+
+  " ウィンドウを分割して開く
+  au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+  au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+
+  " ウィンドウを縦に分割して開く
+  au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+  au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+
+  " ESCキーを2回押すと
+  au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+  au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
 " -------------------------------------------------------------------------
-" Align
+" vim-ref.vim
+" -------------------------------------------------------------------------
+"  let g:ref_alc_cmd='lynx -dump -nonumbers %s'
+  nmap er :Unite ref/
+  let g:ref_open = 'vsplit'
+  let g:ref_refe_cmd = 'rurema'
+  let g:ref_refe_version = 2
+
+  nnoremap ,rr :<C-U>Ref refe<Space>
+
+" -------------------------------------------------------------------------
+" Align.vim
 " -------------------------------------------------------------------------
   vmap \t- :Align =><CR><CR>
-
-" -------------------------------------------------------------------------
-" zencoding.vim
-" -------------------------------------------------------------------------
-"  let g:user_zen_expandabbr_key = "<c-e>"
-  let g:user_zen_expandabbr_key = ",e"
 
 " -------------------------------------------------------------------------
 " yankring.vim
 " -------------------------------------------------------------------------
   let g:yankring_history_file = ".yankring_history"
-  nnoremap ey :YRShow<CR>
-
-" -------------------------------------------------------------------------
-" yanktemp.vim
-" -------------------------------------------------------------------------
-  noremap <silent> sy :call YanktmpYank()<CR>
-  noremap <silent> sp :call YanktmpPaste_p()<CR>
-  noremap <silent> sP :call YanktmpPaste_P()<CR>
-
-" -------------------------------------------------------------------------
-" prove.vim
-" -------------------------------------------------------------------------
-  nnoremap <silent> ,, :Prove<CR>
-"  let g:prove_lib_dirs = ['$HOME/local/lib']
-"  let g:prove_local_lib_dir = $HOME . '/perl5'
-
-" -------------------------------------------------------------------------
-" snipMate.vim
-" -------------------------------------------------------------------------
-  ino <c-l> <c-r>=TriggerSnippet()<cr>
-  snor <c-l> <esc>i<right><c-r>=TriggerSnippet()<cr>
+  nnoremap <silent> ey :YRShow<CR>
 
 " -------------------------------------------------------------------------
 " quickrun.vim
 " -------------------------------------------------------------------------
-  silent! nmap <unique> er <Plug>(quickrun)
-  silent! vmap <unique> er <Plug>(quickrun)
+  silent! nmap <unique> ,r <Plug>(quickrun)
+  silent! vmap <unique> ,r <Plug>(quickrun)
   if !exists('q:quickrun_config')
-    let g:quickrun_config = {'*': { 'split': 'vertical rightbelow' }}
-    let g:quickrun_config.applescript = { 'command' : 'osascript $HOME/work/programing/lang/applescript/quickrun/run.scpt' }
-    let g:quickrun_config.sql = { 'command': 'mysql', 'exec': [ '%c -u root yellow_radio_development < %s' ], 'split': 'below' }
+    let g:quickrun_config = { '*': { 'split': 'vertical rightbelow' } }
+    let g:quickrun_config.sql = {
+                \ 'command': 'mysql',
+                \ 'exec':    ['%c %o < %s'],
+                \ 'cmdopt':  '%{MakeMySQLCommandOptions()}',
+                \ 'split':   'below',
+                \ }
+    let g:mysql_config_host = ''
+    let g:mysql_config_port = ''
+    let g:mysql_config_user = 'root'
   endif
-
-" -------------------------------------------------------------------------
-" smartchr.vim
-" -------------------------------------------------------------------------
-"  autocmd FileType actionscript,javascript,perl inoremap <buffer> <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
-
-" -------------------------------------------------------------------------
-" unite.vim
-" -------------------------------------------------------------------------
-"  let g:unite_enable_start_insert = 1 
-  " less delay
-"  let g:unite_update_time = 80
-"  nmap bg :Unite -buffer-name=files buffer_tab file_mru file bookmark<CR>
 
 " -------------------------------------------------------------------------
 " vim-powerline.vim
@@ -309,39 +311,123 @@
   let g:EnhCommentifyBindInInsert = 'NO'
 
 " -------------------------------------------------------------------------
+" eregex.vim
+" -------------------------------------------------------------------------
+  nnoremap / :M/
+  nnoremap ? :M?
+  nnoremap ,/ /
+  nnoremap ,? ?
+
+" -------------------------------------------------------------------------
 " taglist.vim
 " -------------------------------------------------------------------------
   set tags=tags
-  nnoremap <silent> ew :Tlist<CR>
+  nnoremap <silent> eq :Tlist<CR>
 
 " -------------------------------------------------------------------------
-" The NERD Tree
+" nertdtree
 " -------------------------------------------------------------------------
-  nnoremap <silent> et :NERDTree <CR>
+  nnoremap <silent> ew :NERDTree <CR>
 
 " -------------------------------------------------------------------------
-" Utility settings.
+" Function
 " -------------------------------------------------------------------------
-  "  前回終了したカーソル行に移動
+  function! s:range_search(d)
+      let s = input(a:d)
+      if strlen(s) > 0
+          let s = a:d . '\%V' . s . "\<CR>"
+          call feedkeys(s, 'n')
+      endif
+  endfunction
+
+  function! GetStatusEx()
+  let str = &fileformat
+      if has("multi_byte") && &fileencoding != ""
+          let str = &fileencoding . ":" . str
+      endif
+      let str = "[" . str . "]"
+      return str
+  endfunction
+
+  " http://potix2.blogspot.jp/2011/12/quickrunsqlmysql.html
+  function! MakeMySQLCommandOptions()
+    if !exists("g:mysql_config_host")
+      let g:mysql_config_host = input("host> ")
+    endif
+    if !exists("g:mysql_config_port")
+      let g:mysql_config_port = input("port> ")
+    endif
+    if !exists("g:mysql_config_user")
+      let g:mysql_config_user = input("user> ")
+    endif
+    if !exists("g:mysql_config_pass")
+      let g:mysql_config_pass = inputsecret("password> ")
+    endif
+    if !exists("g:mysql_config_db")
+      let g:mysql_config_db = input("database> ")
+    endif
+
+    let optlist = []
+    if g:mysql_config_user != ''
+      call add(optlist, '-u ' . g:mysql_config_user)
+    endif
+    if g:mysql_config_host != ''
+      call add(optlist, '-h ' . g:mysql_config_host)
+    endif
+    if g:mysql_config_pass != ''
+      call add(optlist, '-p' . g:mysql_config_pass)
+    endif
+    if g:mysql_config_port != ''
+      call add(optlist, '-P ' . g:mysql_config_port)
+    endif
+    if exists("g:mysql_config_otheropts")
+      call add(optlist, g:mysql_config_otheropts)
+    endif
+
+    call add(optlist, g:mysql_config_db)
+    return join(optlist, ' ')
+  endfunction
+
+" -------------------------------------------------------------------------
+" Customize settings.
+" -------------------------------------------------------------------------
+  " 前回終了したカーソル行に移動
   autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
+  " open vertical help
+  nmap ,h :vert help 
 
-  "  for flash publish
-"  nnoremap <buffer> <C-W><CR> :!open -a "Adobe Flash CS4" "$HOME/bin/publish.jsfl"<CR>
+  " for spell
+  nnoremap <silent> <C-a> :setl spell!<Return>
 
-  "  input datetime
+  " for window controll
+  nnoremap <silent> <C-w><C-l> :vertical resize -6<Return>
+  nnoremap <silent> <C-w><C-h> :vertical resize +6<Return>
+  nnoremap <silent> <C-w><C-k> :resize -6<Return>
+  nnoremap <silent> <C-w><C-j> :resize +6<Return>
+
+  " input datetime
   inoremap <expr> ,df strftime('%Y-%m-%d %H:%M:%S')
   inoremap <expr> ,dd strftime('%Y-%m-%d')
   inoremap <expr> ,dt strftime('%H:%M:%S')
 
-  "  sequence increment
-  nnoremap <silent> co :ContinuousNumber <C-a><CR>
-  vnoremap <silent> co :ContinuousNumber <C-a><CR>
+  iabbrev ,= =========================================================================
+  iabbrev ,- -------------------------------------------------------------------------
 
-  "  shortcut filetype
-  nnoremap <silent> sf :set ft=
+  " :Rename fine_name でファイルを開いたままファイル名の変更
+  command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 
-"   load ~/.vimrc.local
+  " ビジュアルモード内を検索
+  vnoremap <silent> / :<C-u>call <SID>range_search('/')<CR>
+  vnoremap <silent> ? :<C-u>call <SID>range_search('?')<CR>
+
+  " for inifinity undo
+  if has('persistent_undo')
+    set undodir=~/.vim/undo
+    set undofile
+  endif
+
+  " load ~/.vimrc.local
   if filereadable(expand('$HOME/.vimrc.local'))
     source ~/.vimrc.local
   endif

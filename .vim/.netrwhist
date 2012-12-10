@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Users/morimoto_toshihiro/work/company/adways/adam/vendor/bundle/ruby/1.9.1/gems/activeadmin-0.5.0'
-let g:netrw_dirhist_2='/Users/morimoto_toshihiro/work/company/adways/adam/vendor/bundle/ruby/1.9.1/gems/formtastic-2.2.1'
-let g:netrw_dirhist_3='/Users/morimoto_toshihiro/dotfile/.vim/bundle/vim-quickrun'
