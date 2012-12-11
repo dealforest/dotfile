@@ -12,3 +12,6 @@ do
     rm -v ~/.$file
     ln -sv $PWD/zsh.d/$file ~/.$file
 done
+
+rm -v ~/.zsh.d
+ln -sv $PWD/zsh.d ~/.zsh.d
