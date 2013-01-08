@@ -1,5 +1,6 @@
-#init enviroemtns
-
+# -------------------------------------------------------------------------
+# init enviroemtns
+# -------------------------------------------------------------------------
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin"
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export PATH="$HOME/bin:$PATH"
@@ -13,8 +14,9 @@ if [ -f "~/.ssh/config" ]; then
     _cache_hosts=(`perl -ne  'if (/^Host\s([a-zA-Z0-9.-]+)/) { print "$1\n";}' ~/.ssh/config`)
 fi
 
+# -------------------------------------------------------------------------
 # package enviroments
-
+# -------------------------------------------------------------------------
 if [ -f "$(which screen)" ]; then
     alias sc='screen -h 4000 -S' dsc='HOME=~/dotfile screen -c ~/dotfile/.screenrc -s zsh -S'
     alias scr='screen -r'
@@ -96,8 +98,9 @@ if [ -d $HOME/.zsh.d/functions ]; then
 fi
 autoload -U compinit; compinit -u
 
+# -------------------------------------------------------------------------
 # settings alias
-
+# -------------------------------------------------------------------------
 alias ...='cd ../../' ....='cd ../../../'
 alias l='ls --color=auto' ls='ls --color=auto' ll='ls -l --color=auto' la='ls -la --color=auto' lt='ls -lt'
 alias vi=vim v=vim
@@ -135,8 +138,9 @@ elif which putclip >/dev/null 2>&1 ; then
     alias -g C='| putclip'                  # Cygwin
 fi
 
+# -------------------------------------------------------------------------
 # perl language
-
+# -------------------------------------------------------------------------
 alias perldoc='env LANG=C perldoc'
 alias perld='perl -MO=Deparse,-x5'
 alias cpan-uninstall='\perl -MExtUtils::Install -MExtUtils::Installed -e "unshift@ARGV,new ExtUtils::Installed;sub a{\@ARGV};uninstall((eval{a->[0]->packlist(a->[1])}||do{require CPAN;a->[0]->packlist(CPAN::Shell->expandany(a->[1])->distribution->base_id=~m/(.*)-[^-]+$/)})->packlist_file,1,a->[2])"'

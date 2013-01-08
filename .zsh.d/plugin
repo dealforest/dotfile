@@ -1,0 +1,15 @@
+# -------------------------------------------------------------------------
+# zaw
+# -------------------------------------------------------------------------
+if [ -d $HOME/.zsh.d/plugins/zaw ]; then
+    source $HOME/.zsh.d/plugins/zaw/zaw.zsh
+    zstyle ':filter-select' case-insensitive yes
+    zstyle ':filter-select:highlight' marked fg=magenta,standout
+
+    bindkey '^R'  zaw-history
+    bindkey '^S'  zaw-cdr
+    bindkey '^F;' zaw
+
+    bindkey -M filterselect '^m' accept-search
+    bindkey -M filterselect '^S' set-mark-command
+fi

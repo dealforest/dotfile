@@ -10,14 +10,18 @@ SAVEHIST=100000
 REPORTTIME=3
 
 setopt auto_cd
+# setopt auto_pushd
 setopt magic_equal_subst
 setopt no_flow_control
 
+setopt append_history
 setopt extended_history
 setopt hist_ignore_dups
 setopt hist_ignore_space
-setopt hist_no_functions
 setopt hist_reduce_blanks
+setopt hist_save_no_dups
+setopt hist_no_store
+# setopt pushd_ignore_dups
 setopt share_history
 
 setopt prompt_subst
@@ -164,7 +168,7 @@ autoload -U smart-insert-last-word
 zle -N insert-last-word smart-insert-last-word
 zstyle :insert-last-word match \
   '*([^[:space:]][[:alpha:]/\\]|[[:alpha:]/\\][^[:space:]])*'
-bindkey '^]' insert-last-word
+bindkey '^[' insert-last-word
 
 # -------------------------------------------------------------------------
 # modify-current-argument
@@ -212,8 +216,13 @@ bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 
 # -------------------------------------------------------------------------
+# load function and plugin
+# -------------------------------------------------------------------------
+function source_if { [ -f $1 ] && source $1 }
+source_if ~/.zsh.d/function
+source_if ~/.zsh.d/plugin
+
+# -------------------------------------------------------------------------
 # load other dotfile
 # -------------------------------------------------------------------------
-for dotfile in ~/.zsh.d/function ~/.zshrc.local; do
-    [ -f $dotfile ] && source $dotfile
-done
+source_if ~/.zshrc.local
