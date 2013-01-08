@@ -1,108 +1,204 @@
-zstyle ':completion:*:default' menu select=1
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-if [ -f "~/.ssh/config" ]; then
-    _cache_hosts=(`perl -ne  'if (/^Host\s([a-zA-Z0-9.-]+)/) { print "$1\n";}' ~/.ssh/config`)
-fi
-
-autoload colors; colors
-case ${UID} in
-0)
-	PROMPT="%{${fg[red]}%}[%n@%m%1(v|%F{green}%1v%f|)%{${fg[red]}%}]%{${reset_color}%} "
-	PROMPT2="%{${fg[red]}%}[%_#]%{${reset_color}%} "
-	SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-	;;
-*)
-	PROMPT="%{${fg[yellow]}%}[%n@%m%1(v|%F{green}%1v%f|)%{${fg[yellow]}%}]%{${reset_color}%}%b "
-	PROMPT2="%{${fg[yellow]}%}[%_#]%{${reset_color}%}%b "
-	SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-	;;
-esac
-
-case "${TERM}" in
-"screen")
-    preexec() {
-	    # see [zsh-workers:13180]
-	    # http://www.zsh.org/mla/workers/2000/msg03993.html
-	    emulate -L zsh
-	    local -a cmd; cmd=(${(z)2})
-	}
-	;;
-esac
-
+autoload -U colors; colors
 autoload -Uz is-at-least
-if is-at-least 4.3.10; then
-    autoload -Uz vcs_info
-    zstyle ':vcs_info:*' enable git svn
-    zstyle ':vcs_info:*' formats ':(%s)%b'
-    zstyle ':vcs_info:*' actionformats ':(%s)%b|%a'
-    precmd () {
-        psvar=()
-        LANG=en_US.UTF-8 vcs_info
-        [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-    }
-    bindkey '^R' history-incremental-pattern-search-backward
-    bindkey '^S' history-incremental-pattern-search-forward
-fi
-RPROMPT="%{$fg[red]%}[%~]%{$reset_color%} "
+autoload -Uz add-zsh-hook
+
+bindkey -e
+
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
+REPORTTIME=3
 
-unsetopt promptcr #改行なくても表示
-setopt extended_history
-setopt share_history
-function history-all { history -E 1 }
-setopt autocd
+setopt auto_cd
 setopt magic_equal_subst
+setopt no_flow_control
 
-autoload -U colors; colors
+setopt extended_history
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_no_functions
+setopt hist_reduce_blanks
+setopt share_history
 
-#^]で指定したフォルダを入力
-autoload smart-insert-last-word
+setopt prompt_subst
+setopt no_prompt_cr
+setopt transient_rprompt
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' ignore-parents parent pwd ..
+zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'
+
+function _ls_chpwd { ls }
+add-zsh-hook chpwd _ls_chpwd
+
+local prompt_color="${fg[yellow]}"
+if test ${UID} -eq 0; then; prompt_color="${fg[red]}"; fi
+PROMPT="%{$prompt_color%}[%n@%m%1(v|%{${fg[green]}%}%1v%f|)%{$prompt_color%}]%{${reset_color}%}%b "
+
+# -------------------------------------------------------------------------
+# vcs_info
+# see also: http://qiita.com/items/8d5a627d773758dd8078
+# -------------------------------------------------------------------------
+if is-at-least 4.3.10; then
+    autoload -Uz vcs_info
+    zstyle ':vcs_info:*' enable git svn
+    zstyle ':vcs_info:*' formats       ':(%s)%b' '%c%u%m'
+    zstyle ':vcs_info:*' actionformats ':(%s)%b|%a' '%c%u%m'
+    zstyle ':vcs_info:git:*' check-for-changes true
+    zstyle ':vcs_info:git:*' stagedstr   "+"
+    zstyle ':vcs_info:git:*' unstagedstr "-"
+    bindkey '^R' history-incremental-pattern-search-backward
+    bindkey '^S' history-incremental-pattern-search-forward
+
+    function _update_vcs_info_msg() {
+        local -a messages
+        local prompt
+
+        LANG=en_US.UTF-8 vcs_info
+
+        if [[ -z ${vcs_info_msg_0_} ]]; then
+            prompt=""
+        else
+            psvar=()
+            [[ -n "$vcs_info_msg_0_" ]] && psvar[1]=( "${vcs_info_msg_0_}" )
+            [[ -n "$vcs_info_msg_1_" ]] && messages+=( "${vcs_info_msg_1_}:" )
+            prompt="$messages"
+        fi
+        RPROMPT="%{${fg[red]}%}[%{${fg[green]}%}$prompt%{${fg[red]}%}%~]%{$reset_color%}"
+    }
+    add-zsh-hook precmd _update_vcs_info_msg
+fi
+
+if is-at-least 4.3.11; then
+    zstyle ':vcs_info:git+set-message:*' hooks \
+                                            git-hook-begin \
+                                            git-untracked \
+                                            git-push-status \
+                                            git-nomerge-branch \
+                                            git-stash-count
+    function +vi-git-hook-begin() {
+        if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+            return 1
+        fi
+
+        return 0
+    }
+
+    function +vi-git-untracked() {
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        if command git status --porcelain 2> /dev/null \
+            | awk '{print $1}' \
+            | command grep -F '??' > /dev/null 2>&1 ; then
+            hook_com[unstaged]+='?'
+        fi
+    }
+
+    function +vi-git-push-status() {
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        if [[ "${hook_com[branch]}" != "master" ]]; then
+            return 0
+        fi
+
+        local ahead
+        ahead=$(command git rev-list origin/master..master 2>/dev/null \
+            | wc -l \
+            | tr -d ' ')
+
+        if [[ "$ahead" -gt 0 ]]; then
+            hook_com[misc]+="(p${ahead})"
+        fi
+    }
+
+    function +vi-git-nomerge-branch() {
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        if [[ "${hook_com[branch]}" == "master" ]]; then
+            return 0
+        fi
+
+        local nomerged
+        nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
+
+        if [[ "$nomerged" -gt 0 ]] ; then
+            hook_com[misc]+="(m${nomerged})"
+        fi
+    }
+
+    function +vi-git-stash-count() {
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        local stash
+        stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
+        if [[ "${stash}" -gt 0 ]]; then
+            hook_com[misc]+="|S${stash}"
+        fi
+    }
+fi
+
+# -------------------------------------------------------------------------
+# chpwd_recent_dirs
+# -------------------------------------------------------------------------
+if is-at-least 4.3.11; then
+  autoload -U chpwd_recent_dirs cdr
+  add-zsh-hook chpwd chpwd_recent_dirs
+  zstyle ":chpwd:*" recent-dirs-max 500
+  zstyle ":chpwd:*" recent-dirs-default true
+  zstyle ":completion:*" recent-dirs-insert always
+fi
+
+# -------------------------------------------------------------------------
+# smart-insert-last-word
+# -------------------------------------------------------------------------
+autoload -U smart-insert-last-word
 zle -N insert-last-word smart-insert-last-word
 zstyle :insert-last-word match \
   '*([^[:space:]][[:alpha:]/\\]|[[:alpha:]/\\][^[:space:]])*'
 bindkey '^]' insert-last-word
 
-# quote previous word in single or double quote
+# -------------------------------------------------------------------------
+# modify-current-argument
+# -------------------------------------------------------------------------
 autoload -U modify-current-argument
 _quote-previous-word-in-single() {
     modify-current-argument '${(qq)${(Q)ARG}}'
     zle vi-forward-blank-word
 }
-zle -N _quote-previous-word-in-single
-bindkey '^[s' _quote-previous-word-in-single
-
 _quote-previous-word-in-double() {
     modify-current-argument '${(qqq)${(Q)ARG}}'
     zle vi-forward-blank-word
 }
+zle -N _quote-previous-word-in-single
 zle -N _quote-previous-word-in-double
+bindkey '^[s' _quote-previous-word-in-single
 bindkey '^[d' _quote-previous-word-in-double
 
-# 今いるディレクトリを補完候補から外す
-zstyle ':completion:*' ignore-parents parent pwd ..
-
-# 補完候補をemacs操作で移動
-zstyle ':completion:*:default' menu select=1
-
-# C-s / C-q によるフロー制御を使わないようにする
-setopt no_flow_control
-
-# git completion
-if [ -f ~/.git-completion.bash ]; then
-    autoload bashcompinit; bashcompinit
-    source ~/.git-completion.bash
-fi
-
+# -------------------------------------------------------------------------
+# select-word-style
+# -------------------------------------------------------------------------
 autoload -Uz select-word-style; select-word-style default
 zstyle ':zle:*' word-chars " _-./;@"
 zstyle ':zle:*' word-style unspecified
 
-bindkey -e
+# -------------------------------------------------------------------------
+# select-word-style
+# -------------------------------------------------------------------------
+autoload -Uz select-word-style; select-word-style default
 
-autoload history-search-end
+# -------------------------------------------------------------------------
+# history-search-end
+# -------------------------------------------------------------------------
+autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^p" history-beginning-search-backward-end
@@ -115,11 +211,9 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 
-REPORTTIME=3
-
-[ -f ~/.zsh.d/function ] && source ~/.zsh.d/function
-[ -f ~/.zsh.d/config/packages.zsh ] && source ~/.zsh.d/config/packages.zsh
-
-## load user .zshrc.local configuration file
-
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+# -------------------------------------------------------------------------
+# load other dotfile
+# -------------------------------------------------------------------------
+for dotfile in ~/.zsh.d/function ~/.zshrc.local; do
+    [ -f $dotfile ] && source $dotfile
+done

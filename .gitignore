@@ -14,5 +14,3 @@ txc
 .vim/bundle/*
 !.vim/bundle/.neobundle/doc/spell
 .vim/undo
-zsh.d/packages
-zsh.d/tmp
