@@ -66,10 +66,10 @@ if is-at-least 4.3.10; then
         else
             psvar=()
             [[ -n "$vcs_info_msg_0_" ]] && psvar[1]=( "${vcs_info_msg_0_}" )
-            [[ -n "$vcs_info_msg_1_" ]] && messages+=( "${vcs_info_msg_1_}:" )
+            [[ -n "$vcs_info_msg_1_" ]] && messages+=( "${vcs_info_msg_1_}" )
             prompt="$messages"
         fi
-        RPROMPT="%{${fg[red]}%}[%{${fg[green]}%}$prompt%{${fg[red]}%}%~]%{$reset_color%}"
+        RPROMPT="%{${fg[red]}%}[%{${fg[green]}%}$prompt%{${fg[red]}%}:%~]%{$reset_color%}"
     }
     add-zsh-hook precmd _update_vcs_info_msg
 fi
