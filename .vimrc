@@ -6,8 +6,6 @@
   syntax on
   filetype off
 
-  colorscheme desert
-
   set backspace=eol,indent,start        "backspace setting
   set expandtab
   set shiftround
@@ -141,6 +139,13 @@
   NeoBundle 'matchit.zip'
   NeoBundle 'scrooloose/nerdtree'
   NeoBundle 'kana/vim-textobj-user'
+  NeoBundle 'scrooloose/syntastic'
+  NeoBundle 'nathanaelkane/vim-indent-guides'
+
+  " colorscheme
+"  NeoBundle 'vim-scripts/desert256.vim'
+"  NeoBundle 'tomasr/molokai'
+  NeoBundle 'nanotech/jellybeans.vim'
 
   NeoBundleLazy 'thinca/vim-quickrun',          { 'autoload': { 'mappings': [ '<Plug>(quickrun)' ] } }
 
@@ -163,7 +168,7 @@
   NeoBundleLazy 'perl-mauke.vim',               { 'autoload': { 'filetypes': ['perl'] } }
   NeoBundleLazy 'nginx.vim',                    { 'autoload': { 'filetypes': ['nginx'] } }
   NeoBundleLazy 'cakebaker/scss-syntax.vim',    { 'autoload': { 'filetypes': ['scss'] } }
-  NeoBundleLazy 'bbommarito/vim-slim',          { 'autoload': { 'filetypes': ['slim'] } }
+  NeoBundleLazy 'slim-template/vim-slim',       { 'autoload': { 'filetypes': ['slim'] } }
   NeoBundleLazy 'groenewege/vim-less',          { 'autoload': { 'filetypes': ['less'] } }
   NeoBundleLazy 'wavded/vim-stylus',            { 'autoload': { 'filetypes': ['stylus'] } }
   NeoBundleLazy 'vim-scripts/applescript.vim',  { 'autoload': { 'filetypes': ['applescript'] } }
@@ -327,7 +332,17 @@
 " -------------------------------------------------------------------------
 " nertdtree
 " -------------------------------------------------------------------------
-  nnoremap <silent> ew :NERDTree <CR>
+  nnoremap <silent> ew :NERDTreeToggle <CR>
+
+" -------------------------------------------------------------------------
+" vim-indent-guides
+" -------------------------------------------------------------------------
+  let g:indent_guides_enable_on_vim_startup = 1
+  let g:indent_guides_auto_colors = 0
+  let g:indent_guides_color_change_persent = 30
+  let g:indent_guides_guide_size = 1
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#221212 ctermbg=234
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#262626 ctermbg=236
 
 " -------------------------------------------------------------------------
 " Function
@@ -426,6 +441,8 @@
     set undodir=~/.vim/undo
     set undofile
   endif
+
+  colorscheme jellybeans
 
   " load ~/.vimrc.local
   if filereadable(expand('$HOME/.vimrc.local'))
