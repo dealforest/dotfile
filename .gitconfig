@@ -1,5 +1,5 @@
 [user]
-	name = Toshihiro Morimoto
+    name = Toshihiro Morimoto
     email = dealforest.net@gmail.com
 [include]
     path = ~/.gitconfig.local
@@ -7,7 +7,7 @@
     editor = /usr/bin/vim
     excludesfile = ~/.gitignore
     pager = LESS=-R less
-	precomposedunicode = true
+    precomposedunicode = true
 [color]
     ui = auto
 [http]
@@ -24,4 +24,4 @@
     all-update-submodule   = submodule foreach 'git pull origin master'
     delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
 [push]
-	default = upstream
+    default = upstream
