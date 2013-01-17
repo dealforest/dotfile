@@ -165,15 +165,15 @@
   NeoBundleLazy 'kchmck/vim-coffee-script',     { 'autoload': { 'filetypes': ['coffee'] } }
 
   " syntax highlight
-  NeoBundleLazy 'perl-mauke.vim',               { 'autoload': { 'filetypes': ['perl'] } }
-  NeoBundleLazy 'nginx.vim',                    { 'autoload': { 'filetypes': ['nginx'] } }
-  NeoBundleLazy 'cakebaker/scss-syntax.vim',    { 'autoload': { 'filetypes': ['scss'] } }
-  NeoBundleLazy 'slim-template/vim-slim',       { 'autoload': { 'filetypes': ['slim'] } }
-  NeoBundleLazy 'groenewege/vim-less',          { 'autoload': { 'filetypes': ['less'] } }
-  NeoBundleLazy 'wavded/vim-stylus',            { 'autoload': { 'filetypes': ['stylus'] } }
-  NeoBundleLazy 'vim-scripts/applescript.vim',  { 'autoload': { 'filetypes': ['applescript'] } }
-  NeoBundleLazy 'motemen/xslate-vim',           { 'autoload': { 'filetypes': ['xslate'] } }
-  NeoBundleLazy 'tpope/vim-markdown',           { 'autoload': { 'filetypes': ['markdown'] } }
+  NeoBundle 'perl-mauke.vim'
+  NeoBundle 'nginx.vim'
+  NeoBundle 'cakebaker/scss-syntax.vim'
+  NeoBundle 'slim-template/vim-slim'
+  NeoBundle 'groenewege/vim-less'
+  NeoBundle 'wavded/vim-stylus'
+  NeoBundle 'vim-scripts/applescript.vim'
+  NeoBundle 'motemen/xslate-vim'
+  NeoBundle 'tpope/vim-markdown'
 
   filetype plugin on
   filetype indent on
