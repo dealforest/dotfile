@@ -28,3 +28,14 @@ function last-sim() {
 function reload() {
     source ~/.zshrc
 }
+
+function tms {
+    tmux source-file ~/.tmux/$1
+}
+
+function _tms {
+    _files -W ~/.tmux/ && return 0;
+    return 1;
+}
+
+compdef _tms tms
