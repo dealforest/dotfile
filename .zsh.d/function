@@ -29,6 +29,10 @@ function reload() {
     source ~/.zshrc
 }
 
+function clear_swap {
+    `sudo launchctl unload /System/Library/LaunchDaemons/com.apple.dynamic_pager.plist && sudo launchctl load /System/Library/LaunchDaemons/com.apple.dynamic_pager.plist`
+}
+
 function tms {
     tmux source-file ~/.tmux/$1
 }
