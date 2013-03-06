@@ -145,9 +145,11 @@
   " colorscheme
 "  NeoBundle 'vim-scripts/desert256.vim'
 "  NeoBundle 'tomasr/molokai'
+"  NeoBundle 'w0ng/vim-hybrid'
   NeoBundle 'nanotech/jellybeans.vim'
 
   NeoBundleLazy 'thinca/vim-quickrun',          { 'autoload': { 'mappings': [ '<Plug>(quickrun)' ] } }
+  NeoBundleLazy 'airblade/vim-gitgutter',       { 'autoload': { 'commands': [ 'ToggleGitGutter' ] } }
 
   " for ruby
   NeoBundle 'vim-ruby/vim-ruby'
@@ -157,12 +159,6 @@
 
   " for perl
   NeoBundleLazy 'hokaccha/vim-prove',           { 'autoload': { 'filetypes': ['perl'] } }
-
-  " for javascript
-  NeoBundleLazy 'pangloss/vim-javascript',      { 'autoload': { 'filetypes': ['javascript'] } }
-
-  " for cofee-script
-  NeoBundleLazy 'kchmck/vim-coffee-script',     { 'autoload': { 'filetypes': ['coffee'] } }
 
   " syntax highlight
   NeoBundle 'perl-mauke.vim'
@@ -174,6 +170,8 @@
   NeoBundle 'vim-scripts/applescript.vim'
   NeoBundle 'motemen/xslate-vim'
   NeoBundle 'tpope/vim-markdown'
+  NeoBundle 'pangloss/vim-javascript'
+  NeoBundle 'kchmck/vim-coffee-script'
 
   filetype plugin on
   filetype indent on
@@ -333,6 +331,12 @@
 " nertdtree
 " -------------------------------------------------------------------------
   nnoremap <silent> ew :NERDTreeToggle <CR>
+
+" -------------------------------------------------------------------------
+" vim-gitgutter
+" -------------------------------------------------------------------------
+  let g:gitgutter_enabled = 0
+  nnoremap <silent> ed :ToggleGitGutter <CR>
 
 " -------------------------------------------------------------------------
 " vim-indent-guides
