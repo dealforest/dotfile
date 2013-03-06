@@ -15,12 +15,14 @@
 [alias]
     tr   = log --graph --pretty = 'format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
     logg = log --stat --pretty  = format:'%Cblue%h %Cgreen%ar %Cred%an %Creset%s %Cred%d'
+    ci   = commit
     co   = checkout
     df   = diff
     dfs  = diff --staged
     st   = status -s -b
     pr   = pull --rebase
     sb   = show-branch -a
+    fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
     all-update-submodule   = submodule foreach 'git pull origin master'
     delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
 [push]
