@@ -62,6 +62,10 @@ if [ -f "$(which colordiff)" ]; then
     alias diff='colordiff'
 fi
 
+if [ -d "/usr/local/share/npm/bin" ]; then
+    export PATH="/usr/local/share/npm/bin:$PATH"
+fi
+
 if [ -f "$(which dstat)" ]; then
     alias dstat-full='dstat -Tclmdrn'
     alias dstat-mem='dstat -Tclm'
@@ -137,6 +141,11 @@ elif which xsel >/dev/null 2>&1 ; then
 elif which putclip >/dev/null 2>&1 ; then
     alias -g C='| putclip'                  # Cygwin
 fi
+
+if [ `uname` = "Darwin" ]; then
+    alias eog='open -a Preview'
+fi
+alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
 
 # -------------------------------------------------------------------------
 # perl language
