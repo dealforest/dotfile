@@ -93,8 +93,8 @@
   inoremap <Return>  <Return>X<BS>
 
   "edit for .vimrc
-  nnoremap ,. :<C-u>edit $MYVIMRC<Enter>
-  nnoremap ,s. :<C-u>source $MYVIMRC<Enter>
+  nnoremap ./ :<C-u>edit $MYVIMRC<Enter>
+  nnoremap ./s. :<C-u>source $MYVIMRC<Enter>
 
   "shorcut for help
   "nnoremap <C-h> :<C-u>help<Space>
@@ -116,13 +116,13 @@
   " http://vim-scripts.org/vim/scripts.html
   NeoBundle 'Shougo/neobundle.vim'
   NeoBundle 'Shougo/vimproc', {
-        \ 'build' : {
-        \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
-        \     'cygwin'  : 'make -f make_cygwin.mak',
-        \     'mac'     : 'make -f make_mac.mak',
-        \     'unix'    : 'make -f make_unix.mak',
-        \    },
-        \ }
+    \ 'build' : {
+    \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+    \     'cygwin'  : 'make -f make_cygwin.mak',
+    \     'mac'     : 'make -f make_mac.mak',
+    \     'unix'    : 'make -f make_unix.mak',
+    \    },
+    \ }
   NeoBundle 'Shougo/vimshell'
   NeoBundle 'Shougo/unite.vim'
   NeoBundle 'tsukkee/unite-tag'
@@ -349,6 +349,17 @@
   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#262626 ctermbg=236
 
 " -------------------------------------------------------------------------
+" syntastic
+" -------------------------------------------------------------------------
+  let g:syntastic_auto_jump=1
+  nnoremap <silent> ea :SyntasticToggleMode<Return>
+  let g:syntastic_mode_map = {
+    \ 'mode'              : 'active',
+    \ 'active_filetypes'  : [],
+    \ 'passive_filetypes' : ['c', 'cpp', 'objc'],
+    \ }
+
+" -------------------------------------------------------------------------
 " Function
 " -------------------------------------------------------------------------
   function! s:range_search(d)
@@ -417,7 +428,7 @@
   nmap ,h :vert help 
 
   " for spell
-  nnoremap <silent> <C-a> :setl spell!<Return>
+"  nnoremap <silent> <C-a> :setl spell!<Return>
 
   " for window controll
   nnoremap <silent> <C-w><C-l> :vertical resize -6<Return>
