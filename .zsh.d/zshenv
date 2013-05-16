@@ -5,6 +5,7 @@ export PATH="/usr/bin:/bin:/usr/sbin:/sbin"
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export EDITOR=vim
+export GIT_EDITOR="vim -u NONE"
 export GREP_OPTIONS="--color=auto"
 export PAGER=less
 export LESS='-R'
