@@ -115,6 +115,8 @@
 
   " http://vim-scripts.org/vim/scripts.html
   NeoBundle 'Shougo/neobundle.vim'
+  NeoBundle 'Shougo/neocomplcache'
+  NeoBundle 'Shougo/neosnippet'
   NeoBundle 'Shougo/vimproc', {
     \ 'build' : {
     \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
@@ -123,55 +125,68 @@
     \     'unix'    : 'make -f make_unix.mak',
     \    },
     \ }
-  NeoBundle 'Shougo/vimshell'
-  NeoBundle 'Shougo/unite.vim'
-  NeoBundle 'tsukkee/unite-tag'
-  NeoBundle 'Shougo/neocomplcache'
-  NeoBundle 'Shougo/neosnippet'
-  NeoBundle 'Lokaltog/vim-powerline'
-  NeoBundle 'tpope/vim-surround'
-  NeoBundle 'othree/eregex.vim'
-  NeoBundle 'thinca/vim-ref'
-  NeoBundle 'Align'
-  NeoBundle 'YankRing.vim'
-  NeoBundle 'EnhCommentify.vim'
-  NeoBundle 'taglist.vim'
-  NeoBundle 'matchit.zip'
-  NeoBundle 'scrooloose/nerdtree'
+
+  NeoBundleLazy 'Shougo/vimshell', {
+        \   'autoload': {
+        \     'commands': [ 'VimShell', "VimShellPop", "VimShellInteractive" ],
+        \     'depends': [ 'Shougo/vimproc' ],
+        \   }
+        \ }
+  NeoBundleLazy 'Shougo/unite.vim', {
+        \   'autoload' : {
+        \     'commands': [
+        \       'Unite',
+        \       'UniteWithBufferDir',
+        \       'UniteWithCursorWord', 'UniteWithInput'
+        \     ],
+        \     'functions': 'unite#start',
+        \   }
+        \ }
+  NeoBundleLazy 'tsukkee/unite-tag', { 'autoload': { 'unite_sources': 'tag' } }
+
   NeoBundle 'kana/vim-textobj-user'
-  NeoBundle 'scrooloose/syntastic'
+  NeoBundle 'Lokaltog/vim-powerline'
   NeoBundle 'nathanaelkane/vim-indent-guides'
+  NeoBundle 'othree/eregex.vim'
+  NeoBundle 'scrooloose/syntastic'
+  NeoBundle 'thinca/vim-ref'
+  NeoBundle 'tsaleh/vim-align'
+  NeoBundle 'vim-scripts/YankRing.vim'
+  NeoBundle 'vim-scripts/EnhCommentify.vim'
+  NeoBundle 'vim-scripts/matchit.zip'
+
+  NeoBundleLazy 'tpope/vim-surround'
+  NeoBundleLazy 'airblade/vim-gitgutter',  { 'autoload': { 'commands': [ 'ToggleGitGutter' ] } }
+  NeoBundleLazy 'hokaccha/vim-prove',      { 'autoload': { 'commands': [ 'Prove' ] } }
+  NeoBundleLazy 'scrooloose/nerdtree',     { 'autoload': { 'commands': [ 'NERDTreeToggle' ] } }
+  NeoBundleLazy 'thinca/vim-quickrun',     { 'autoload': { 'mappings': [ '<Plug>(quickrun)' ] } }
+  NeoBundleLazy 'vim-scripts/taglist.vim', { 'autoload': { 'commands': [ 'Tlist' ] } }
 
   " colorscheme
-"  NeoBundle 'vim-scripts/desert256.vim'
-"  NeoBundle 'tomasr/molokai'
-"  NeoBundle 'w0ng/vim-hybrid'
-  NeoBundle 'nanotech/jellybeans.vim'
+  NeoBundle     'nanotech/jellybeans.vim'
+  NeoBundleLazy 'tomasr/molokai'
+  NeoBundleLazy 'vim-scripts/desert256.vim'
+  NeoBundleLazy 'w0ng/vim-hybrid'
 
-  NeoBundleLazy 'thinca/vim-quickrun',          { 'autoload': { 'mappings': [ '<Plug>(quickrun)' ] } }
-  NeoBundleLazy 'airblade/vim-gitgutter',       { 'autoload': { 'commands': [ 'ToggleGitGutter' ] } }
-
-  " for ruby
-  NeoBundle 'vim-ruby/vim-ruby'
-  NeoBundle 'rhysd/unite-ruby-require.vim'
-  NeoBundle 'rhysd/vim-textobj-ruby'
-  NeoBundle 'tpope/vim-rails'
-
-  " for perl
-  NeoBundleLazy 'hokaccha/vim-prove',           { 'autoload': { 'filetypes': ['perl'] } }
+  " ruby
+  NeoBundle     'rhysd/vim-textobj-ruby'
+  NeoBundle     'tpope/vim-rails'
+  NeoBundleLazy 'rhysd/unite-ruby-require.vim', { 'autoload': { 'unite_sources': 'ruby/require' } }
+  NeoBundleLazy 'ujihisa/unite-rake',           { 'autoload': { 'unite_sources': 'rake' } }
 
   " syntax highlight
-  NeoBundle 'perl-mauke.vim'
-  NeoBundle 'nginx.vim'
   NeoBundle 'cakebaker/scss-syntax.vim'
-  NeoBundle 'slim-template/vim-slim'
   NeoBundle 'groenewege/vim-less'
-  NeoBundle 'wavded/vim-stylus'
-  NeoBundle 'vim-scripts/applescript.vim'
-  NeoBundle 'motemen/xslate-vim'
-  NeoBundle 'tpope/vim-markdown'
-  NeoBundle 'pangloss/vim-javascript'
   NeoBundle 'kchmck/vim-coffee-script'
+  NeoBundle 'motemen/xslate-vim'
+  NeoBundle 'pangloss/vim-javascript'
+  NeoBundle 'slim-template/vim-slim'
+  NeoBundle 'tpope/vim-markdown'
+  NeoBundle 'vim-perl/vim-perl'
+  NeoBundle 'vim-ruby/vim-ruby'
+  NeoBundle 'vim-scripts/applescript.vim'
+  NeoBundle 'vim-scripts/nginx.vim'
+  NeoBundle 'wavded/vim-stylus'
 
   filetype plugin on
   filetype indent on
@@ -316,10 +331,10 @@
 " -------------------------------------------------------------------------
 " eregex.vim
 " -------------------------------------------------------------------------
-  nnoremap / :M/
-  nnoremap ? :M?
-  nnoremap ,/ /
-  nnoremap ,? ?
+"  nnoremap / :M/
+"  nnoremap ? :M?
+"  nnoremap ,/ /
+"  nnoremap ,? ?
 
 " -------------------------------------------------------------------------
 " taglist.vim
@@ -328,7 +343,7 @@
   nnoremap <silent> eq :Tlist<CR>
 
 " -------------------------------------------------------------------------
-" nertdtree
+" nerdtree
 " -------------------------------------------------------------------------
   nnoremap <silent> ew :NERDTreeToggle <CR>
 
@@ -358,6 +373,14 @@
     \ 'active_filetypes'  : [],
     \ 'passive_filetypes' : ['c', 'cpp', 'objc'],
     \ }
+
+" -------------------------------------------------------------------------
+" unite-ruby-require.vim
+" -------------------------------------------------------------------------
+  nnoremap <silent> ur :Unite ruby/require<CR>
+  if isdirectory(expand('$HOME/.rbenv'))
+    let g:unite_source_ruby_require_ruby_command = '$HOME/.rbenv/shims/ruby'
+  endif
 
 " -------------------------------------------------------------------------
 " Function
@@ -425,7 +448,7 @@
   autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
   " open vertical help
-  nmap ,h :vert help 
+"  nmap ,h :vert help 
 
   " for spell
 "  nnoremap <silent> <C-a> :setl spell!<Return>
@@ -437,9 +460,9 @@
   nnoremap <silent> <C-w><C-j> :resize +6<Return>
 
   " input datetime
-  inoremap <expr> ,df strftime('%Y-%m-%d %H:%M:%S')
-  inoremap <expr> ,dd strftime('%Y-%m-%d')
-  inoremap <expr> ,dt strftime('%H:%M:%S')
+"  inoremap <expr> ,df strftime('%Y-%m-%d %H:%M:%S')
+"  inoremap <expr> ,dd strftime('%Y-%m-%d')
+"  inoremap <expr> ,dt strftime('%H:%M:%S')
 
   iabbrev ,= =========================================================================
   iabbrev ,- -------------------------------------------------------------------------
