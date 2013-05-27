@@ -187,6 +187,7 @@
   NeoBundle 'vim-scripts/applescript.vim'
   NeoBundle 'vim-scripts/nginx.vim'
   NeoBundle 'wavded/vim-stylus'
+  NeoBundle 'juvenn/mustache.vim'
 
   filetype plugin on
   filetype indent on
