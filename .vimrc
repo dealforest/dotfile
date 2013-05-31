@@ -57,6 +57,12 @@
     set ambiwidth=double
   endif
 
+  if &syntax == 'ruby' || &syntax == 'html' || &syntax == 'xhtml' || &syntax == 'css' || &syntax == 'eruby' || &syntax == 'yaml' || &syntax == 'vim' || &syntax == 'slim'
+    execute 'set tabstop=2 | set softtabstop=2 | set shiftwidth=2 | set softtabstop=0'
+  else
+    execute 'set tabstop=4 | set softtabstop=4 | set shiftwidth=4 | set softtabstop=0'
+  endif
+
 " -------------------------------------------------------------------------
 " Keybind
 " -------------------------------------------------------------------------
@@ -93,8 +99,8 @@
   inoremap <Return>  <Return>X<BS>
 
   "edit for .vimrc
-  nnoremap ./ :<C-u>edit $MYVIMRC<Enter>
-  nnoremap ./s. :<C-u>source $MYVIMRC<Enter>
+  nnoremap ,. :<C-u>edit $MYVIMRC<Enter>
+  nnoremap ,s. :<C-u>source $MYVIMRC<Enter>
 
   "shorcut for help
   "nnoremap <C-h> :<C-u>help<Space>
@@ -459,6 +465,10 @@
   nnoremap <silent> <C-w><C-h> :vertical resize +6<Return>
   nnoremap <silent> <C-w><C-k> :resize -6<Return>
   nnoremap <silent> <C-w><C-j> :resize +6<Return>
+
+  noremap <Space>h ^
+  noremap <Space>l $
+  noremap <Space>m %
 
   " input datetime
 "  inoremap <expr> ,df strftime('%Y-%m-%d %H:%M:%S')
