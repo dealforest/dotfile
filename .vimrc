@@ -57,12 +57,6 @@
     set ambiwidth=double
   endif
 
-  if &syntax == 'ruby' || &syntax == 'html' || &syntax == 'xhtml' || &syntax == 'css' || &syntax == 'eruby' || &syntax == 'yaml' || &syntax == 'vim' || &syntax == 'slim'
-    execute 'set tabstop=2 | set softtabstop=2 | set shiftwidth=2 | set softtabstop=0'
-  else
-    execute 'set tabstop=4 | set softtabstop=4 | set shiftwidth=4 | set softtabstop=0'
-  endif
-
 " -------------------------------------------------------------------------
 " Keybind
 " -------------------------------------------------------------------------
@@ -492,6 +486,17 @@
   endif
 
   colorscheme jellybeans
+
+  au FileType sh    set tabstop=2 softtabstop=2 shiftwidth=2
+  au FileType zsh   set tabstop=2 softtabstop=2 shiftwidth=2
+  au FileType cpp   set tabstop=2 softtabstop=2 shiftwidth=2
+  au FileType css   set tabstop=2 softtabstop=2 shiftwidth=2
+  au FileType vim   set tabstop=2 softtabstop=2 shiftwidth=2
+  au FileType ruby  set tabstop=2 softtabstop=2 shiftwidth=2
+  au FileType yaml  set tabstop=2 softtabstop=2 shiftwidth=2
+  au FileType slim  set tabstop=2 softtabstop=2 shiftwidth=2
+  au FileType html  set tabstop=2 softtabstop=2 shiftwidth=2
+  au FileType xhtml set tabstop=2 softtabstop=2 shiftwidth=2
 
   " load ~/.vimrc.local
   if filereadable(expand('$HOME/.vimrc.local'))
