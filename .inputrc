@@ -4,5 +4,6 @@ $if mysql
     "\C-xu": "select user,host,password from mysql.user order by user,host;"
     "\C-xb": "select user,host,db       from mysql.db   order by user,host;"
     "\C-xc": "show create table TN\\G"
+    "\C-xs": "SET SQL_SAFE_UPDATES=0;"
 $endif
 
