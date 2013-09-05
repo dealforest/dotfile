@@ -46,10 +46,16 @@
   set fileformats=unix,dos,mac
   set termencoding=utf-8
 
+  " for fast scroll
+  set nocursorcolumn
+  set nocursorline
+  syntax sync minlines=256
+
   set tabstop=4 softtabstop=4 shiftwidth=4 softtabstop=0
 
   set directory=~/.vim/tmp
 
+  set t_Co=256
   set splitright
 
   "「■」や「●」のカーソル移動の不便を回避
