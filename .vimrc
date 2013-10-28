@@ -92,6 +92,10 @@
   nnoremap ep :set paste<CR>
   nnoremap enp :set nopaste<CR>
 
+  " buffer control
+  nnoremap <C-k><C-j> :bp<CR>
+  nnoremap <C-k><C-k> :bn<CR>
+
   imap <C-j> <C-[>
   imap <C-f> <Right>
   imap <C-b> <Left>
