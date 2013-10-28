@@ -18,6 +18,7 @@
 [alias]
     tr   = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
     logg = log --stat --pretty=format:'%Cblue%h %Cgreen%ar %Cred%an %Creset%s %Cred%d'
+    br   = branch
     ci   = commit
     co   = checkout
     df   = diff
