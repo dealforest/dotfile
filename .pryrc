@@ -1,14 +1,9 @@
 begin
   require 'awesome_print'
   require 'tapp'
-rescue LoadError => err
+rescue LoadError
   puts 'failed to require.. :('
 end
-
-Pry.commands.alias_command 'c', 'continue'
-Pry.commands.alias_command 's', 'step'
-Pry.commands.alias_command 'n', 'next'
-Pry.commands.alias_command 'h', 'help'
 
 Pry.config.prompt = [
   proc {|target_self, nest_level, pry|
@@ -20,6 +15,26 @@ Pry.config.prompt = [
     "[#{pry.input_array.size}] #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}(#{Pry.view_clip(target_self)})#{nested}* "
   }
 ]
+
+# refs: https://github.com/nixme/pry-debugger#tips
+if defined?(PryDebugger)
+  Pry.commands.alias_command 'c', 'continue'
+  Pry.commands.alias_command 's', 'step'
+  Pry.commands.alias_command 'n', 'next'
+  Pry.commands.alias_command 'h', 'help'
+end
+
+# refs: https://github.com/pry/pry/wiki/FAQ#wiki-awesome_print
+if defined? AwesomePrint
+  begin
+    require 'awesome_print'
+    Pry.config.print = proc { |output, value| Pry::Helpers::BaseHelpers.stagger_output("=> #{value.ai}", output) }
+    # Pry.config.print = proc { |output, value| output.puts value.ai } #ページングなし
+  rescue LoadError => err
+    puts "no awesome_print :("
+    puts err
+  end
+end
 
 # http://hiroki.jp/2013/02/27/6766/
 begin
