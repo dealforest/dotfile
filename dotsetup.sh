@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-for file in .vimrc .vim .gvimrc .screenrc .inputrc .module-starter .gitignore .toprc .sqliterc .proverc .gdbinit .gitconfig .railsrc .gemrc .tigrc .tmux .tmux.conf .pryrc .zsh.d .ackrc .Podfile
+for file in .vimrc .vim .gvimrc .screenrc .inputrc .module-starter .gitignore .toprc .sqliterc .proverc .gdbinit .gitconfig .railsrc .gemrc .tigrc .tmux .tmux.conf .pryrc .zsh.d .ackrc .Podfile .mongorc.js
 do
     rm -v ~/$file
     ln -sv $PWD/$file ~/$file
