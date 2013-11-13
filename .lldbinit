@@ -1,0 +1,2 @@
+command regex pv 's/^[[:space:]]*$/po [[[UIApplication sharedApplication] keyWindow] recursiveDescription]/' 's/^(.+)$/po [%1 recursiveDescription]/'
+command regex st 's/^[[:space:]]*$/po [NSThread callStackSymbols]/'
