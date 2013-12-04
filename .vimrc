@@ -161,7 +161,7 @@
   NeoBundle 'scrooloose/syntastic'
   NeoBundle 'thinca/vim-ref'
   NeoBundle 'tsaleh/vim-align'
-  NeoBundle 'vim-scripts/YankRing.vim'
+  NeoBundle 'LeafCage/yankround.vim'
   NeoBundle 'vim-scripts/EnhCommentify.vim'
   NeoBundle 'vim-scripts/matchit.zip'
 
@@ -305,10 +305,15 @@
   vmap \t- :Align =><CR><CR>
 
 " -------------------------------------------------------------------------
-" yankring.vim
+" yankround.vim
 " -------------------------------------------------------------------------
-  let g:yankring_history_file = ".yankring_history"
-  nnoremap <silent> ey :YRShow<CR>
+  nmap p <Plug>(yankround-p)
+  nmap P <Plug>(yankround-P)
+  nmap <C-p> <Plug>(yankround-prev)
+  nmap <C-n> <Plug>(yankround-next)
+
+  let g:yankround_max_history = 50
+  let g:yankround_dir = '~/.cache/yankround'
 
 " -------------------------------------------------------------------------
 " quickrun.vim
