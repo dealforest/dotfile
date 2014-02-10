@@ -10,8 +10,8 @@
     precomposedunicode = true
 [color]
     ui = auto
-[http]
-    sslVerify = false
+[credential]
+    helper = cache
 [diff]
     tool      = vimdiff
     algorithm = patience
