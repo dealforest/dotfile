@@ -50,6 +50,11 @@ if [ -d "$HOME/.rbenv/bin" ]; then
     alias rr='rrails -- '
 fi
 
+if [ -d "$HOME/.pyenv/bin" ]; then
+    export PATH="$HOME/.pyenv/bin:$PATH"
+    eval "$(pyenv init -)"
+fi
+
 if [ -f "$(which hub)" ]; then
     eval "$(hub alias -s zsh)"
 fi
