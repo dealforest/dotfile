@@ -5,7 +5,4 @@ command regex pd 's/^(.+)$/po [[NSString alloc] initWithData:%1 encoding:4]/'
 command regex pj 's/^(.+)$/po [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:%1 options:1 error:nil] encoding:4]/'
 command regex pa 's/^(.+)$/p [(CALayer *)[[[[UIApplication sharedApplication] windows] objectAtIndex:0] layer] setSpeed:%1]/'
 
-# command script import ~/.lldb/ls_simulator.py
-# command script import ~/.lldb/print_json.py
-
 command source ~/.lldbinit

@@ -33,7 +33,7 @@
     all-update-submodule   = submodule foreach 'git pull origin master'
     delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
 [push]
-    default = upstream
+    default = simple
 [url "git@github.com"]
     pushinstedof = "git://github.com/"
     pushinstedof = "https://github.com/"
