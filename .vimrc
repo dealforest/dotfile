@@ -154,6 +154,7 @@
         \ }
   NeoBundleLazy 'tsukkee/unite-tag', { 'autoload': { 'unite_sources': 'tag' } }
 
+  NeoBundle 'gcmt/wildfire.vim'
   NeoBundle 'kana/vim-textobj-user'
   NeoBundle 'Lokaltog/vim-powerline'
   NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -397,6 +398,12 @@
   if isdirectory(expand('$HOME/.rbenv'))
     let g:unite_source_ruby_require_ruby_command = '$HOME/.rbenv/shims/ruby'
   endif
+
+" -------------------------------------------------------------------------
+" wildfire.vim
+" -------------------------------------------------------------------------
+  let g:wildfire_water_map = '<S-Enter>'
+  let g:wildfire_objects = ["i'", 'i"', 'i)', 'i]', 'i}', 'ip', 'it', 'i>']
 
 " -------------------------------------------------------------------------
 " Function
