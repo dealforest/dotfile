@@ -1,4 +1,3 @@
-command regex pv 's/^[[:space:]]*$/po [[[UIApplication sharedApplication] keyWindow] recursiveDescription]/' 's/^(.+)$/po [%1 recursiveDescription]/'
 command regex pe 's/^[[:space:]]*$/po [[NSProcessInfo processInfo] environment]/'
 command regex ps 's/^[[:space:]]*$/po [NSThread callStackSymbols]/'
 command regex pd 's/^(.+)$/po [[NSString alloc] initWithData:%1 encoding:4]/'
