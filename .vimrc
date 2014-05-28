@@ -384,11 +384,13 @@
 " -------------------------------------------------------------------------
   let g:syntastic_auto_jump=1
   nnoremap <silent> ea :SyntasticToggleMode<Return>
+  nnoremap <silent> es :SyntasticCheck<Return>
   let g:syntastic_mode_map = {
-    \ 'mode'              : 'active',
+    \ 'mode'              : 'passive',
     \ 'active_filetypes'  : [],
     \ 'passive_filetypes' : ['c', 'cpp', 'objc'],
     \ }
+  let g:syntastic_ruby_checkers = ['rubocop']
 
 " -------------------------------------------------------------------------
 " unite-ruby-require.vim

@@ -19,3 +19,5 @@ command alias commands breakpoint command list
 command alias jump register write pc
 command alias jmp register write pc
 command alias j register write pc
+
+command source ~/.lldbinit.local
