@@ -10,11 +10,10 @@ alias inaem=iname
 function cdgem() {
     cd `echo $GEM_HOME/**/gems/$1* | awk -F' ' '{print $1}'`
 }
-
-compctl -K _cdgem cdgem
 function _cdgem() {
     reply=(`find $GEM_HOME -type d | grep -e '/gems/[^/]\+$' | xargs basename | sort -nr`)
 }
+compctl -K _cdgem cdgem
 
 function last-sim() {
     search_word="*.app"
@@ -40,10 +39,17 @@ function clear_swap {
 function tms {
     tmux source-file ~/.tmux/$1
 }
-
 function _tms {
     _files -W ~/.tmux/ && return 0;
     return 1;
 }
-
 compdef _tms tms
+
+function peco-src () {
+    local selected_dir=$(ghq list --full-path | peco --query "$LBUFFER")
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
