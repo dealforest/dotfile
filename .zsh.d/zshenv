@@ -150,6 +150,7 @@ fi
 
 if [ `uname` = "Darwin" ]; then
     alias eog='open -a Preview'
+    alias port='sudo lsof -nP i4TCP'
 fi
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
 
