@@ -8,7 +8,7 @@ if [ -d $HOME/.zsh.d/plugins/zaw ]; then
 
     bindkey '^R'  zaw-history
     bindkey '^@'  zaw-cdr
-    bindkey '^s'  zaw
+    bindkey '^z'  zaw
 
     bindkey -M filterselect '^m' accept-search
     bindkey -M filterselect '^S' set-mark-command
