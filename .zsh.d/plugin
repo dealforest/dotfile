@@ -7,7 +7,7 @@ if [ -d $HOME/.zsh.d/plugins/zaw ]; then
     zstyle ':filter-select:highlight' marked fg=magenta,standout
 
     bindkey '^R'  zaw-history
-    bindkey '^S'  zaw-cdr
+    bindkey '^@'  zaw-cdr
     bindkey '^Z'  zaw
 
     bindkey -M filterselect '^m' accept-search
