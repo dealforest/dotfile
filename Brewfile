@@ -2,21 +2,24 @@ update
 
 upgrade
 
+tap peco/peco || true
+
 install ack
-install ctags
+install chisel
+install class-dump
 install coreutils
 install colordiff
+install ctags
 install findutils
 install git
 install gnu-sed
 install hub
 install keychain
 install libxml2
-install macvim
 install make
 install ngrep
+install peco
 install pstree
-install qt
 install readline
 install reattach-to-user-namespace
 install the_silver_searcher
