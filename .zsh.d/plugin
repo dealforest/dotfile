@@ -8,8 +8,17 @@ if [ -d $HOME/.zsh.d/plugins/zaw ]; then
 
     bindkey '^R'  zaw-history
     bindkey '^@'  zaw-cdr
-    bindkey '^Z'  zaw
+    bindkey '^s'  zaw
 
     bindkey -M filterselect '^m' accept-search
     bindkey -M filterselect '^S' set-mark-command
+fi
+
+# -------------------------------------------------------------------------
+# peco
+# -------------------------------------------------------------------------
+if [ -d $HOME/.zsh.d/plugins/peco ]; then
+    source $HOME/.zsh.d/plugins/peco/*.zsh
+#     bindkey '^r' peco-select-history
+#     bindkey '^@' peco-cdr
 fi
