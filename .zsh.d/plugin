@@ -18,7 +18,9 @@ fi
 # peco
 # -------------------------------------------------------------------------
 if [ -d $HOME/.zsh.d/plugins/peco ]; then
-    source $HOME/.zsh.d/plugins/peco/*.zsh
+    for file in $HOME/.zsh.d/plugins/peco/*.zsh; do
+        source "$file"
+    done
 #     bindkey '^r' peco-select-history
 #     bindkey '^@' peco-cdr
 fi
