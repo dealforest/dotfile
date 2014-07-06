@@ -35,12 +35,3 @@ function reload() {
 function clear_swap {
     `sudo launchctl unload /System/Library/LaunchDaemons/com.apple.dynamic_pager.plist && sudo launchctl load /System/Library/LaunchDaemons/com.apple.dynamic_pager.plist`
 }
-
-function tms {
-    tmux source-file ~/.tmux/$1
-}
-function _tms {
-    _files -W ~/.tmux/ && return 0;
-    return 1;
-}
-compdef _tms tms

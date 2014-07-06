@@ -94,6 +94,10 @@ if [ -f "$(which brew)" ]; then
     fi
 fi
 
+if [ -s "$HOME/.tmuxinator/scripts/tmuxinator" ]; then
+    source $HOME/.tmuxinator/scripts/tmuxinator
+fi
+
 if [ `uname` = 'Darwin' ]; then
     alias o='open .'
     alias updatedb='sudo /usr/libexec/locate.updatedb'
