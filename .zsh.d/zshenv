@@ -121,6 +121,7 @@ alias phpinfo='php -r "phpinfo\(\);"'
 alias static_httpd="plackup -MPlack::App::Directory -e 'Plack::App::Directory->new->to_app'"
 alias rspec_pry="ruby -rpry -rrspec/autorun -e'describe do it do binding.pry end end'"
 
+alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
 alias -g V='| vim -R -'
 alias -g L='| less -R'
 alias -g H='| head'
