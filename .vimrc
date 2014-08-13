@@ -194,6 +194,7 @@
   NeoBundle 'tpope/vim-markdown'
   NeoBundle 'vim-perl/vim-perl'
   NeoBundle 'vim-ruby/vim-ruby'
+  NeoBundle 'fatih/vim-go'
   NeoBundle 'vim-scripts/applescript.vim'
   NeoBundle 'vim-scripts/nginx.vim'
   NeoBundle 'wavded/vim-stylus'
@@ -504,6 +505,10 @@
 
   colorscheme jellybeans
 
+  autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+  autocmd FileType go :match goErr /\<err\>/
+
+  au FileType go    set tabstop=2 softtabstop=2 shiftwidth=2
   au FileType sh    set tabstop=2 softtabstop=2 shiftwidth=2
   au FileType zsh   set tabstop=2 softtabstop=2 shiftwidth=2
   au FileType cpp   set tabstop=2 softtabstop=2 shiftwidth=2
