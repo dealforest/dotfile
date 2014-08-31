@@ -167,6 +167,7 @@
   NeoBundle 'vim-scripts/EnhCommentify.vim'
   NeoBundle 'vim-scripts/matchit.zip'
   NeoBundle 'bling/vim-bufferline'
+  NeoBundle 'tpope/vim-fugitive'
 
   NeoBundleLazy 'tpope/vim-surround'
   NeoBundleLazy 'airblade/vim-gitgutter',  { 'autoload': { 'commands': [ 'ToggleGitGutter' ] } }
@@ -302,6 +303,14 @@
   let g:ref_refe_version = 2
 
   nnoremap ,rr :<C-U>Ref refe<Space>
+
+" -------------------------------------------------------------------------
+" vim-fugitive.vim
+" -------------------------------------------------------------------------
+  nnoremap <silent> <Space>gb :Gblame<CR>
+  nnoremap <silent> <Space>gd :Gdiff<CR>
+  nnoremap <silent> <Space>gw :Gwrite<CR>
+  nnoremap <silent> <Space>gs :Gstatus<CR>
 
 " -------------------------------------------------------------------------
 " Align.vim
