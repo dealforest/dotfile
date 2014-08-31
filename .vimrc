@@ -490,6 +490,8 @@
   nnoremap <silent> <C-w><C-k> :resize -6<Return>
   nnoremap <silent> <C-w><C-j> :resize +6<Return>
 
+  nnoremap <silent> <Space>q :only<Return>
+
   noremap <Space>h ^
   noremap <Space>l $
   noremap <Space>m %
