@@ -32,6 +32,8 @@
   set title
   set ruler
 
+  set directory=~/.vim/tmp
+
   set laststatus=2
   set statusline=[%n]\ %t\ %y%{GetStatusEx()}\ [0x%B(%b)]\ %m%h%r=%l/%L,%c%V\ %P 
   set grepprg=internal    "alias grep -> vimgrep
