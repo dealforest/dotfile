@@ -1,13 +1,20 @@
-colorscheme koehler
+colorscheme jellybeans
 au BufNewFile,BufRead * match ZenkakuSpace /　/
 
-set showtabline=2
-set transparency=3
-map gw :macaction selectNextWindow:
-map gW :macaction selectPreviousWindow:
+if has('gui_running')
+  set guioptions-=m
+  set guioptions-=T
+  set showtabline=2
+  set transparency=3
+  set visualbell t_vb=
+
+  map gw :macaction selectNextWindow:
+  map gW :macaction selectPreviousWindow:
+end
+
 
 """"""""""""""""""""""""""""""
-"Window位置の保存と復帰
+" save and restore for the window position
 """"""""""""""""""""""""""""""
 if has('unix')
   let s:infofile = '~/.vim/.vimpos'
