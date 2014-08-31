@@ -164,6 +164,7 @@
   NeoBundle 'LeafCage/yankround.vim'
   NeoBundle 'vim-scripts/EnhCommentify.vim'
   NeoBundle 'vim-scripts/matchit.zip'
+  NeoBundle 'bling/vim-bufferline'
 
   NeoBundleLazy 'tpope/vim-surround'
   NeoBundleLazy 'airblade/vim-gitgutter',  { 'autoload': { 'commands': [ 'ToggleGitGutter' ] } }
