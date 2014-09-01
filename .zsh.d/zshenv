@@ -27,14 +27,15 @@ if [ -f "$(which screen)" ]; then
 fi
 
 if [ -f "$(which tmux)" ]; then
-  alias tm='tmux new-session -s'
-  alias tmr='tmux attach'
-  alias tml='tmux list-sessions'
-  alias tmd='tmux detach'
+    alias tm='tmux new-session -s'
+    alias tmr='tmux attach'
+    alias tml='tmux list-sessions'
+    alias tmd='tmux detach'
 fi
 
-if [ -f "$HOME/perl5/perlbrew/etc/bashrc" ]; then
-    source $HOME/perl5/perlbrew/etc/bashrc
+if [ -d "$HOME/.plenv/bin" ]; then
+    export PATH="$HOME/.plenv/bin:$PATH"
+    eval "$(plenv init -)"
 fi
 
 if [ -d "$HOME/.rbenv/bin" ]; then
