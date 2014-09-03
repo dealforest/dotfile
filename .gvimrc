@@ -8,6 +8,8 @@ if has('gui_running')
   set transparency=3
   set visualbell t_vb=
 
+  set guifont=Monaco:h12
+
   map gw :macaction selectNextWindow:
   map gW :macaction selectPreviousWindow:
 end
