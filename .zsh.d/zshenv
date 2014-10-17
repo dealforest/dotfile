@@ -172,6 +172,18 @@ alias perld='perl -MO=Deparse,-x5'
 alias cpan-uninstall='\perl -MExtUtils::Install -MExtUtils::Installed -e "unshift@ARGV,new ExtUtils::Installed;sub a{\@ARGV};uninstall((eval{a->[0]->packlist(a->[1])}||do{require CPAN;a->[0]->packlist(CPAN::Shell->expandany(a->[1])->distribution->base_id=~m/(.*)-[^-]+$/)})->packlist_file,1,a->[2])"'
 alias cpan-update-all='perl -MCPAN -e '"'"'CPAN::Shell->install(CPAN::Shell->r)'"'"
 
+# -------------------------------------------------------------------------
+# iOS
+# -------------------------------------------------------------------------
+
+export DEVELOPER_DIR=`xcode-select -print-path`
+alias symbolicatecrash='/Applications/Xcode.app/Contents/SharedFrameworks/DTDeviceKitBase.framework/Versions/A/Resources/symbolicatecrash'
+
+# cd ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins
+# cd ~/Library/Developer/CoreSimulator/Devices/
+# cd ~/Library/Developer/Xcode/DerivedData
+# cd ~/Library/MobileDevice/Provisioning Profiles
+
 if [ -d "$HOME/local" ]; then
     eval $(perl -I$HOME/local/lib/perl5 -Mlocal::lib=$HOME/local)
 fi
