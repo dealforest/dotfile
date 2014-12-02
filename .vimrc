@@ -1,8 +1,6 @@
 " -------------------------------------------------------------------------
 " Basic settings.
 " -------------------------------------------------------------------------
-  set nocompatible " must be first!
-
   set enc=utf-8
   set fenc=utf-8
   set fencs=utf-8,euc-jp,sjis,iso-2022-jp,cp932
