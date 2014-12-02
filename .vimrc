@@ -288,16 +288,16 @@
   let g:unite_source_file_mru_time_format = '(%Y-%m-%d %H:%M) '
 
   " ウィンドウを分割して開く
-  au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-  au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+  autocmd vimrc FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+  autocmd vimrc FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 
   " ウィンドウを縦に分割して開く
-  au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-  au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+  autocmd vimrc FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+  autocmd vimrc FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
 
   " ESCキーを2回押すと
-  au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-  au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+  autocmd vimrc FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+  autocmd vimrc FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
 " -------------------------------------------------------------------------
 " vim-ref.vim
@@ -523,22 +523,20 @@
     set undofile
   endif
 
+  syntax on
   colorscheme jellybeans
 
-  autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
-  autocmd vimrc FileType go :match goErr /\<err\>/
-
-  au FileType go    set tabstop=2 softtabstop=2 shiftwidth=2
-  au FileType sh    set tabstop=2 softtabstop=2 shiftwidth=2
-  au FileType zsh   set tabstop=2 softtabstop=2 shiftwidth=2
-  au FileType cpp   set tabstop=2 softtabstop=2 shiftwidth=2
-  au FileType css   set tabstop=2 softtabstop=2 shiftwidth=2
-  au FileType vim   set tabstop=2 softtabstop=2 shiftwidth=2
-  au FileType ruby  set tabstop=2 softtabstop=2 shiftwidth=2
-  au FileType yaml  set tabstop=2 softtabstop=2 shiftwidth=2
-  au FileType slim  set tabstop=2 softtabstop=2 shiftwidth=2
-  au FileType html  set tabstop=2 softtabstop=2 shiftwidth=2
-  au FileType xhtml set tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd vimrc FileType go    set tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd vimrc FileType sh    set tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd vimrc FileType zsh   set tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd vimrc FileType cpp   set tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd vimrc FileType css   set tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd vimrc FileType vim   set tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd vimrc FileType ruby  set tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd vimrc FileType yaml  set tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd vimrc FileType slim  set tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd vimrc FileType html  set tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd vimrc FileType xhtml set tabstop=2 softtabstop=2 shiftwidth=2
 
   " load ~/.vimrc.local
   if filereadable(expand('$HOME/.vimrc.local'))
