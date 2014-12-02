@@ -74,7 +74,7 @@
 " Keybind
 " -------------------------------------------------------------------------
   " for us key.
-  nmap ; :
+  nnoremap ; :
 
   " 論理移動
   noremap j gj
@@ -83,12 +83,12 @@
   noremap gk k
 
   " 検索後、真ん中にフォーカスをあわせる
-  nmap n nzz
-  nmap N Nzz
-  nmap * *zz
-  nmap # #zz
-  nmap g* g*zz
-  nmap g# g#zz
+  noremap n nzz
+  noremap N Nzz
+  noremap * *zz
+  noremap # #zz
+  noremap g* g*zz
+  noremap g# g#zz
 
   " hilight を消す
   nnoremap <silent> gh :let @/=''<CR>
@@ -103,9 +103,9 @@
   nnoremap <C-k><C-j> :bp<CR>
   nnoremap <C-k><C-k> :bn<CR>
 
-  imap <C-j> <C-[>
-  imap <C-f> <Right>
-  imap <C-b> <Left>
+  inoremap <C-j> <C-[>
+  inoremap <C-f> <Right>
+  inoremap <C-b> <Left>
   " 連続した改行の際にインデントを保持する
   inoremap <Return>  <Return>X<BS>
 
@@ -278,9 +278,9 @@
   let g:unite_enable_start_insert = 1
   " less delay
   let g:unite_update_time = 80
-  nmap ee :Unite -buffer-name=files buffer_tab file_mru file<CR>
-  nmap et :Unite -buffer-name=tags tag<CR>
-  nmap eb :Unite buffer<CR>
+  noremap ee :Unite -buffer-name=files buffer_tab file_mru file<CR>
+  noremap et :Unite -buffer-name=tags tag<CR>
+  noremap eb :Unite buffer<CR>
   noremap ef :UniteWithBufferDir -buffer-name=files file<CR>
 
   " 除外パターン
@@ -305,7 +305,7 @@
 " vim-ref.vim
 " -------------------------------------------------------------------------
 "  let g:ref_alc_cmd='lynx -dump -nonumbers %s'
-  nmap er :Unite ref/
+  noremap er :Unite ref/
   let g:ref_open = 'vsplit'
   let g:ref_refe_cmd = 'rurema'
   let g:ref_refe_version = 2
@@ -323,7 +323,7 @@
 " -------------------------------------------------------------------------
 " Align.vim
 " -------------------------------------------------------------------------
-  vmap \t- :Align =><CR><CR>
+  vnoremap \t- :Align =><CR><CR>
 
 " -------------------------------------------------------------------------
 " yankround.vim
@@ -487,7 +487,7 @@
   autocmd vimrc BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
   " open vertical help
-"  nmap ,h :vert help 
+"  nnoremap ,h :vert help
 
   " for spell
 "  nnoremap <silent> <C-a> :setl spell!<Return>
