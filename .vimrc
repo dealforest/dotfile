@@ -3,6 +3,13 @@
 " -------------------------------------------------------------------------
   set nocompatible " must be first!
 
+  set enc=utf-8
+  set fenc=utf-8
+  set fencs=utf-8,euc-jp,sjis,iso-2022-jp,cp932
+  set fileformats=unix,dos,mac
+  set termencoding=utf-8
+  scriptencoding utf-8
+
   syntax on
   filetype off
 
@@ -41,12 +48,6 @@
   set hidden              "変更中のファイルでも保存しないで他のファイルを表示することが出来るようにする
   set nobackup
   set complete+=k
-
-  set enc=utf-8
-  set fenc=utf-8
-  set fencs=utf-8,euc-jp,sjis,iso-2022-jp,cp932
-  set fileformats=unix,dos,mac
-  set termencoding=utf-8
 
   " for fast scroll
   set nocursorcolumn
