@@ -168,6 +168,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
   NeoBundle 'vim-scripts/EnhCommentify.vim'
   NeoBundle 'vim-scripts/matchit.zip'
   NeoBundle 'bling/vim-bufferline'
+  NeoBundle 'tpope/vim-fugitive'
 
   NeoBundleLazy 'tpope/vim-surround'
   NeoBundleLazy 'hokaccha/vim-prove',      { 'autoload': { 'commands': [ 'Prove' ] } }
