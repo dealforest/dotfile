@@ -66,6 +66,10 @@
     set ambiwidth=double
   endif
 
+  augroup vimrc
+    autocmd!
+  augroup END
+
 " -------------------------------------------------------------------------
 " Keybind
 " -------------------------------------------------------------------------
@@ -393,8 +397,8 @@
   let g:indent_guides_auto_colors = 0
   let g:indent_guides_color_change_persent = 30
   let g:indent_guides_guide_size = 1
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#221212 ctermbg=234
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#262626 ctermbg=236
+  autocmd vimrc VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#221212 ctermbg=234
+  autocmd vimrc VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#262626 ctermbg=236
 
 " -------------------------------------------------------------------------
 " syntastic
@@ -480,7 +484,7 @@
 " Customize settings.
 " -------------------------------------------------------------------------
   " 前回終了したカーソル行に移動
-  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+  autocmd vimrc BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
   " open vertical help
 "  nmap ,h :vert help 
@@ -523,8 +527,8 @@
 
   colorscheme jellybeans
 
-  autocmd FileType go :highlight goErr cterm=bold ctermfg=214
-  autocmd FileType go :match goErr /\<err\>/
+  autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
+  autocmd vimrc FileType go :match goErr /\<err\>/
 
   au FileType go    set tabstop=2 softtabstop=2 shiftwidth=2
   au FileType sh    set tabstop=2 softtabstop=2 shiftwidth=2
