@@ -120,8 +120,6 @@
 " -------------------------------------------------------------------------
 " NeoBunldle
 " -------------------------------------------------------------------------
-  filetype off
-
   if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim
   endif
@@ -163,7 +161,6 @@
   NeoBundle 'Lokaltog/vim-powerline'
   NeoBundle 'nathanaelkane/vim-indent-guides'
   NeoBundle 'othree/eregex.vim'
-  NeoBundle 'scrooloose/syntastic'
   NeoBundle 'thinca/vim-ref'
   NeoBundle 'tsaleh/vim-align'
   NeoBundle 'LeafCage/yankround.vim'
@@ -178,6 +175,7 @@
   NeoBundleLazy 'scrooloose/nerdtree',     { 'autoload': { 'commands': [ 'NERDTreeToggle' ] } }
   NeoBundleLazy 'thinca/vim-quickrun',     { 'autoload': { 'mappings': [ '<Plug>(quickrun)' ] } }
   NeoBundleLazy 'vim-scripts/taglist.vim', { 'autoload': { 'commands': [ 'Tlist' ] } }
+  NeoBundleLazy 'scrooloose/syntastic',    { 'autoload': { 'commands': [ 'SyntasticCheck', 'SyntasticToggleMode' ] } }
 
   " colorscheme
   NeoBundle     'nanotech/jellybeans.vim'
