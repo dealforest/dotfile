@@ -157,6 +157,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
         \   }
         \ }
   NeoBundleLazy 'tsukkee/unite-tag', { 'autoload': { 'unite_sources': 'tag' } }
+  NeoBundleLazy 'Shougo/neomru.vim', { 'autoload': { 'unite_sources': 'mru' } }
 
   NeoBundle 'kana/vim-textobj-user'
   NeoBundle 'Lokaltog/vim-powerline'
