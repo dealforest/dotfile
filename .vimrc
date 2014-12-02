@@ -129,7 +129,7 @@
   endif
 
   " http://vim-scripts.org/vim/scripts.html
-  NeoBundle 'Shougo/neobundle.vim'
+  NeoBundleFetch 'Shougo/neobundle.vim'
   NeoBundle 'Shougo/neocomplcache'
   NeoBundle 'Shougo/neosnippet'
   NeoBundle 'Shougo/vimproc', {
