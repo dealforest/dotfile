@@ -8,9 +8,6 @@
   set termencoding=utf-8
   scriptencoding utf-8
 
-  syntax on
-  filetype off
-
   set backspace=eol,indent,start        "backspace setting
   set expandtab
   set shiftround
@@ -123,10 +120,13 @@
 " -------------------------------------------------------------------------
 " NeoBunldle
 " -------------------------------------------------------------------------
+  filetype off
+
   if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim
-    call neobundle#rc(expand('~/.vim/bundle/'))
   endif
+
+  call neobundle#begin(expand('~/.vim/bundle/'))
 
   " http://vim-scripts.org/vim/scripts.html
   NeoBundleFetch 'Shougo/neobundle.vim'
@@ -206,9 +206,14 @@
   NeoBundle 'vim-scripts/nginx.vim'
   NeoBundle 'wavded/vim-stylus'
   NeoBundle 'juvenn/mustache.vim'
+  NeoBundle 'sophacles/vim-processing'
 
-  filetype plugin on
-  filetype indent on
+" /usr/local/share/vim/vim74/filetype.vim
+" comment out au BufNewFile,BufRead *.ino,*.pde  setf arduino
+
+  call neobundle#end()
+
+  filetype plugin indent on
 
 " -------------------------------------------------------------------------
 " NeoCompleCache.vim
