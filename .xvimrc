@@ -53,3 +53,8 @@
   inoremap <C-b> <Left>
   " 連続した改行の際にインデントを保持する
   inoremap <Return>  <Return>X<BS>
+
+  " current selected
+  nnoremap gc `[V`]
+  vnoremap gc :<C-u>normal gc<Enter>
+  onoremap gc :<C-u>normal gc<Enter>
