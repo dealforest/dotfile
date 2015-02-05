@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for file in .vimrc .vim .gvimrc .screenrc .inputrc .module-starter .gitignore .toprc .sqliterc .proverc .gdbinit .lldbinit .lldbinit-Xcode .gitconfig .railsrc .gemrc .tigrc .tmux.conf .pryrc .zsh.d .ackrc .Podfile .mongorc.js .zprofile .peco
+for file in .vimrc .vim .gvimrc .screenrc .inputrc .module-starter .gitignore .toprc .sqliterc .proverc .gdbinit .lldbinit .lldbinit-Xcode .gitconfig .railsrc .gemrc .tigrc .tmux.conf .pryrc .zsh.d .ackrc .Podfile .mongorc.js .zprofile .peco .xvimrc
 do
     rm -v ~/$file
     ln -sv $PWD/$file ~/$file
