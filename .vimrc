@@ -117,6 +117,11 @@
   vnoremap gc :<C-u>normal gc<Enter>
   onoremap gc :<C-u>normal gc<Enter>
 
+  if (exists('+colorcolumn'))
+    set colorcolumn=80
+    highlight ColorColumn ctermbg=9
+  endif
+
 " -------------------------------------------------------------------------
 " NeoBunldle
 " -------------------------------------------------------------------------
