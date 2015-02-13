@@ -169,6 +169,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
   NeoBundle 'vim-scripts/matchit.zip'
   NeoBundle 'bling/vim-bufferline'
   NeoBundle 'tpope/vim-fugitive'
+  NeoBundle 'bronson/vim-trailing-whitespace'
 
   NeoBundleLazy 'tpope/vim-surround'
   NeoBundleLazy 'hokaccha/vim-prove',      { 'autoload': { 'commands': [ 'Prove' ] } }
@@ -330,6 +331,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     let g:indent_guides_guide_size = 1
     autocmd vimrc VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#221212 ctermbg=234
     autocmd vimrc VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#262626 ctermbg=236
+  endif
+
+  if neobundle#is_installed('vim-trailing-whitespace')
+    nnoremap \<Space> :FixWhitespace <CR>
   endif
 
   if neobundle#is_installed('syntastic')
