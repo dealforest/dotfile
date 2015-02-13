@@ -282,6 +282,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     noremap et :Unite -buffer-name=tags tag<CR>
     noremap eb :Unite buffer<CR>
     noremap ef :UniteWithBufferDir -buffer-name=files file<CR>
+    " search a file in the filetree
+    nnoremap e<space> :Unite -start-insert file_rec/async<CR>
   endif
 
   if neobundle#is_installed('vim-ref.vim')
@@ -377,6 +379,13 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " ESCキーを2回押すと
     autocmd vimrc FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
     autocmd vimrc FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+
+    let g:unite_source_history_yank_enable = 1
+    try
+        let g:unite_source_rec_async_command='ag --nocolor --nogroup -g ""'
+        call unite#filters#matcher_default#use(['matcher_fuzzy'])
+    catch
+    endtry
   endfunction
   unlet s:bundle
 
