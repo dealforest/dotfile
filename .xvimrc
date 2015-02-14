@@ -6,7 +6,7 @@
   set ignorecase          "検索文字列が小文字の場合は大文字小文字を区別なく検索する
   set hlsearch
 
-  set showmatch           "括弧入力時の対応する括弧を表示 
+  set showmatch           "括弧入力時の対応する括弧を表示
   set showmode            "入力中のコマンドをステータスに表示する
   set title
   set ruler
@@ -18,8 +18,6 @@
   set nocursorcolumn
   set nocursorline
   syntax sync minlines=256
-
-  set directory=~/.vim/tmp
 
   set t_Co=256
   set splitright
@@ -58,3 +56,24 @@
   nnoremap gc `[V`]
   vnoremap gc :<C-u>normal gc<Enter>
   onoremap gc :<C-u>normal gc<Enter>
+
+  noremap <Space> :xccmd jumpToDefinition<CR>
+  noremap <C-:> :xccmd goBackInHistoryByCommand<CR>
+  noremap <C-"> :xccmd goForwardInHistoryByCommand<CR>
+
+  " Comment out lines selected, Comment out current line
+  nnoremap \x :xccmd commentAndUncommentCurrentLines<CR>
+  vnoremap \x :xccmd commentAndUncommentCurrentLines<CR>
+
+  " next issue, previous issue
+  nnoremap <C-N> :ni<CR>
+  nnoremap <C-P> :pi<CR>
+
+  " show quick help for current word
+  noremap <C-h> :xhelp<CR>
+  " search document for text cursor points to.
+  noremap <C-H> :xccmd searchDocumentationForSelectedText<CR>
+
+  " switch between .h/.m
+  noremap ,, :xccmd jumpToNextCounterpart<CR>
+
