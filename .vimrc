@@ -175,6 +175,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
   NeoBundle 'bling/vim-bufferline'
   NeoBundle 'tpope/vim-fugitive'
   NeoBundle 'bronson/vim-trailing-whitespace'
+  NeoBundle 'vim-scripts/PreserveNoEOL'
+  NeoBundle 'sjl/gundo.vim'
 
   NeoBundleLazy 'tpope/vim-surround'
   NeoBundleLazy 'hokaccha/vim-prove',      { 'autoload': { 'commands': [ 'Prove' ] } }
@@ -342,6 +344,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
   if neobundle#is_installed('vim-trailing-whitespace')
     nnoremap \<Space> :FixWhitespace <CR>
+  endif
+
+  if neobundle#is_installed('gundo.vim')
+    nnoremap <silent> er :GundoToggle<CR>
   endif
 
   if neobundle#is_installed('syntastic')
