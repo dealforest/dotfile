@@ -77,3 +77,6 @@
   " switch between .h/.m
   noremap ,, :xccmd jumpToNextCounterpart<CR>
 
+  " set breakpoint
+  vnoremap <enter> :xcmenucmd Set Print Breakpoint<CR>
+  noremap \<enter> :xcmenucmd Set Backtrace Breakpoint<CR>

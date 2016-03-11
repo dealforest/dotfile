@@ -34,6 +34,8 @@
     delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
 [push]
     default = simple
+[rebase]
+    autosquash = true
 [url "git@github.com"]
     pushinstedof = "git://github.com/"
     pushinstedof = "https://github.com/"
