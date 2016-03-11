@@ -18,6 +18,15 @@ fi
 # -------------------------------------------------------------------------
 # package enviroments
 # -------------------------------------------------------------------------
+if [ -f "$(which brew)" ]; then
+    BREW_PREFIX=`brew --prefix`
+    fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
+
+    if [ -d "$(brew --prefix coreutils 2>/dev/null)/libexec/gnubin" ]; then
+        export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+    fi
+fi
+
 if [ -f "$(which screen)" ]; then
     alias sc='screen -h 4000 -S' dsc='HOME=~/dotfile screen -c ~/dotfile/.screenrc -s zsh -S'
     alias scr='screen -r'
@@ -35,12 +44,12 @@ fi
 
 if [ -d "$HOME/.plenv/bin" ]; then
     export PATH="$HOME/.plenv/bin:$PATH"
-    eval "$(plenv init -)"
+    eval "$(plenv init --no-rehash -)"
 fi
 
 if [ -d "$HOME/.rbenv/bin" ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
+    eval "$(rbenv init --no-rehash -)"
 
     alias be='bundle exec'
     alias bep='bundle exec pry'
@@ -53,7 +62,12 @@ fi
 
 if [ -d "$HOME/.pyenv/bin" ]; then
     export PATH="$HOME/.pyenv/bin:$PATH"
-    eval "$(pyenv init -)"
+    eval "$(pyenv init --no-rehash -)"
+fi
+
+if [ -d "$HOME/.ndenv/bin" ]; then
+    export PATH="$HOME/.ndenv/bin:$PATH"
+    eval "$(ndenv init -no-rehash -)"
 fi
 
 if [ -f "$(which hub)" ]; then
@@ -86,15 +100,6 @@ if [ -f "$(which go)" ]; then
     export PATH=$GOPATH/bin:$PATH
 fi
 
-if [ -f "$(which brew)" ]; then
-    BREW_PREFIX=`brew --prefix`
-    fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
-
-    if [ -d "$(brew --prefix coreutils 2>/dev/null)/libexec/gnubin" ]; then
-        export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-    fi
-fi
-
 if [ -s "$HOME/.tmuxinator/scripts/tmuxinator" ]; then
     source $HOME/.tmuxinator/scripts/tmuxinator
 fi
@@ -115,7 +120,7 @@ autoload -U compinit; compinit -u
 # settings alias
 # -------------------------------------------------------------------------
 alias ...='cd ../../' ....='cd ../../../'
-alias l='ls --color=auto' ls='ls --color=auto' ll='ls -l --color=auto' la='ls -la --color=auto' lt='ls -lt'
+alias l='gls --color=auto' ls='gls --color=auto' ll='gls -l --color=auto' la='gls -la --color=auto' lt='gls -lt'
 alias vi=vim v=vim
 alias g=git gs='git svn' gti=git
 alias phpinfo='php -r "phpinfo\(\);"'

@@ -1,3 +1,5 @@
+# zmodload zsh/zprof
+
 autoload -U colors; colors
 autoload -Uz is-at-least
 autoload -Uz add-zsh-hook
@@ -221,3 +223,7 @@ source_if ~/.zsh.d/plugin
 # load other dotfile
 # -------------------------------------------------------------------------
 source_if ~/.zshrc.local
+
+# if type zprof > /dev/null 2>&1; then
+#   zprof | less
+# fi
