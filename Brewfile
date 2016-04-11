@@ -13,6 +13,7 @@ install ctags
 install findutils
 install git
 install gnu-sed
+install gpg
 install hub
 install keychain
 install libxml2

@@ -1,6 +1,7 @@
 [user]
     name  = Toshihiro Morimoto
-    email = dealforest.net@gmail.com
+    email = m@dealfore.st
+    signingkey = 523AEF38
 [include]
     path = ~/.gitconfig.local
 [core]
