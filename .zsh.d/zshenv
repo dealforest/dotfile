@@ -70,6 +70,12 @@ if [ -d "$HOME/.ndenv/bin" ]; then
     eval "$(ndenv init -no-rehash -)"
 fi
 
+if [ -d "$HOME/.swiftenv/bin" ]; then
+    export SWIFTENV_ROOT="$HOME/.swiftenv"
+    export PATH="$SWIFTENV_ROOT/bin:$PATH"
+    eval "$(swiftenv init -)"
+fi
+
 if [ -f "$(which hub)" ]; then
     eval "$(hub alias -s zsh)"
 fi
