@@ -1,40 +1,85 @@
-# -------------------------------------------------------------------------
-# init enviroemtns
-# -------------------------------------------------------------------------
-export PATH="/usr/bin:/bin:/usr/sbin:/sbin"
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-export PATH="$HOME/bin:$PATH"
-export EDITOR=vim
-export GIT_EDITOR="vim -u NONE"
-export GREP_OPTIONS="--color=auto"
-export PAGER=less
-export LESS='-R'
-export MYSQL_PS1='\\u@\\h [\\d] > '
+if [ -z $TMUX ]; then
+  # -------------------------------------------------------------------------
+  # init enviroemtns
+  # -------------------------------------------------------------------------
+  export PATH="/usr/bin:/bin:/usr/sbin:/sbin"
+  export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+  export PATH="$HOME/bin:$PATH"
+  export EDITOR=vim
+  export GIT_EDITOR="vim -u NONE"
+  export GREP_OPTIONS="--color=auto"
+  export PAGER=less
+  export LESS='-R'
+  export MYSQL_PS1='\\u@\\h [\\d] > '
 
-if [ -f "~/.ssh/config" ]; then
-    _cache_hosts=(`perl -ne  'if (/^Host\s([a-zA-Z0-9.-]+)/) { print "$1\n";}' ~/.ssh/config`)
+  if [ -f "~/.ssh/config" ]; then
+      _cache_hosts=(`perl -ne  'if (/^Host\s([a-zA-Z0-9.-]+)/) { print "$1\n";}' ~/.ssh/config`)
+  fi
+
+  # -------------------------------------------------------------------------
+  # package enviroments
+  # -------------------------------------------------------------------------
+  if [ -f "$(which brew)" ]; then
+      BREW_PREFIX=`brew --prefix`
+      fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
+
+      if [ -d "$(brew --prefix coreutils 2>/dev/null)/libexec/gnubin" ]; then
+          export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+      fi
+  fi
+
+  if [ -d "$HOME/.plenv/bin" ]; then
+      export PATH="$HOME/.plenv/bin:$PATH"
+      eval "$(plenv init --no-rehash -)"
+  fi
+
+  if [ -d "$HOME/.rbenv/bin" ]; then
+      export PATH="$HOME/.rbenv/bin:$PATH"
+      eval "$(rbenv init --no-rehash -)"
+  fi
+
+  if [ -d "$HOME/.pyenv/bin" ]; then
+      export PATH="$HOME/.pyenv/bin:$PATH"
+      eval "$(pyenv init --no-rehash -)"
+  fi
+
+  if [ -d "$HOME/.nodenv/bin" ]; then
+      export PATH="$HOME/.nodenv/bin:$PATH"
+      eval "$(nodenv init -no-rehash -)"
+  fi
+
+  if [ -d "$HOME/.swiftenv/bin" ]; then
+      export SWIFTENV_ROOT="$HOME/.swiftenv"
+      export PATH="$SWIFTENV_ROOT/bin:$PATH"
+      eval "$(swiftenv init -)"
+  fi
+
+  if [ -f "$(which hub)" ]; then
+      eval "$(hub alias -s zsh)"
+  fi
+
+  if [ -d "/usr/local/share/npm/bin" ]; then
+      export PATH="/usr/local/share/npm/bin:$PATH"
+  fi
+
+  if [ -d "$HOME/Library/Android/sdk" ]; then
+      export PATH="$HOME/Library/Android/sdk/ndk-bundle:$PATH"
+      export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+  fi
+
+  if [ -f "$(which go)" ]; then
+      export GOPATH=$HOME/.go
+      export PATH=$GOPATH/bin:$PATH
+  fi
+
+  if [ `uname` = 'Darwin' ]; then
+      export SETUP_SH_VMARGS=-Dfile.encoding=UTF8
+  fi
 fi
 
 # -------------------------------------------------------------------------
-# package enviroments
+# package alias
 # -------------------------------------------------------------------------
-if [ -f "$(which brew)" ]; then
-    BREW_PREFIX=`brew --prefix`
-    fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
-
-    if [ -d "$(brew --prefix coreutils 2>/dev/null)/libexec/gnubin" ]; then
-        export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-    fi
-fi
-
-if [ -f "$(which screen)" ]; then
-    alias sc='screen -h 4000 -S' dsc='HOME=~/dotfile screen -c ~/dotfile/.screenrc -s zsh -S'
-    alias scr='screen -r'
-    alias scl='screen -ls'
-    alias scd='screen -d'
-    alias scx='screen -x'
-fi
-
 if [ -f "$(which tmux)" ]; then
     alias tm='tmux new-session -s'
     alias tmr='tmux attach'
@@ -42,43 +87,16 @@ if [ -f "$(which tmux)" ]; then
     alias tmd='tmux detach'
 fi
 
-if [ -d "$HOME/.plenv/bin" ]; then
-    export PATH="$HOME/.plenv/bin:$PATH"
-    eval "$(plenv init --no-rehash -)"
-fi
-
 if [ -d "$HOME/.rbenv/bin" ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init --no-rehash -)"
-
     alias be='bundle exec'
     alias bep='bundle exec pry'
     alias bepr='bundle exec pry-remote'
     alias bo='bundle open'
     alias bf='bundle exec foreman start'
-    alias ber='bundle exec rrails -- '
-    alias rr='rrails -- '
-fi
-
-if [ -d "$HOME/.pyenv/bin" ]; then
-    export PATH="$HOME/.pyenv/bin:$PATH"
-    eval "$(pyenv init --no-rehash -)"
 fi
 
 if [ -d "$HOME/.nodenv/bin" ]; then
-    export PATH="$HOME/.nodenv/bin:$PATH"
-    eval "$(nodenv init -no-rehash -)"
     source ~/.nodenv/completions/nodenv.zsh
-fi
-
-if [ -d "$HOME/.swiftenv/bin" ]; then
-    export SWIFTENV_ROOT="$HOME/.swiftenv"
-    export PATH="$SWIFTENV_ROOT/bin:$PATH"
-    eval "$(swiftenv init -)"
-fi
-
-if [ -f "$(which hub)" ]; then
-    eval "$(hub alias -s zsh)"
 fi
 
 if [ -f "$(which cocot)" ]; then
@@ -90,26 +108,12 @@ if [ -f "$(which colordiff)" ]; then
     alias diff='colordiff'
 fi
 
-if [ -d "/usr/local/share/npm/bin" ]; then
-    export PATH="/usr/local/share/npm/bin:$PATH"
-fi
-
-if [ -d "$HOME/Library/Android/sdk" ]; then
-  export PATH="$HOME/Library/Android/sdk/ndk-bundle:$PATH"
-  export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
-fi
-
 if [ -f "$(which dstat)" ]; then
     alias dstat-full='dstat -Tclmdrn'
     alias dstat-mem='dstat -Tclm'
     alias dstat-cpu='dstat -Tclr'
     alias dstat-net='dstat -Tclnd'
     alias dstat-disk='dstat -Tcldr'
-fi
-
-if [ -f "$(which go)" ]; then
-    export GOPATH=$HOME/.go
-    export PATH=$GOPATH/bin:$PATH
 fi
 
 if [ -s "$HOME/.tmuxinator/scripts/tmuxinator" ]; then
@@ -120,9 +124,11 @@ if [ `uname` = 'Darwin' ]; then
     alias o='open .'
     alias updatedb='sudo /usr/libexec/locate.updatedb'
     alias locate='/usr/bin/locate'
-    export SETUP_SH_VMARGS=-Dfile.encoding=UTF8
 fi
 
+# -------------------------------------------------------------------------
+# load function
+# -------------------------------------------------------------------------
 if [ -d $HOME/.zsh.d/functions ]; then
     fpath=($HOME/.zsh.d/functions(N) $fpath)
 fi
@@ -189,10 +195,13 @@ alias perld='perl -MO=Deparse,-x5'
 alias cpan-uninstall='\perl -MExtUtils::Install -MExtUtils::Installed -e "unshift@ARGV,new ExtUtils::Installed;sub a{\@ARGV};uninstall((eval{a->[0]->packlist(a->[1])}||do{require CPAN;a->[0]->packlist(CPAN::Shell->expandany(a->[1])->distribution->base_id=~m/(.*)-[^-]+$/)})->packlist_file,1,a->[2])"'
 alias cpan-update-all='perl -MCPAN -e '"'"'CPAN::Shell->install(CPAN::Shell->r)'"'"
 
+# if [ -d "$HOME/local" ]; then
+#     eval $(perl -I$HOME/local/lib/perl5 -Mlocal::lib=$HOME/local)
+# fi
+
 # -------------------------------------------------------------------------
 # iOS
 # -------------------------------------------------------------------------
-
 export DEVELOPER_DIR=`xcode-select -print-path`
 alias symbolicatecrash='/Applications/Xcode.app/Contents/SharedFrameworks/DTDeviceKitBase.framework/Versions/A/Resources/symbolicatecrash'
 
@@ -200,7 +209,3 @@ alias symbolicatecrash='/Applications/Xcode.app/Contents/SharedFrameworks/DTDevi
 # cd ~/Library/Developer/CoreSimulator/Devices/
 # cd ~/Library/Developer/Xcode/DerivedData
 # cd ~/Library/MobileDevice/Provisioning Profiles
-
-if [ -d "$HOME/local" ]; then
-    eval $(perl -I$HOME/local/lib/perl5 -Mlocal::lib=$HOME/local)
-fi
