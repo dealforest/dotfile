@@ -246,6 +246,9 @@ source_if ~/.zsh.d/plugin
 if [ -d $HOME/.zsh.d/completions ]; then
     fpath=($HOME/.zsh.d/completions(N) $fpath)
 fi
+if [ -d $HOME/.zsh.d/plugins/zsh-completions ]; then
+    fpath=($HOME/.zsh.d/plugins/zsh-completions/src(N) $fpath)
+fi
 autoload -U compinit; compinit -u -C
 
 # -------------------------------------------------------------------------
