@@ -1,12 +1,6 @@
 function peco-select-history() {
-    local tac
-    if which tac > /dev/null; then
-        tac="tac"
-    else
-        tac="tail -r"
-    fi
-    BUFFER=$(history -n 1 | eval $tac | peco)
+    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
     CURSOR=$#BUFFER
-    zle clear-screen
+    zle reset-prompt
 }
 zle -N peco-select-history
