@@ -213,11 +213,33 @@ bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 
 # -------------------------------------------------------------------------
-# load function and plugin
+# load function
 # -------------------------------------------------------------------------
 function source_if { [ -f $1 ] && source $1 }
 source_if ~/.zsh.d/function
 source_if ~/.zsh.d/plugin
+
+# -------------------------------------------------------------------------
+# load zplug
+# -------------------------------------------------------------------------
+
+if [ -d "$(brew --prefix zplug 2>/dev/null)" ]; then
+  export ZPLUG_HOME=/usr/local/opt/zplug
+  source $ZPLUG_HOME/init.zsh
+
+  zplug 'zsh-users/zsh-autosuggestions'
+  zplug 'zsh-users/zsh-completions'
+  zplug 'zsh-users/zsh-syntax-highlighting'
+
+  if ! zplug check --verbose; then
+    printf 'Install? [y/N]: '
+    if read -q; then
+      echo; zplug install
+    fi
+  fi
+
+  zplug load
+fi
 
 # -------------------------------------------------------------------------
 # load other dotfile
