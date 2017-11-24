@@ -1,8 +1,10 @@
 # -------------------------------------------------------------------------
 # peco
 # -------------------------------------------------------------------------
-if [ -d $HOME/.zsh.d/plugins/peco ]; then
-    for file in $HOME/.zsh.d/plugins/peco/*.zsh; do
+plugin_home=$HOME/.zsh.d/plugins
+
+if [ -d $plugin_home/peco ]; then
+    for file in $plugin_home/peco/*.zsh; do
         source "$file"
     done
 
@@ -10,4 +12,12 @@ if [ -d $HOME/.zsh.d/plugins/peco ]; then
 
     bindkey '^r' peco-select-history
     bindkey '^q' peco-cdr
+fi
+
+if [ -d $plugin_home/zsh-autosuggestions ]; then
+    source $plugin_home/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if [ -d $plugin_home/zsh-syntax-highlighting ]; then
+    source $plugin_home/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
