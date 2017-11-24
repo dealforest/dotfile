@@ -161,9 +161,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
         \     'functions': 'unite#start',
         \   }
         \ }
-  NeoBundleLazy 'tsukkee/unite-tag', { 'autoload': { 'unite_sources': 'tag' } }
-  NeoBundleLazy 'Shougo/neomru.vim', { 'autoload': { 'unite_sources': 'mru' } }
 
+  NeoBundle 'tsukkee/unite-tag'
+  NeoBundle 'Shougo/neomru.vim'
   NeoBundle 'kana/vim-textobj-user'
   NeoBundle 'Lokaltog/vim-powerline'
   NeoBundle 'nathanaelkane/vim-indent-guides'
