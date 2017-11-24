@@ -8,3 +8,5 @@ bind main G move-last-line
 bind main o !hub browse -- commit/%(commit)
 bind diff o !hub browse -- commit/%(commit)
 bind log  o !hub browse -- commit/%(commit)
+
+set diff-options = -m --first-parent
