@@ -94,6 +94,11 @@ if [ -d "/usr/local/share/npm/bin" ]; then
     export PATH="/usr/local/share/npm/bin:$PATH"
 fi
 
+if [ -d "$HOME/Library/Android/sdk" ]; then
+  export PATH="$HOME/Library/Android/sdk/ndk-bundle:$PATH"
+  export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+fi
+
 if [ -f "$(which dstat)" ]; then
     alias dstat-full='dstat -Tclmdrn'
     alias dstat-mem='dstat -Tclm'
