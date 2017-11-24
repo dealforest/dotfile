@@ -51,7 +51,7 @@ if [ -z $TMUX ]; then
   if [ -d "$HOME/.swiftenv/bin" ]; then
       export SWIFTENV_ROOT="$HOME/.swiftenv"
       export PATH="$SWIFTENV_ROOT/bin:$PATH"
-      eval "$(swiftenv init -)"
+      eval "$(swiftenv init -no-rehash -)"
   fi
 
   if [ -f "$(which hub)" ]; then
@@ -125,14 +125,6 @@ if [ `uname` = 'Darwin' ]; then
     alias updatedb='sudo /usr/libexec/locate.updatedb'
     alias locate='/usr/bin/locate'
 fi
-
-# -------------------------------------------------------------------------
-# load function
-# -------------------------------------------------------------------------
-if [ -d $HOME/.zsh.d/functions ]; then
-    fpath=($HOME/.zsh.d/functions(N) $fpath)
-fi
-autoload -U compinit; compinit -u
 
 # -------------------------------------------------------------------------
 # settings alias

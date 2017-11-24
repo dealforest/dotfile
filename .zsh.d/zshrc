@@ -240,7 +240,13 @@ source_if ~/.zsh.d/plugin
 #   zplug load
 # fi
 
+# -------------------------------------------------------------------------
+# load function
+# -------------------------------------------------------------------------
+if [ -d $HOME/.zsh.d/completions ]; then
+    fpath=($HOME/.zsh.d/completions(N) $fpath)
 fi
+autoload -U compinit; compinit -u -C
 
 # -------------------------------------------------------------------------
 # load other dotfile
