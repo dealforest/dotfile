@@ -65,9 +65,10 @@ if [ -d "$HOME/.pyenv/bin" ]; then
     eval "$(pyenv init --no-rehash -)"
 fi
 
-if [ -d "$HOME/.ndenv/bin" ]; then
-    export PATH="$HOME/.ndenv/bin:$PATH"
-    eval "$(ndenv init -no-rehash -)"
+if [ -d "$HOME/.nodenv/bin" ]; then
+    export PATH="$HOME/.nodenv/bin:$PATH"
+    eval "$(nodenv init -no-rehash -)"
+    source ~/.nodenv/completions/nodenv.zsh
 fi
 
 if [ -d "$HOME/.swiftenv/bin" ]; then
