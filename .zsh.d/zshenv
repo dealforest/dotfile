@@ -86,14 +86,14 @@ setopt no_global_rcs
   if [ `uname` = 'Darwin' ]; then
       export SETUP_SH_VMARGS=-Dfile.encoding=UTF8
   fi
-fi
+# fi
 
 # -------------------------------------------------------------------------
 # package alias
 # -------------------------------------------------------------------------
 if [ -f "$(which tmux)" ]; then
     alias tm='tmux new-session -s'
-    alias tmr='tmux attach'
+    alias tmr='tmux attach -t'
     alias tml='tmux list-sessions'
     alias tmd='tmux detach'
 fi
@@ -108,6 +108,10 @@ fi
 
 if [ -d "$HOME/.nodenv/bin" ]; then
     source ~/.nodenv/completions/nodenv.zsh
+fi
+
+if [ -d "$HOME/.pyenv/bin" ]; then
+    alias pr='pipenv run'
 fi
 
 if [ -f "$(which cocot)" ]; then
@@ -206,7 +210,7 @@ alias cpan-update-all='perl -MCPAN -e '"'"'CPAN::Shell->install(CPAN::Shell->r)'
 # iOS
 # -------------------------------------------------------------------------
 export DEVELOPER_DIR=`xcode-select -print-path`
-alias symbolicatecrash='/Applications/Xcode.app/Contents/SharedFrameworks/DTDeviceKitBase.framework/Versions/A/Resources/symbolicatecrash'
+alias symbolicatecrash='/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash'
 
 # cd ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins
 # cd ~/Library/Developer/CoreSimulator/Devices/
