@@ -213,6 +213,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
   NeoBundle 'wavded/vim-stylus'
   NeoBundle 'juvenn/mustache.vim'
   NeoBundle 'sophacles/vim-processing'
+  NeoBundle 'leafgarland/typescript-vim'
 
 " /usr/local/share/vim/vim74/filetype.vim
 " comment out au BufNewFile,BufRead *.ino,*.pde  setf arduino
