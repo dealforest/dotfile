@@ -9,6 +9,7 @@ if [ -d $plugin_home/peco ]; then
     done
 
     bindkey '^]' peco-src
+    bindkey '^\\' peco-sandbox
 
     bindkey '^r' peco-select-history
     bindkey '^q' peco-cdr
