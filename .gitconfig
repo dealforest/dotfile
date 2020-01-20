@@ -46,3 +46,5 @@
 	postBuffer = 524288000
 [commit]
 	template = /Users/dealforest/.commit_template
+[ghq]
+  root = ~/.ghq
