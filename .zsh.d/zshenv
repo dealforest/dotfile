@@ -110,7 +110,7 @@ alias -g W='| wc'
 alias -g S='| sed'
 alias -g A='| awk'
 alias -g X='| xargs'
-alias -g P='| peco'
+alias -g F='| fzf --reverse'
 alias -g J='| jq "."'
 alias -g LV='| lv -c'
 alias -g LE='|& less'
@@ -199,9 +199,16 @@ fi
 # -------------------------------------------------------------------------
 # package enviroemtns
 # -------------------------------------------------------------------------
+#
 if [ -f "$(which fzf)" ]; then
     export FZF_DEFAULT_COMMAND='fd --type file --color=always --hidden --follow --exclude .git'
     export FZF_DEFAULT_OPTS='--ansi'
+
+    # alias
+    alias rv='fzf-rg-vim'
+    alias bc='fzf-bundle-cd'
+    alias pk='fzf-process-kill'
+    alias ghi='fzf-ghi'
 fi
 
 # -------------------------------------------------------------------------
