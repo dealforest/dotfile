@@ -38,118 +38,123 @@ zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'
 function _ls_chpwd { ls }
 add-zsh-hook chpwd _ls_chpwd
 
-local prompt_color="${fg[yellow]}"
-if test ${UID} -eq 0; then; prompt_color="${fg[red]}"; fi
-PROMPT="%{$prompt_color%}[%n@%m%1(v|%{${fg[green]}%}%1v%f|)%{$prompt_color%}]%{${reset_color}%}%b "
+if [ -f "$(which starship)" ]; then
+    RPROMPT="%{${fg[yellow]}%}%n@%m%{$reset_color%}"
+    eval "$(starship init zsh)"
+else
+    local prompt_color="${fg[yellow]}"
+    if test ${UID} -eq 0; then; prompt_color="${fg[red]}"; fi
+    PROMPT="%{$prompt_color%}[%n@%m%1(v|%{${fg[green]}%}%1v%f|)%{$prompt_color%}]%{${reset_color}%}%b "
 
-# -------------------------------------------------------------------------
-# vcs_info
-# see also: http://qiita.com/items/8d5a627d773758dd8078
-# -------------------------------------------------------------------------
-if is-at-least 4.3.10; then
-    autoload -Uz vcs_info
-    zstyle ':vcs_info:*' enable git svn
-    zstyle ':vcs_info:*' formats       ':(%s)%b' '%c%u%m'
-    zstyle ':vcs_info:*' actionformats ':(%s)%b|%a' '%c%u%m'
-    zstyle ':vcs_info:git:*' check-for-changes true
-    zstyle ':vcs_info:git:*' stagedstr   "+"
-    zstyle ':vcs_info:git:*' unstagedstr "-"
-    bindkey '^R' history-incremental-pattern-search-backward
-    bindkey '^S' history-incremental-pattern-search-forward
+    # -------------------------------------------------------------------------
+    # vcs_info
+    # see also: http://qiita.com/items/8d5a627d773758dd8078
+    # -------------------------------------------------------------------------
+    if is-at-least 4.3.10; then
+        autoload -Uz vcs_info
+        zstyle ':vcs_info:*' enable git svn
+        zstyle ':vcs_info:*' formats       ':(%s)%b' '%c%u%m'
+        zstyle ':vcs_info:*' actionformats ':(%s)%b|%a' '%c%u%m'
+        zstyle ':vcs_info:git:*' check-for-changes true
+        zstyle ':vcs_info:git:*' stagedstr   "+"
+        zstyle ':vcs_info:git:*' unstagedstr "-"
+        bindkey '^R' history-incremental-pattern-search-backward
+        bindkey '^S' history-incremental-pattern-search-forward
 
-    function _update_vcs_info_msg() {
-        local -a messages
-        local prompt
+        function _update_vcs_info_msg() {
+            local -a messages
+            local prompt
 
-        LANG=en_US.UTF-8 vcs_info
+            LANG=en_US.UTF-8 vcs_info
 
-        if [[ -z ${vcs_info_msg_0_} ]]; then
-            prompt=""
-        else
-            psvar=()
-            [[ -n "$vcs_info_msg_0_" ]] && psvar[1]=( "${vcs_info_msg_0_}" )
-            [[ -n "$vcs_info_msg_1_" ]] && messages+=( "${vcs_info_msg_1_}" )
-            prompt="$messages"
-        fi
-        RPROMPT="%{${fg[red]}%}[%{${fg[green]}%}$prompt%{${fg[red]}%}:%~]%{$reset_color%}"
-    }
-    add-zsh-hook precmd _update_vcs_info_msg
-fi
+            if [[ -z ${vcs_info_msg_0_} ]]; then
+                prompt=""
+            else
+                psvar=()
+                [[ -n "$vcs_info_msg_0_" ]] && psvar[1]=( "${vcs_info_msg_0_}" )
+                [[ -n "$vcs_info_msg_1_" ]] && messages+=( "${vcs_info_msg_1_}" )
+                prompt="$messages"
+            fi
+            RPROMPT="%{${fg[red]}%}[%{${fg[green]}%}$prompt%{${fg[red]}%}:%~]%{$reset_color%}"
+        }
+        add-zsh-hook precmd _update_vcs_info_msg
+    fi
 
-if is-at-least 4.3.11; then
-    zstyle ':vcs_info:git+set-message:*' hooks \
-                                            git-hook-begin \
-                                            git-untracked \
-                                            git-push-status \
-                                            git-nomerge-branch \
-                                            git-stash-count
-    function +vi-git-hook-begin() {
-        if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
-            return 1
-        fi
+    if is-at-least 4.3.11; then
+        zstyle ':vcs_info:git+set-message:*' hooks \
+                                                git-hook-begin \
+                                                git-untracked \
+                                                git-push-status \
+                                                git-nomerge-branch \
+                                                git-stash-count
+        function +vi-git-hook-begin() {
+            if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+                return 1
+            fi
 
-        return 0
-    }
-
-    function +vi-git-untracked() {
-        if [[ "$1" != "1" ]]; then
             return 0
-        fi
+        }
 
-        if command git status --porcelain 2> /dev/null \
-            | awk '{print $1}' \
-            | command grep -F '??' > /dev/null 2>&1 ; then
-            hook_com[unstaged]+='?'
-        fi
-    }
+        function +vi-git-untracked() {
+            if [[ "$1" != "1" ]]; then
+                return 0
+            fi
 
-    function +vi-git-push-status() {
-        if [[ "$1" != "1" ]]; then
-            return 0
-        fi
+            if command git status --porcelain 2> /dev/null \
+                | awk '{print $1}' \
+                | command grep -F '??' > /dev/null 2>&1 ; then
+                hook_com[unstaged]+='?'
+            fi
+        }
 
-        if [[ "${hook_com[branch]}" != "master" ]]; then
-            return 0
-        fi
+        function +vi-git-push-status() {
+            if [[ "$1" != "1" ]]; then
+                return 0
+            fi
 
-        local ahead
-        ahead=$(command git rev-list origin/master..master 2>/dev/null \
-            | wc -l \
-            | tr -d ' ')
+            if [[ "${hook_com[branch]}" != "master" ]]; then
+                return 0
+            fi
 
-        if [[ "$ahead" -gt 0 ]]; then
-            hook_com[misc]+="(p${ahead})"
-        fi
-    }
+            local ahead
+            ahead=$(command git rev-list origin/master..master 2>/dev/null \
+                | wc -l \
+                | tr -d ' ')
 
-    function +vi-git-nomerge-branch() {
-        if [[ "$1" != "1" ]]; then
-            return 0
-        fi
+            if [[ "$ahead" -gt 0 ]]; then
+                hook_com[misc]+="(p${ahead})"
+            fi
+        }
 
-        if [[ "${hook_com[branch]}" == "master" ]]; then
-            return 0
-        fi
+        function +vi-git-nomerge-branch() {
+            if [[ "$1" != "1" ]]; then
+                return 0
+            fi
 
-        local nomerged
-        nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
+            if [[ "${hook_com[branch]}" == "master" ]]; then
+                return 0
+            fi
 
-        if [[ "$nomerged" -gt 0 ]] ; then
-            hook_com[misc]+="(m${nomerged})"
-        fi
-    }
+            local nomerged
+            nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
 
-    function +vi-git-stash-count() {
-        if [[ "$1" != "1" ]]; then
-            return 0
-        fi
+            if [[ "$nomerged" -gt 0 ]] ; then
+                hook_com[misc]+="(m${nomerged})"
+            fi
+        }
 
-        local stash
-        stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
-        if [[ "${stash}" -gt 0 ]]; then
-            hook_com[misc]+="|S${stash}"
-        fi
-    }
+        function +vi-git-stash-count() {
+            if [[ "$1" != "1" ]]; then
+                return 0
+            fi
+
+            local stash
+            stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
+            if [[ "${stash}" -gt 0 ]]; then
+                hook_com[misc]+="|S${stash}"
+            fi
+        }
+    fi
 fi
 
 # -------------------------------------------------------------------------
