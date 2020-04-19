@@ -1,145 +1,90 @@
 setopt no_global_rcs
 
-# if [ -z $TMUX ]; then
-  # -------------------------------------------------------------------------
-  # init path for OS X
-  # http://karur4n.hatenablog.com/entry/2016/01/18/100000
-  # -------------------------------------------------------------------------
-  if [ -x /usr/libexec/path_helper ]; then
-    eval `/usr/libexec/path_helper -s`
-  fi
-
-  # -------------------------------------------------------------------------
-  # init enviroemtns
-  # -------------------------------------------------------------------------
-  export PATH="/usr/bin:/bin:/usr/sbin:/sbin"
-  export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-  export PATH="$HOME/bin:$PATH"
-  export LANG='ja_JP.UTF-8'
-  export EDITOR=vim
-  export GIT_EDITOR="vim -u NONE"
-  export GREP_OPTIONS="--color=auto"
-  export PAGER=less
-  export LESS='-R'
-  export MYSQL_PS1='\\u@\\h [\\d] > '
-
-  if [ -f "~/.ssh/config" ]; then
-      _cache_hosts=(`perl -ne  'if (/^Host\s([a-zA-Z0-9.-]+)/) { print "$1\n";}' ~/.ssh/config`)
-  fi
-
-  # -------------------------------------------------------------------------
-  # package enviroments
-  # -------------------------------------------------------------------------
-  if [ -f "$(which brew)" ]; then
-      BREW_PREFIX=`brew --prefix`
-      fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
-
-      if [ -d "$(brew --prefix coreutils 2>/dev/null)/libexec/gnubin" ]; then
-          export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-      fi
-  fi
-
-  if [ -d "$HOME/.plenv/bin" ]; then
-      export PATH="$HOME/.plenv/bin:$PATH"
-      eval "$(plenv init --no-rehash -)"
-  fi
-
-  if [ -d "$HOME/.rbenv/bin" ]; then
-      export PATH="$HOME/.rbenv/bin:$PATH"
-      eval "$(rbenv init --no-rehash -)"
-  fi
-
-  if [ -d "$HOME/.pyenv/bin" ]; then
-      export PATH="$HOME/.pyenv/bin:$PATH"
-      eval "$(pyenv init --no-rehash -)"
-  fi
-
-  if [ -d "$HOME/.nodenv/bin" ]; then
-      export PATH="$HOME/.nodenv/bin:$PATH"
-      eval "$(nodenv init -no-rehash -)"
-  fi
-
-  if [ -d "$HOME/.swiftenv/bin" ]; then
-      export SWIFTENV_ROOT="$HOME/.swiftenv"
-      export PATH="$SWIFTENV_ROOT/bin:$PATH"
-      eval "$(swiftenv init -no-rehash -)"
-  fi
-
-  if [ -f "$(which hub)" ]; then
-      eval "$(hub alias -s zsh)"
-  fi
-
-  if [ -d "/usr/local/share/npm/bin" ]; then
-      export PATH="/usr/local/share/npm/bin:$PATH"
-  fi
-
-  if [ -d "$HOME/Library/Android/sdk" ]; then
-      export ANDROID_HOME="$HOME/Library/Android/sdk"
-      export PATH="$HOME/Library/Android/sdk/ndk-bundle:$PATH"
-      export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
-  fi
-
-  if [ -f "$(which go)" ]; then
-      export GOPATH=$HOME/.go
-      export PATH=$GOPATH/bin:$PATH
-  fi
-
-  if [ `uname` = 'Darwin' ]; then
-      export SETUP_SH_VMARGS=-Dfile.encoding=UTF8
-  fi
-# fi
+# -------------------------------------------------------------------------
+# init path for OS X
+# http://karur4n.hatenablog.com/entry/2016/01/18/100000
+# -------------------------------------------------------------------------
+if [ -x /usr/libexec/path_helper ]; then
+  eval `/usr/libexec/path_helper -s`
+fi
 
 # -------------------------------------------------------------------------
-# package alias
+# init enviroemtns
 # -------------------------------------------------------------------------
-if [ -f "$(which tmux)" ]; then
-    alias tm='tmux new-session -s'
-    alias tmr='tmux attach -t'
-    alias tml='tmux list-sessions'
-    alias tmd='tmux detach'
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/bin:$PATH"
+export LANG='ja_JP.UTF-8'
+export EDITOR=vim
+export GIT_EDITOR="vim -u NONE"
+export GREP_OPTIONS="--color=auto"
+export PAGER=less
+export LESS='-R'
+export MYSQL_PS1='\\u@\\h [\\d] > '
+
+if [ -f "~/.ssh/config" ]; then
+    _cache_hosts=(`perl -ne  'if (/^Host\s([a-zA-Z0-9.-]+)/) { print "$1\n";}' ~/.ssh/config`)
+fi
+
+# -------------------------------------------------------------------------
+# package enviroments
+# -------------------------------------------------------------------------
+if [ -f "$(which brew)" ]; then
+    BREW_PREFIX=`brew --prefix`
+    fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
+
+    if [ -d "$(brew --prefix coreutils 2>/dev/null)/libexec/gnubin" ]; then
+        export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+    fi
+fi
+
+if [ -d "$HOME/.plenv/bin" ]; then
+    export PATH="$HOME/.plenv/bin:$PATH"
+    eval "$(plenv init --no-rehash -)"
 fi
 
 if [ -d "$HOME/.rbenv/bin" ]; then
-    alias be='bundle exec'
-    alias bep='bundle exec pry'
-    alias bepr='bundle exec pry-remote'
-    alias bo='bundle open'
-    alias bf='bundle exec foreman start'
-fi
-
-if [ -d "$HOME/.nodenv/bin" ]; then
-    source ~/.nodenv/completions/nodenv.zsh
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init --no-rehash -)"
 fi
 
 if [ -d "$HOME/.pyenv/bin" ]; then
-    alias pr='pipenv run'
+    export PATH="$HOME/.pyenv/bin:$PATH"
+    eval "$(pyenv init --no-rehash -)"
 fi
 
-if [ -f "$(which cocot)" ]; then
-    alias ssh_eucjp='cocot -t UTF-8 -p EUC-JP ssh'
-    alias ssh_sjis='cocot -t UTF-8 -p SJIS ssh'
+if [ -d "$HOME/.nodenv/bin" ]; then
+    export PATH="$HOME/.nodenv/bin:$PATH"
+    eval "$(nodenv init -no-rehash -)"
 fi
 
-if [ -f "$(which colordiff)" ]; then
-    alias diff='colordiff'
+if [ -d "$HOME/.swiftenv/bin" ]; then
+    export SWIFTENV_ROOT="$HOME/.swiftenv"
+    export PATH="$SWIFTENV_ROOT/bin:$PATH"
+    eval "$(swiftenv init -no-rehash -)"
 fi
 
-if [ -f "$(which dstat)" ]; then
-    alias dstat-full='dstat -Tclmdrn'
-    alias dstat-mem='dstat -Tclm'
-    alias dstat-cpu='dstat -Tclr'
-    alias dstat-net='dstat -Tclnd'
-    alias dstat-disk='dstat -Tcldr'
+if [ -f "$(which hub)" ]; then
+    eval "$(hub alias -s zsh)"
 fi
 
-if [ -s "$HOME/.tmuxinator/scripts/tmuxinator" ]; then
-    source $HOME/.tmuxinator/scripts/tmuxinator
+if [ -d "/usr/local/share/npm/bin" ]; then
+    export PATH="/usr/local/share/npm/bin:$PATH"
+fi
+
+if [ -d "$HOME/Library/Android/sdk" ]; then
+    export ANDROID_HOME="$HOME/Library/Android/sdk"
+    export PATH="$HOME/Library/Android/sdk/ndk-bundle:$PATH"
+    export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+fi
+
+if [ -f "$(which go)" ]; then
+    export GOPATH=$HOME/.go
+    export PATH=$GOPATH/bin:$PATH
 fi
 
 if [ `uname` = 'Darwin' ]; then
-    alias o='open .'
-    alias updatedb='sudo /usr/libexec/locate.updatedb'
-    alias locate='/usr/bin/locate'
+    export SETUP_SH_VMARGS=-Dfile.encoding=UTF8
 fi
 
 # -------------------------------------------------------------------------
@@ -148,7 +93,7 @@ fi
 alias ...='cd ../../' ....='cd ../../../'
 alias l='gls --color=auto' ls='gls --color=auto' ll='gls -l --color=auto' la='gls -la --color=auto' lt='gls -lt'
 alias vi=vim v=vim
-alias g=git gs='git svn' gti=git
+alias g=git gti=git
 alias phpinfo='php -r "phpinfo\(\);"'
 alias static_httpd="plackup -MPlack::App::Directory -e 'Plack::App::Directory->new->to_app'"
 alias rspec_pry="ruby -rpry -rrspec/autorun -e'describe do it do binding.pry end end'"
@@ -194,6 +139,66 @@ if [ `uname` = "Darwin" ]; then
     alias port='sudo lsof -nP i4TCP'
 fi
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
+
+# -------------------------------------------------------------------------
+# package alias
+# -------------------------------------------------------------------------
+if [ -d "$HOME/.rbenv/bin" ]; then
+    alias be='bundle exec'
+    alias bep='bundle exec pry'
+    alias bepr='bundle exec pry-remote'
+    alias bo='bundle open'
+    alias bf='bundle exec foreman start'
+fi
+
+if [ -d "$HOME/.nodenv/bin" ]; then
+    source ~/.nodenv/completions/nodenv.zsh
+fi
+
+if [ -d "$HOME/.pyenv/bin" ]; then
+    alias pr='pipenv run'
+fi
+
+if [ -f "$(which tmux)" ]; then
+    alias tm='tmux new-session -s'
+    alias tmr='tmux attach -t'
+    alias tml='tmux list-sessions'
+    alias tmd='tmux detach'
+fi
+
+if [ -f "$(which lsd)" ]; then
+    alias l='ls' ls='lsd' ll='lsd --long' la='ls --all --long' lt='ll --timesort'
+fi
+
+if [ -f "$(which bat)" ]; then
+    alias cat='bat'
+fi
+
+if [ -f "$(which fd)" ]; then
+    alias find='fd'
+fi
+
+if [ -f "$(which dust)" ]; then
+    alias du='dust -r'
+fi
+
+if [ -s "$HOME/.tmuxinator/scripts/tmuxinator" ]; then
+    source $HOME/.tmuxinator/scripts/tmuxinator
+fi
+
+if [ `uname` = 'Darwin' ]; then
+    alias o='open .'
+    alias updatedb='sudo /usr/libexec/locate.updatedb'
+    alias locate='/usr/bin/locate'
+fi
+
+# -------------------------------------------------------------------------
+# package enviroemtns
+# -------------------------------------------------------------------------
+if [ -f "$(which fzf)" ]; then
+    export FZF_DEFAULT_COMMAND='fd --type file --color=always --hidden --follow --exclude .git'
+    export FZF_DEFAULT_OPTS='--ansi'
+fi
 
 # -------------------------------------------------------------------------
 # perl language
