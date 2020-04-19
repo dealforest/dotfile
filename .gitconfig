@@ -7,10 +7,10 @@
 [core]
     editor             = /usr/bin/vim
     excludesfile       = ~/.gitignore
-    pager              = LESS=-R less
+	pager = diff-so-fancy | less --tabs=4 -RFX
     precomposedunicode = true
 [color]
-    ui = auto
+	ui = true
 [credential]
     helper = cache
 [diff]
@@ -48,3 +48,19 @@
 	template = /Users/dealforest/.commit_template
 [ghq]
   root = ~/.ghq
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[github]
+	user = dealforest
+[ghi]
+	token = !security find-internet-password -a dealforest -s github.com -l 'ghi token' -w
