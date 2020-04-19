@@ -182,6 +182,10 @@ if [ -f "$(which dust)" ]; then
     alias du='dust -r'
 fi
 
+if [ -f "$(which rg)" ]; then
+  export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+fi
+
 if [ -s "$HOME/.tmuxinator/scripts/tmuxinator" ]; then
     source $HOME/.tmuxinator/scripts/tmuxinator
 fi
