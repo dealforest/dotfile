@@ -29,6 +29,10 @@ fi
 # -------------------------------------------------------------------------
 # package enviroments
 # -------------------------------------------------------------------------
+if [ -d "/opt/homebrew" ]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+fi
+
 if [ -f "$(which brew)" ]; then
     BREW_PREFIX=`brew --prefix`
     fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
