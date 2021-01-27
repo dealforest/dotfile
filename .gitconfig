@@ -7,7 +7,7 @@
 [core]
     editor             = /usr/bin/vim
     excludesfile       = ~/.gitignore
-	pager = diff-so-fancy | less --tabs=4 -RFX
+    pager              = diff-so-fancy | less --tabs=4 -RFX
     precomposedunicode = true
 [color]
 	ui = true
@@ -64,3 +64,5 @@
 	user = dealforest
 [ghi]
 	token = !security find-internet-password -a dealforest -s github.com -l 'ghi token' -w
+[pager]
+	diff = diff-so-fancy | less --tabs=4 -RFX --pattern='^(added|deleted|modified): '
