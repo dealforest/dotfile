@@ -21,7 +21,7 @@ if [ -f "$(which fzf)" ]; then
     done
 
     bindkey '^]' fzf-src
-    bindkey '^\\' fzf-sandbox
+    bindkey '^[' fzf-sandbox
 
     bindkey '^r' fzf-select-history
     bindkey '^q' fzf-fd
