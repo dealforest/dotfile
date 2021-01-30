@@ -29,8 +29,8 @@ fi
 # -------------------------------------------------------------------------
 # package enviroments
 # -------------------------------------------------------------------------
-if [ -d "/opt/homebrew" ]; then
-    export PATH="/opt/homebrew/bin:$PATH"
+if [ -f "/opt/homebrew/bin/brew" ]; then
+    eval $(/opt/homebrew/bin/brew shellenv)
 fi
 
 if [ -f "$(which brew)" ]; then
@@ -44,27 +44,37 @@ fi
 
 if [ -d "$HOME/.plenv/bin" ]; then
     export PATH="$HOME/.plenv/bin:$PATH"
+fi
+if [ -f "$(which plenv)" ]; then
     eval "$(plenv init --no-rehash -)"
 fi
 
 if [ -d "$HOME/.rbenv/bin" ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
+fi
+if [ -f "$(which rbenv)" ]; then
     eval "$(rbenv init --no-rehash -)"
 fi
 
 if [ -d "$HOME/.pyenv/bin" ]; then
     export PATH="$HOME/.pyenv/bin:$PATH"
+fi
+if [ -f "$(which rbenv)" ]; then
     eval "$(pyenv init --no-rehash -)"
 fi
 
 if [ -d "$HOME/.nodenv/bin" ]; then
     export PATH="$HOME/.nodenv/bin:$PATH"
+fi
+if [ -f "$(which nodenv)" ]; then
     eval "$(nodenv init -no-rehash -)"
 fi
 
 if [ -d "$HOME/.swiftenv/bin" ]; then
     export SWIFTENV_ROOT="$HOME/.swiftenv"
     export PATH="$SWIFTENV_ROOT/bin:$PATH"
+fi
+if [ -f "$(which swiftenv)" ]; then
     eval "$(swiftenv init -no-rehash -)"
 fi
 
