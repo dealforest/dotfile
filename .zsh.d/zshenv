@@ -107,6 +107,9 @@ fi
 alias ...='cd ../../' ....='cd ../../../'
 alias l='gls --color=auto' ls='gls --color=auto' ll='gls -l --color=auto' la='gls -la --color=auto' lt='gls -lt'
 alias vi=vim v=vim
+if [ -f "$(which nvim)" ]; then
+  alias vim=nvim vi=nvim v=nvim
+fi
 alias g=git gti=git
 alias phpinfo='php -r "phpinfo\(\);"'
 alias static_httpd="plackup -MPlack::App::Directory -e 'Plack::App::Directory->new->to_app'"

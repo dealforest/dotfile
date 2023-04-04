@@ -11,3 +11,9 @@ do
     rm -v ~/.$file
     ln -sv $PWD/.zsh.d/$file ~/.$file
 done
+
+for dir in nvim
+do
+    rm -v ~/.config/$dir
+    ln -sv $PWD/$dir ~/.config/$dir
+done
