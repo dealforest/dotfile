@@ -29,11 +29,29 @@ fi
 # -------------------------------------------------------------------------
 # package enviroments
 # -------------------------------------------------------------------------
+
+function export_path_if_exists { [[ -d "$1" ]] && export PATH="$1:$PATH" }
+
+export_path_if_exists "$GOPATH/bin"
+export_path_if_exists "$HOME/.rbenv/shims" && eval "$(rbenv init --no-rehash - zsh)"
+export_path_if_exists "$HOME/.nodenv/shims" && eval "$(nodenv init --no-rehash -)"
+export_path_if_exists "$HOME/.pyenv/bin" && eval "$(pyenv init --no-rehash -)"
+export_path_if_exists "$HOME/.plenv/bin" && eval "$(plenv init -)"
+export_path_if_exists "$HOME/.poetry/bin" && source $HOME/.poetry/env
+# export_path_if_exists "$HOME/miniforge3/bin" && eval "conda activate python3.8"
+export_path_if_exists /opt/homebrew/share/git-core/contrib/workdir
+export_path_if_exists /opt/homebrew/share/git-core/contrib/diff-highlight
+export_path_if_exists /opt/homebrew/share/npm/bin && {
+  export NODE_PATH="/opt/homebrew/share/npm/lib/node_modules"
+}
+
 if [ -f "/opt/homebrew/bin/brew" ]; then
     eval $(/opt/homebrew/bin/brew shellenv)
 fi
 
-if [ -f "$(which brew)" ]; then
+if type brew > /dev/null; then
+    eval $(brew shellenv)
+
     BREW_PREFIX=`brew --prefix`
     fpath=($BREW_PREFIX/share/zsh/functions(N) $BREW_PREFIX/share/zsh/site-functions(N) $fpath)
 
@@ -42,48 +60,12 @@ if [ -f "$(which brew)" ]; then
     fi
 fi
 
-if [ -d "$HOME/.plenv/bin" ]; then
-    export PATH="$HOME/.plenv/bin:$PATH"
-fi
-if [ -f "$(which plenv)" ]; then
-    eval "$(plenv init --no-rehash -)"
+if type hub > /dev/null; then
+  eval "$(hub alias -s zsh)"
 fi
 
-if [ -d "$HOME/.rbenv/bin" ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-fi
-if [ -f "$(which rbenv)" ]; then
-    eval "$(rbenv init --no-rehash -)"
-fi
-
-if [ -d "$HOME/.pyenv/bin" ]; then
-    export PATH="$HOME/.pyenv/bin:$PATH"
-fi
-if [ -f "$(which rbenv)" ]; then
-    eval "$(pyenv init --no-rehash -)"
-fi
-
-if [ -d "$HOME/.nodenv/bin" ]; then
-    export PATH="$HOME/.nodenv/bin:$PATH"
-fi
-if [ -f "$(which nodenv)" ]; then
-    eval "$(nodenv init -no-rehash -)"
-fi
-
-if [ -d "$HOME/.swiftenv/bin" ]; then
-    export SWIFTENV_ROOT="$HOME/.swiftenv"
-    export PATH="$SWIFTENV_ROOT/bin:$PATH"
-fi
-if [ -f "$(which swiftenv)" ]; then
-    eval "$(swiftenv init -no-rehash -)"
-fi
-
-if [ -f "$(which hub)" ]; then
-    eval "$(hub alias -s zsh)"
-fi
-
-if [ -d "/usr/local/share/npm/bin" ]; then
-    export PATH="/usr/local/share/npm/bin:$PATH"
+if type hub > /dev/null; then
+  export_path_if_exists "$HOME/.rbenv/shims" && eval "$(rbenv init --no-rehash - zsh)"
 fi
 
 if [ -d "$HOME/Library/Android/sdk" ]; then
@@ -92,13 +74,14 @@ if [ -d "$HOME/Library/Android/sdk" ]; then
     export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 fi
 
-if [ -f "$(which go)" ]; then
-    export GOPATH=$HOME/.go
-    export PATH=$GOPATH/bin:$PATH
-fi
-
 if [ `uname` = 'Darwin' ]; then
     export SETUP_SH_VMARGS=-Dfile.encoding=UTF8
+    if type rbenv > /dev/null; then
+      eval "$(rbenv init --no-rehash - zsh)"
+    fi
+    if type nodenv > /dev/null; then
+      eval "$(nodenv init --no-rehash -)"
+    fi
 fi
 
 # -------------------------------------------------------------------------
@@ -160,7 +143,7 @@ alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
 # -------------------------------------------------------------------------
 # package alias
 # -------------------------------------------------------------------------
-if [ -d "$HOME/.rbenv/bin" ]; then
+if [ -f "$(which rbenv)" ]; then
     alias be='bundle exec'
     alias bep='bundle exec pry'
     alias bepr='bundle exec pry-remote'
@@ -168,11 +151,7 @@ if [ -d "$HOME/.rbenv/bin" ]; then
     alias bf='bundle exec foreman start'
 fi
 
-if [ -d "$HOME/.nodenv/bin" ]; then
-    source ~/.nodenv/completions/nodenv.zsh
-fi
-
-if [ -d "$HOME/.pyenv/bin" ]; then
+if [ -f "$(which pyenv)" ]; then
     alias pr='pipenv run'
 fi
 
