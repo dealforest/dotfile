@@ -21,8 +21,10 @@
     br   = branch
     ci   = commit
     co   = checkout
-    df   = diff
-    dfs  = diff --staged
+;     df   = diff
+;     dfs  = diff --staged
+    df   =  !"f() { git diff | git-split-diffs; }; f"
+    dfs  =  !"f() { git diff --staged | git-split-diffs; }; f"
     st   = status -s -b
     pr   = pull --rebase
     sb   = show-branch -a
