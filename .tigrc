@@ -6,6 +6,8 @@ bind generic <Ctrl-f> move-page-down
 bind generic <Ctrl-b> move-page-up
 bind main G move-last-line
 
+bind generic 9 @sh -c 'git log --format=%B -n1 %(commit) | pbcopy; open /Applications/DeepL.app; osascript -e \'tell application "System Events" to keystroke "v" using command down\''
+
 # open commit at github
 bind main o !hub browse -- commit/%(commit)
 bind diff o !hub browse -- commit/%(commit)
