@@ -215,6 +215,50 @@ require("lazy").setup({
 			})
 		end,
 	},
+
+	-- GitHub Copilot
+	{
+		"github/copilot.vim",
+		config = function()
+			local cmp = require("cmp")
+			cmp.setup({
+				snippet = {
+					expand = function(args)
+						vim.fn["vsnip#anonymous"](args.body)
+					end,
+				},
+				sources = {
+					{ name = "nvim_lsp" },
+					{ name = "buffer" },
+					{ name = "vsnip" },
+					{ name = "path" },
+					{ name = "emoji" },
+				},
+				mapping = cmp.mapping.preset.insert({
+					["<Tab>"] = function(fallback)
+						if cmp.visible() then cmp.select_next_item() else fallback() end
+					end,
+					["<S-Tab>"] = function(fallback)
+						if cmp.visible() then cmp.select_prev_item() else fallback() end
+					end,
+					["<CR>"] = cmp.mapping.confirm({
+						behavior = cmp.ConfirmBehavior.Replace,
+						select = true,
+					}),
+				}),
+			})
+		end,
+		init = function()
+			vim.keymap.set("i", "<C-g>", 'copilot#Accept("<CR>")', { silent = true, expr = true, script = true, replace_keycodes = false })
+			vim.keymap.set("i", "<C-j>", "<Plug>(copilot-next)")
+			vim.keymap.set("i", "<C-k>", "<Plug>(copilot-previous)")
+			vim.keymap.set("i", "<C-o>", "<Plug>(copilot-dismiss)")
+			vim.keymap.set("i", "<C-s>", "<Plug>(copilot-suggest)")
+		end,
+		config = function()
+			vim.g.copilot_no_tab_map = true
+		end,
+	},
 }, {
 	checker = {
 		enabled = true,
