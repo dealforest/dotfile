@@ -1,4 +1,4 @@
-set main-view = id date author commit-title:graph=yes,refs=yes
+set main-view = id date:relative-compact author:maxwidth=30 commit-title:graph=yes,refs=yes
 
 bind generic g move-first-line
 bind generic G move-last-line
@@ -6,11 +6,23 @@ bind generic <Ctrl-f> move-page-down
 bind generic <Ctrl-b> move-page-up
 bind main G move-last-line
 
+bind generic y @sh -c "echo %(commit) | pbcopy"
+bind generic M @sh -c "git find-merge %(commit) HEAD | pbcopy"
+
+set mouse = true
+set vertical-split = yes
+set split-view-width = 75%
+set ignore-case = true
+set ignore-space = at-eol
+set diff-options = -m --first-parent
+set diff-context = 6
+
+set blob-view-line-number = yes
+set blame-view-line-number = yes
+
 bind generic 9 @sh -c 'git log --format=%B -n1 %(commit) | pbcopy; open /Applications/DeepL.app; osascript -e \'tell application "System Events" to keystroke "v" using command down\''
 
 # open commit at github
 bind main o !hub browse -- commit/%(commit)
 bind diff o !hub browse -- commit/%(commit)
 bind log  o !hub browse -- commit/%(commit)
-
-set diff-options = -m --first-parent
