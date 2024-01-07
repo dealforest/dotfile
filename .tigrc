@@ -1,12 +1,11 @@
 set main-view = id date:relative-compact author:maxwidth=30 commit-title:graph=yes,refs=yes
 
-
-// set mouse = true
+# set mouse = true
 set vertical-split = yes
 set split-view-width = 75%
 set ignore-case = true
 set ignore-space = at-eol
-set diff-options = -m --first-parent
+set diff-options = -m --first-parent # --ext-diff
 set diff-context = 6
 
 set blob-view-line-number = yes
@@ -39,6 +38,15 @@ bind main xcs !?git commit --squash %(commit)
 bind main xp !?git push origin %(branch)
 bind main xP !?git push --force origin %(branch)
 bind main xm !?git branch -m %(branch) "%(prompt Enter new branch name: )" 
+bind generic d >sh -c "DELTA_PAGER='less -RKc' git show %(commit) --ext-diff"
+bind generic D @sh -c "\
+  ( \
+    tmux has-session -t \".{last}\" \
+    && tmux respawn-pane -t \".{last}\" -k 'DELTA_PAGER=\"less -RKc\" git show %(commit) --ext-diff' \
+  ) \
+  || tmux popup -w 95% -h 90% -E 'DELTA_PAGER=\"less -RKc\" git show %(commit) --ext-diff'"
+# bind main R !git rebase --rebase-merge --autosquash -i %(commit)
+bind main S :toggle date
 
 # bind main xfetch !git fetch --all
 # bind main xfixup !?git commit --fixup %(commit)

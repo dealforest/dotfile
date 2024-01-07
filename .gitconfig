@@ -13,23 +13,28 @@
 [credential]
     helper = cache
 [diff]
-    tool      = vimdiff
-    algorithm = patience
+    tool = difftastic
+    external = difft
+[difftool]
+    prompt = false
+[pager]
+    difftool = true
 [alias]
     tr   = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
     logg = log --stat --pretty=format:'%Cblue%h %Cgreen%ar %Cred%an %Creset%s %Cred%d'
     br   = branch
     ci   = commit
     co   = checkout
-;     df   = diff
-;     dfs  = diff --staged
-    df   =  !"f() { git diff | git-split-diffs; }; f"
-    dfs  =  !"f() { git diff --staged | git-split-diffs; }; f"
+    ; df   =  !"f() { git diff | git-split-diffs; }; f"
+    ; dfs  =  !"f() { git diff --staged | git-split-diffs; }; f"
+    df   =  diff
+    dfs  =  diff --staged
     st   = status -s -b
     pr   = pull --rebase
     sb   = show-branch -a
     d    = difftool -d
     dc   = difftool -d --cached
+    ds   = difftool -d --staged
     dp   = difftool -d HEAD~
     sp   = !"f() { git log --merges --oneline --reverse --ancestry-path $2...$1 | grep 'Merge pull request #' | head -n 1; }; f"
     op   = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $2...$1 | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
@@ -73,3 +78,5 @@
 	user = dealforest
 [ghi]
 	token = !security find-internet-password -a dealforest -s github.com -l 'ghi token' -w
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
